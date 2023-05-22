@@ -9,6 +9,6 @@ public class Culture extends Case{
 
     @Override
     public void run(){
-
+        
     }
 }   
