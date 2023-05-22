@@ -12,6 +12,7 @@ public class Culture extends Case{
 
     @Override
     public void run(){
-        
+        //TODO: REMPLACER LA VITESSE DE POUSSE
+        this.plante.developper(this.conditionActuelle, 5);
     }
 }   

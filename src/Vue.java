@@ -97,6 +97,7 @@ public class Vue extends JFrame implements Observer{
         for(int i=0; i<M.size_x; i++) {
             for(int j=0; j<M.size_y; j++) {
                 if(M.tab[i][j]) {
+                    //tabG[i][j]
                     tabG[i][j].setBackground(Color.RED);
                 }
                 else {

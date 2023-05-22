@@ -13,19 +13,20 @@ public class Modele extends Observable implements Runnable {
         this.size_x = x;
         this.size_y = y;
         this.tab = new boolean[size_x][size_y];
+        Ordonnanceur.getOrdonnanceur().addRunable(this);
     }
 
     @Override
     public void run() {
         Random r = new Random();
 
-        while(true) {
+        /*while(true) {
             /* changement de couleur aléatoire
             for(int i=0; i<size_x; i++) {
                 for(int j=0; j<size_y; j++) {
                     tab[i][j] = r.nextBoolean();
                 }
-            }*/
+            }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -33,10 +34,11 @@ public class Modele extends Observable implements Runnable {
             }
             setChanged();
             notifyObservers();
-        }
+        }*/
     }
 
     public void maj(int i, int j){
         tab[i][j] = !tab[i][j];
+        
     }
 }

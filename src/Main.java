@@ -31,7 +31,8 @@ public class Main {
         Vue V = new Vue(M);
         V.setVisible(true);
         M.addObserver(V);
-        new Thread(M).start();
+
+        new Thread(Ordonnanceur.getOrdonnanceur()).start();
     }
 
 }

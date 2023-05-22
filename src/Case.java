@@ -8,7 +8,6 @@
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 /**
@@ -21,6 +20,7 @@ public class Case extends JPanel implements Runnable{
         super();
         
         setBackground(Color.white);
+        Ordonnanceur.getOrdonnanceur().addRunable(this);
         
         addMouseListener(new MouseAdapter() {
         
