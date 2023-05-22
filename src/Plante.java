@@ -1,7 +1,7 @@
 public class Plante {
     protected String nom;
     protected int id;
-    protected int devellopement;
+    protected int developpement;
 
     protected boolean estVivante;
 
@@ -17,7 +17,7 @@ public class Plante {
     public Plante(String nom, int id){
         this.nom = nom;
         this.id = id;
-        this.devellopement = 0;
+        this.developpement = 0;
 
         this.conditionOptimal = new ConditionEnvironementale();
         this.ecartTolerable = 5;
@@ -30,10 +30,26 @@ public class Plante {
         this.modificateurVitesse = 1;
     }
 
+    public Plante(Plante plante){
+        this.nom = plante.nom;
+        this.id = plante.id;
+        this.developpement = plante.developpement;
+
+        this.conditionOptimal = new ConditionEnvironementale(plante.conditionOptimal);
+        this.ecartTolerable = plante.ecartTolerable;
+        this.ecartCritique = plante.ecartCritique;
+
+        this.nbJoursSurvie = plante.nbJoursSurvie;
+        this.nbJoursSurvieMax = plante.nbJoursSurvieMax;
+
+        this.estVivante = plante.estVivante;
+        this.modificateurVitesse = plante.modificateurVitesse;
+    }
+
     public Plante(String nom, int id, int ensoleillementOpti, int humiditeOpti, int temperatureOpti, int ecartTolerable){
         this.nom = nom;
         this.id = id;
-        this.devellopement = 0;
+        this.developpement = 0;
 
         this.conditionOptimal = new ConditionEnvironementale(ensoleillementOpti, humiditeOpti, temperatureOpti);
         this.ecartTolerable = ecartTolerable;
@@ -57,9 +73,9 @@ public class Plante {
 
     public void developper(ConditionEnvironementale conditionCase, int vitesse){
         if (testCondition(conditionCase, this.ecartTolerable)){
-            this.devellopement += (int)vitesse * this.modificateurVitesse;
-            if(this.devellopement > 100){
-                this.devellopement = 100;
+            this.developpement += (int)vitesse * this.modificateurVitesse;
+            if(this.developpement > 100){
+                this.developpement = 100;
             }
         }
         if (! testCondition(conditionCase, this.ecartCritique)){
