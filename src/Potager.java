@@ -1,4 +1,6 @@
-public class Potager {
+import java.util.Observable;
+
+public class Potager extends Observable implements Runnable {
     static final int HAUTEUR = 10;
     static final int LARGEUR = 10;
 
@@ -36,4 +38,24 @@ public class Potager {
         }
     }
 
+    public boolean estUneculture(int yCase, int xCase){
+        if (yCase>=0 && yCase<HAUTEUR && xCase>=0 && xCase<LARGEUR){
+            return this.cases[yCase][xCase] instanceof Culture;
+        }
+        return false;
+    }
+
+    @Override
+    public void run() {
+
+        while(true) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            setChanged();
+            notifyObservers();
+        }
+    }
 }

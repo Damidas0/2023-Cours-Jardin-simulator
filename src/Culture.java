@@ -1,4 +1,4 @@
-public class Culture extends Case{
+public class Culture extends Case {
     private Plante plante;
     private ConditionEnvironementale conditionCase;
 
