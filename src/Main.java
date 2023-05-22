@@ -27,11 +27,11 @@ public class Main {
 			}
 		});*/
 
-        Modele M = new Modele(20, 20);
-        Vue V = new Vue(M);
+        Potager p = new Potager();
+        Vue V = new Vue(p);
         V.setVisible(true);
-        M.addObserver(V);
-        new Thread(M).start();
+        p.addObserver(V);
+        new Thread(p).start();
     }
 
 }
