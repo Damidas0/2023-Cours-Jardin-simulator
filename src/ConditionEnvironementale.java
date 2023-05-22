@@ -64,8 +64,4 @@ public class ConditionEnvironementale {
             || Math.abs(this.humidite - condition.humidite) > ecartTolere
                 || Math.abs(this.temperature - condition.temperature) > ecartTolere);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 194bf0b9fc4380f538f885218693b9bafb2aa8e4

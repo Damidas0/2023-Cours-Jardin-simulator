@@ -1,10 +1,13 @@
 public class Culture extends Case{
     private Plante plante;
+    private ConditionEnvironementale conditionActuelle;
 
     public Culture(){}
 
-    public Culture(Plante plante){
+    
+    public Culture(Plante plante, ConditionEnvironementale conditionAct){
         this.plante = plante;
+        this.conditionActuelle = conditionAct;
     }
 
     @Override
