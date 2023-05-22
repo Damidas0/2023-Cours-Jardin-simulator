@@ -45,6 +45,7 @@ public class Case extends JPanel implements Runnable{
     @Override
     public void run() {
         
+        System.out.println("DJZQIDJQODJZIJDQDJQDIQJZOI");
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'run'");
     }

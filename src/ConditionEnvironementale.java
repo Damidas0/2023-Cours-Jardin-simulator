@@ -17,6 +17,12 @@ public class ConditionEnvironementale {
         setTemperature(temperature);
     }
 
+    public ConditionEnvironementale(ConditionEnvironementale CE){
+        this.humidite = CE.humidite;
+        this.ensoleillement = CE.ensoleillement;
+        this.temperature = CE.temperature;
+    }
+
     public int getEnsoleillement() {
         return ensoleillement;
     }

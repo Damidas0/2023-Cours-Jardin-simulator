@@ -28,13 +28,15 @@ public class Vue extends JFrame implements Observer{
 
     public Modele M;
     public JComponent[][] tabG;
+    public Ordonnanceur o;
 
     public Vue(Modele modele) {
         super();
         
+
         this.M = modele;
         this.tabG = new JComponent[M.size_x][M.size_y];
-
+        this.o = Ordonnanceur.getOrdonnanceur();
         build();
         
         addWindowListener(new WindowAdapter() {

@@ -34,10 +34,10 @@ public class Ordonnanceur extends Observable implements Runnable{
             }
             setChanged();
             notifyObservers();
-            
+
 
             try {
-                Thread.sleep(5);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
