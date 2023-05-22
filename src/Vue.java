@@ -23,10 +23,7 @@ import javax.swing.JMenu;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicComboBoxUI.ItemHandler;
 
-/**
- *
- * @author frederic
- */
+
 public class Vue extends JFrame implements Observer{
 
     public Modele M;
