@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  *
  * @author frederic
  */
-public class Case extends JPanel {
+public class Case extends JPanel implements Runnable{
 
     public Case() {
         super();
