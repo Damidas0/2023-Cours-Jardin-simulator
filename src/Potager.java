@@ -8,10 +8,10 @@ public class Potager extends Observable implements Runnable {
 
     private Case cases[][];
 
-    private ConditionEnvironementale conditionGlobal;
+    private ConditionEnvironementale conditionGlobale;
 
     public Potager(){
-        this.conditionGlobal = new ConditionEnvironementale(50,50,50);
+        this.conditionGlobale = new ConditionEnvironementale(50,50,50);
         this.vitesse = 1;
         this.cases = new Case[HAUTEUR][LARGEUR];
 
@@ -25,7 +25,7 @@ public class Potager extends Observable implements Runnable {
     public void planter(Plante plante, int yCase, int xCase){
         if (yCase>=0 && yCase<HAUTEUR && xCase>=0 && xCase<LARGEUR){
             if (! (this.cases[yCase][xCase] instanceof Culture)){
-                this.cases[yCase][xCase] = new Culture(plante, this.conditionGlobal);
+                this.cases[yCase][xCase] = new Culture(plante, this.conditionGlobale);
             }
         }
     }
@@ -43,6 +43,16 @@ public class Potager extends Observable implements Runnable {
             return this.cases[yCase][xCase] instanceof Culture;
         }
         return false;
+    }
+
+    public void afficher(){
+        System.out.println("-------------------");
+        System.out.println("AFFICHAGE DE POTAGER");
+        System.out.println("HAUTEUR: "+HAUTEUR);
+        System.out.println("LARGEUR: "+LARGEUR);
+        System.out.println("vitesse: "+this.vitesse);
+        System.out.println("condition globale: "+this.conditionGlobale);
+        System.out.println("-------------------");
     }
 
     @Override

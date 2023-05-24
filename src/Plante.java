@@ -7,7 +7,7 @@ public class Plante {
 
     protected float modificateurVitesse;
 
-    protected ConditionEnvironementale conditionOptimal;
+    protected ConditionEnvironementale conditionOptimale;
     protected int ecartTolerable;
     protected int ecartCritique;
 
@@ -19,7 +19,7 @@ public class Plante {
         this.id = id;
         this.developpement = 0;
 
-        this.conditionOptimal = new ConditionEnvironementale();
+        this.conditionOptimale = new ConditionEnvironementale();
         this.ecartTolerable = 5;
         this.ecartCritique = 10;
 
@@ -35,7 +35,7 @@ public class Plante {
         this.id = plante.id;
         this.developpement = plante.developpement;
 
-        this.conditionOptimal = new ConditionEnvironementale(plante.conditionOptimal);
+        this.conditionOptimale = new ConditionEnvironementale(plante.conditionOptimale);
         this.ecartTolerable = plante.ecartTolerable;
         this.ecartCritique = plante.ecartCritique;
 
@@ -51,7 +51,7 @@ public class Plante {
         this.id = id;
         this.developpement = 0;
 
-        this.conditionOptimal = new ConditionEnvironementale(ensoleillementOpti, humiditeOpti, temperatureOpti);
+        this.conditionOptimale = new ConditionEnvironementale(ensoleillementOpti, humiditeOpti, temperatureOpti);
         this.ecartTolerable = ecartTolerable;
         this.ecartCritique = 2*ecartTolerable;
 
@@ -68,7 +68,7 @@ public class Plante {
     }
 
     public boolean testCondition(ConditionEnvironementale conditionCase, int ecart){
-        return this.conditionOptimal.compareCE(conditionCase, ecart);
+        return this.conditionOptimale.compareCE(conditionCase, ecart);
     }
 
     public void developper(ConditionEnvironementale conditionCase, int vitesse){
@@ -88,5 +88,29 @@ public class Plante {
 
     public boolean estVivante(){
         return this.estVivante;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public void afficher(){
+        System.out.println("-------------------");
+        System.out.println("AFFICHAGE DE PLANTE");
+        System.out.println("id: "+this.id);
+        System.out.println("nom: "+this.nom);
+        System.out.println("developpement (sur 100): "+this.developpement);
+        System.out.println("ecartTolerable: "+this.ecartTolerable);
+        System.out.println("ecartCritique: "+this.ecartCritique);
+        System.out.println("nbJoursSurvie / nbMax: "+this.nbJoursSurvie+" / "+this.nbJoursSurvieMax);
+        if (this.estVivante){ System.out.println("estVivante: TRUE");}
+        else {System.out.println("estVivante: FALSE");}
+        System.out.println("modificateurVitesse: "+this.modificateurVitesse);
+        System.out.println("nom: "+this.nom);
+
+
+        System.out.print("condition optimal :");
+        this.conditionOptimale.afficher();
+        System.out.println("-------------------");
     }
 }
