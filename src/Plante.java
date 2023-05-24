@@ -88,6 +88,10 @@ public class Plante {
         return this.estVivante;
     }
 
+    public int getDeveloppement(){
+        return this.developpement;
+    }
+
     public int getId(){
         return this.id;
     }

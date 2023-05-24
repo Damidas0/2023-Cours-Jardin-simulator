@@ -18,7 +18,8 @@ public class Potager extends Observable implements Runnable {
 
         for (int i = 0; i < HAUTEUR; i++) {
             for (int j = 0; j < LARGEUR; j++) {
-                this.cases[i][j] = new Case();
+                if(i==0 && j==0) this.cases[i][j] = new Culture();
+                else this.cases[i][j] = new Case();
             }
         }
 
@@ -41,10 +42,23 @@ public class Potager extends Observable implements Runnable {
     }
 
     public boolean estUneculture(int yCase, int xCase) {
+        //System.out.println("Y : " + yCase + "X : " + xCase);
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            //this.cases[yCase][xCase].afficher();
             return this.cases[yCase][xCase] instanceof Culture;
         }
         return false;
+    }
+
+    public int getDeveloppement(int yCase, int xCase){
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            //TODO:aucasouarevoir
+            if (estUneculture(yCase, xCase)) {
+                Culture tmp = (Culture)this.cases[yCase][xCase]; 
+                return (tmp.getDeveloppement());
+            }
+        }
+        return -1;
     }
 
     public void afficher() {
@@ -59,7 +73,7 @@ public class Potager extends Observable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Je suis dans le run de potager");
+        //System.out.println("Je suis dans le run de potager");
 
     }
 }

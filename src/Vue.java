@@ -83,13 +83,22 @@ public class Vue extends JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("JE MUPDATE");
         for(int i=0; i<this.p.HAUTEUR; i++) {
             for(int j=0; j<this.p.LARGEUR; j++) {
                 if(p.estUneculture(i,j)) {
-                    tabG[i][j].setBackground(Color.RED);
+                    if (this.p.getDeveloppement(i,j) > 50){
+                        if (this.p.getDeveloppement(i,j)==100) tabG[i][j].setBackground(Color.GREEN);
+                        else tabG[i][j].setBackground(Color.YELLOW);
+                    }
+                    else{
+                        //System.out.println("Je suis censé changer de couleur pour du rouge wtf");
+                        tabG[i][j].setBackground(Color.RED);
+                    } 
+                    //tabG[i][j].setBackground(Color.RED);
                 }
                 else {
-                    tabG[i][j].setBackground(Color.WHITE);
+                    //tabG[i][j].setBackground(Color.WHITE);
                 }
             }
         }
