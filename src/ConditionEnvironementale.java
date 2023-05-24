@@ -88,11 +88,11 @@ public class ConditionEnvironementale {
      * @return int
      */
     public int compareCE(ConditionEnvironementale condition, ConditionEnvironementale ecartTolere) {
-        if (Math.abs(this.ensoleillement - condition.ensoleillement) <= ecartTolere.ensoleillement)
+        if (Math.abs(this.ensoleillement - condition.ensoleillement) > ecartTolere.ensoleillement)
             return 1;
-        if (Math.abs(this.humidite - condition.humidite) <= ecartTolere.humidite)
+        if (Math.abs(this.humidite - condition.humidite) > ecartTolere.humidite)
             return 2;
-        if (Math.abs(this.temperature - condition.temperature) <= ecartTolere.temperature)
+        if (Math.abs(this.temperature - condition.temperature) > ecartTolere.temperature)
             return 3;
         else
             return 0;

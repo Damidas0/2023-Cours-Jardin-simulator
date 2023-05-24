@@ -36,23 +36,22 @@ public class Vue extends JFrame implements Observer{
     }
     
     public void build() {
-        
+        // paramétrage de la fenetre
+        this.setTitle("Le poti potager");
+        this.setSize(1000, 1000);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // changer l'icon de la fenetre
+        ImageIcon image = new ImageIcon("img/logo.png");
+        this.setIconImage(image.getImage()); //change l'icon de la frame
+
         JMenuBar jm = new JMenuBar();
         JMenu m = new JMenu("Jeu");
         JMenuItem mi = new JMenuItem("Partie");
-        
 
         m.add(mi);
         jm.add(m);
         setJMenuBar(jm);
-        
-        setTitle("Le poti potager");
-        setSize(1000, 1000);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // changer l'icon de la fenetre
-        ImageIcon image = new ImageIcon("img/logo.png");
-        setIconImage(image.getImage()); //change l'icon de la frame
 
         JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
@@ -83,7 +82,7 @@ public class Vue extends JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("JE MUPDATE");
+        //System.out.println("JE MUPDATE");
         for(int i=0; i<this.p.HAUTEUR; i++) {
             for(int j=0; j<this.p.LARGEUR; j++) {
                 if(p.estUneculture(i,j)) {
