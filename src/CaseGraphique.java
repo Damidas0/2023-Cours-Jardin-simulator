@@ -11,7 +11,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.border.Border;
 
 
 public class CaseGraphique extends JPanel implements MouseListener{
@@ -23,31 +24,16 @@ public class CaseGraphique extends JPanel implements MouseListener{
 
     public CaseGraphique() {
         super();
-        
-        setBackground(Color.white);
+
+        //couleur de fond
+        setBackground(Color.BLUE);
+        //bordure
+        setBorderSimple();
+
         this.x=0;
         this.y=0;
         this.p = null;
 
-        
-        /*addMouseListener(new MouseAdapter() {
-        
-            /*@Override
-            public void mouseEntered(MouseEvent arg0) {
-                super.mouseClicked(arg0);
-                setBackground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent arg0) {
-                super.mouseExited(arg0);
-                setBackground(Color.red);
-            }
-            
-            
-            
-        });*/
-        
     }
 
     public CaseGraphique(int y, int x, Potager p){
@@ -56,8 +42,22 @@ public class CaseGraphique extends JPanel implements MouseListener{
         this.y = y;
         this.p = p;
 
+        //couleur de fond
         setBackground(Color.WHITE);
+        //bordure
+        setBorderSimple();
     }
+
+    public void setBorderSimple(){
+        Border blackline = BorderFactory.createLineBorder(Color.black,1);
+        setBorder(blackline);
+    }
+
+    public void setBorderOver(){
+        Border boldline = BorderFactory.createLineBorder(Color.black,2);
+        setBorder(boldline);
+    }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
