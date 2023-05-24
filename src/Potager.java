@@ -10,8 +10,9 @@ public class Potager extends Observable implements Runnable {
 
     private ConditionEnvironementale conditionGlobale;
 
-    public Potager(){
-        this.conditionGlobale = new ConditionEnvironementale(50,50,50);
+    public Potager() {
+        Ordonnanceur.getOrdonnanceur().addRunable(this);
+        this.conditionGlobale = new ConditionEnvironementale(50, 50, 50);
         this.vitesse = 1;
         this.cases = new Case[HAUTEUR][LARGEUR];
 
@@ -20,52 +21,45 @@ public class Potager extends Observable implements Runnable {
                 this.cases[i][j] = new Case();
             }
         }
+
     }
 
-    public void planter(Plante plante, int yCase, int xCase){
-        if (yCase>=0 && yCase<HAUTEUR && xCase>=0 && xCase<LARGEUR){
-            if (! (this.cases[yCase][xCase] instanceof Culture)){
+    public void planter(Plante plante, int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (!(this.cases[yCase][xCase] instanceof Culture)) {
                 this.cases[yCase][xCase] = new Culture(plante, this.conditionGlobale);
             }
         }
     }
 
-    public void recolter(int yCase, int xCase){
-        if (yCase>=0 && yCase<HAUTEUR && xCase>=0 && xCase<LARGEUR){
-            if (this.cases[yCase][xCase] instanceof Culture){
+    public void recolter(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (this.cases[yCase][xCase] instanceof Culture) {
                 this.cases[yCase][xCase] = new Case();
             }
         }
     }
 
-    public boolean estUneculture(int yCase, int xCase){
-        if (yCase>=0 && yCase<HAUTEUR && xCase>=0 && xCase<LARGEUR){
+    public boolean estUneculture(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             return this.cases[yCase][xCase] instanceof Culture;
         }
         return false;
     }
 
-    public void afficher(){
+    public void afficher() {
         System.out.println("-------------------");
         System.out.println("AFFICHAGE DE POTAGER");
-        System.out.println("HAUTEUR: "+HAUTEUR);
-        System.out.println("LARGEUR: "+LARGEUR);
-        System.out.println("vitesse: "+this.vitesse);
-        System.out.println("condition globale: "+this.conditionGlobale);
+        System.out.println("HAUTEUR: " + HAUTEUR);
+        System.out.println("LARGEUR: " + LARGEUR);
+        System.out.println("vitesse: " + this.vitesse);
+        System.out.println("condition globale: " + this.conditionGlobale);
         System.out.println("-------------------");
     }
 
     @Override
     public void run() {
+        System.out.println("Je suis dans le run de potager");
 
-        while(true) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            setChanged();
-            notifyObservers();
-        }
     }
 }

@@ -40,9 +40,9 @@ public class CaseGraphique extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        
+        System.out.println("Je run");
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
+        //throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
     
 }
