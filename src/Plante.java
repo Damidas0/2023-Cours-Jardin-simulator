@@ -14,6 +14,10 @@ public class Plante {
     protected int nbJoursSurvie;
     protected int nbJoursSurvieMax;
 
+    public Plante(){
+        this("Default", -1);
+    }
+
     public Plante(String nom, int id){
         this.nom = nom;
         this.id = id;

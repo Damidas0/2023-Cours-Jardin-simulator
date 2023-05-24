@@ -59,7 +59,7 @@ public class Vue extends JFrame implements Observer{
 
         for(int i = 0; i<this.p.HAUTEUR;i++){
             for(int j = 0; j<this.p.LARGEUR;j++){
-                JComponent ptest = new CaseGraphique();
+                JComponent ptest = new CaseGraphique(i,j,p);
                 tabG[i][j] = ptest;
                 ptest.setBorder(blackline);
                 pan.add(ptest);

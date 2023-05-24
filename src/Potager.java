@@ -18,8 +18,10 @@ public class Potager extends Observable implements Runnable {
 
         for (int i = 0; i < HAUTEUR; i++) {
             for (int j = 0; j < LARGEUR; j++) {
+                //TODO:replace
                 if(i==0 && j==0) this.cases[i][j] = new Culture();
                 else this.cases[i][j] = new Case();
+                this.cases[i][j].addMouseListener(null);
             }
         }
 
@@ -59,6 +61,11 @@ public class Potager extends Observable implements Runnable {
             }
         }
         return -1;
+    }
+
+    public boolean estPoussee(int yCase, int xCase){
+        if (this.getDeveloppement(yCase, xCase) == 100) return true;
+        return false; 
     }
 
     public void afficher() {
