@@ -67,12 +67,8 @@ public class Vue extends JFrame implements Observer{
                 final int ii = i;
                 final int jj = j;
 
-                tabG[ii][jj].addMouseListener(new MouseAdapter() {
-                    //@Override
-                    public void mouseClicked(MouseEvent e) {
-
-                    }
-                });
+                
+        
             }
         }
         pan.setBorder(blackline);
@@ -94,10 +90,10 @@ public class Vue extends JFrame implements Observer{
                         //System.out.println("Je suis censé changer de couleur pour du rouge wtf");
                         tabG[i][j].setBackground(Color.RED);
                     } 
-                    //tabG[i][j].setBackground(Color.RED);
                 }
                 else {
-                    //tabG[i][j].setBackground(Color.WHITE);
+                    tabG[i][j].setBackground(Color.LIGHT_GRAY);
+                    //TODO:Remplacer par de la terre
                 }
             }
         }

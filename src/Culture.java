@@ -9,7 +9,7 @@ public class Culture extends Case {
 
     public Culture(){
         super();
-        this.plante = new Plante("Default", 0);
+        this.plante = new Plante();
         this.conditionCase = new ConditionEnvironementale();
         }
 

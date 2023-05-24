@@ -12,16 +12,13 @@ public class Potager extends Observable implements Runnable {
 
     public Potager() {
         Ordonnanceur.getOrdonnanceur().addRunable(this);
-        this.conditionGlobale = new ConditionEnvironementale(50, 50, 50);
+        this.conditionGlobale = new ConditionEnvironementale(0, 0, 0);
         this.vitesse = 1;
         this.cases = new Case[HAUTEUR][LARGEUR];
 
         for (int i = 0; i < HAUTEUR; i++) {
             for (int j = 0; j < LARGEUR; j++) {
-                //TODO:replace
-                if(i==0 && j==0) this.cases[i][j] = new Culture();
-                else this.cases[i][j] = new Case();
-                this.cases[i][j].addMouseListener(null);
+                this.cases[i][j] = new Case();
             }
         }
 
