@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,6 +15,9 @@ import javax.swing.border.Border;
 public class CaseGraphique extends JPanel implements MouseListener {
     private int x;
     private int y;
+
+    private JProgressBar progressBar;
+    private boolean afficherBar;
 
     private Potager p; // pointeur sur le potager
 
@@ -29,41 +32,61 @@ public class CaseGraphique extends JPanel implements MouseListener {
         this.x = 0;
         this.y = 0;
         this.p = null;
-
-        /*
-         * addMouseListener(new MouseAdapter() {
-         * 
-         * /*@Override
-         * public void mouseEntered(MouseEvent arg0) {
-         * super.mouseClicked(arg0);
-         * setBackground(Color.BLACK);
-         * }
-         * 
-         * @Override
-         * public void mouseExited(MouseEvent arg0) {
-         * super.mouseExited(arg0);
-         * setBackground(Color.red);
-         * }
-         * 
-         * 
-         * 
-         * });
-         */
-
     }
 
     public CaseGraphique(int y, int x, Potager p) {
         super();
+        addMouseListener(this);
+
         this.x = x;
         this.y = y;
         this.p = p;
 
         // couleur de fond
-        setBackground(Color.WHITE);
+        setBackground(Color.BLUE);
+        // bordure
+        setBorderSimple();
+
+        setLayout(new BorderLayout());
+
+        //bar de progression
+        this.progressBar = new JProgressBar(0);
+        this.progressBar.setForeground(new Color(0x69B00B));
+        add(this.progressBar, BorderLayout.SOUTH);
+
+        afficherBar(this.p.estUneculture(this.y, this.x));
+    }
+
+    public void setBorderSimple(){
+        Border blackline = BorderFactory.createLineBorder(Color.black,1);
+        setBorder(blackline);
+    }
+
+    public void setBorderOver(){
+        Border boldline = BorderFactory.createLineBorder(Color.black,3);
+        setBorder(boldline);
+    }
+
+    public void updateBar(){
+        //System.out.println(this.afficherBar);
+        if(this.p.estUneculture(this.y, this.x)) {
+            this.progressBar.setValue(this.p.getDeveloppement(this.y, this.x));
+        }
+        afficherBar(this.p.estUneculture(this.y, this.x));
+    }
+
+    public void afficherBar(boolean bool){
+        this.afficherBar = bool;
+        this.progressBar.setVisible(bool);
+    }
+
+    public void afficherBar(){
+        afficherBar(true);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //System.out.println("CA CLICCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCc");
         if (!p.estUneculture(y, x)) {
             this.p.planter(new Plante(), y, x);
         } else if (p.estPoussee(y, x)) {
@@ -77,16 +100,12 @@ public class CaseGraphique extends JPanel implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method
-        // 'mouseEntered'");
+        setBorderOver();
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method
-        // 'mouseExited'");
+        setBorderSimple();
     }
 
     @Override
