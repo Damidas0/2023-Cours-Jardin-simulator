@@ -1,4 +1,4 @@
-public class Culture extends Case{
+public class Culture extends Case {
     private Plante plante;
     private ConditionEnvironementale conditionCase;
 
@@ -12,7 +12,6 @@ public class Culture extends Case{
 
     @Override
     public void run(){
-        //TODO: REMPLACER LA VITESSE DE POUSSE
-        this.plante.developper(this.conditionCase, 5);
+        
     }
 }   

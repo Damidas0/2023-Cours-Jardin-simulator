@@ -21,22 +21,19 @@ import javax.swing.JPanel;
 import javax.swing.JMenu;
 
 import javax.swing.border.Border;
-import javax.swing.plaf.basic.BasicComboBoxUI.ItemHandler;
 
 
 public class Vue extends JFrame implements Observer{
 
-    public Modele M;
+    public Potager p;
     public JComponent[][] tabG;
-    public Ordonnanceur o;
 
-    public Vue(Modele modele) {
+    public Vue(Potager potager) {
         super();
         
+        this.p = potager;
+        this.tabG = new JComponent[this.p.HAUTEUR][this.p.LARGEUR];
 
-        this.M = modele;
-        this.tabG = new JComponent[M.size_x][M.size_y];
-        this.o = Ordonnanceur.getOrdonnanceur();
         build();
         
         addWindowListener(new WindowAdapter() {
@@ -66,14 +63,14 @@ public class Vue extends JFrame implements Observer{
     
         setJMenuBar(jm);
         
-        setTitle("Ma première fenêtre");
+        setTitle("Le poti potager");
         setSize(1000, 1000);
-        JComponent pan = new JPanel (new GridLayout(M.size_x,M.size_y));
+        JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
 
-        for(int i = 0; i<M.size_x;i++){
-            for(int j = 0; j<M.size_y;j++){
-                JComponent ptest = new Case();
+        for(int i = 0; i<this.p.HAUTEUR;i++){
+            for(int j = 0; j<this.p.LARGEUR;j++){
+                JComponent ptest = new CaseGraphique();
                 tabG[i][j] = ptest;
                 ptest.setBorder(blackline);
                 pan.add(ptest);
@@ -84,7 +81,7 @@ public class Vue extends JFrame implements Observer{
                 tabG[ii][jj].addMouseListener(new MouseAdapter() {
                     //@Override
                     public void mouseClicked(MouseEvent e) {
-                        M.maj(ii, jj);
+
                     }
                 });
             }
@@ -96,10 +93,9 @@ public class Vue extends JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        for(int i=0; i<M.size_x; i++) {
-            for(int j=0; j<M.size_y; j++) {
-                if(M.tab[i][j]) {
-                    //tabG[i][j]
+        for(int i=0; i<this.p.HAUTEUR; i++) {
+            for(int j=0; j<this.p.LARGEUR; j++) {
+                if(p.estUneculture(i,j)) {
                     tabG[i][j].setBackground(Color.RED);
                 }
                 else {
