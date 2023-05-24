@@ -19,6 +19,7 @@ public class CaseGraphique extends JPanel implements MouseListener{
     private int y;
 
     private Potager p; //pointeur sur le potager
+    private Vue v;// vue ref
 
 
     public CaseGraphique() {
@@ -34,11 +35,12 @@ public class CaseGraphique extends JPanel implements MouseListener{
         
     }
 
-    public CaseGraphique(int y, int x, Potager p){
+    public CaseGraphique(int y, int x, Potager p, Vue v){
         super();
         this.x = x;
         this.y = y;
         this.p = p;
+        this.v = v;
 
         setBackground(Color.WHITE);
         addMouseListener(this);
@@ -58,6 +60,11 @@ public class CaseGraphique extends JPanel implements MouseListener{
     
     @Override
     public void mouseEntered(MouseEvent e) {
+        InfoPannel infoP = new InfoPannel();
+        infoP.setVisible(true);
+        v.add(infoP);
+        
+        System.out.println(e.getX() + " / " + e.getY());
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
     }
