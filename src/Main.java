@@ -9,10 +9,6 @@
 import javax.swing.SwingUtilities;
 import javax.swing.text.View;
 
-/**
- *
- * @author frederic
- */
 public class Main {
 
     /**

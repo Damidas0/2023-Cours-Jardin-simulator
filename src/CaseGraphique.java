@@ -8,31 +8,31 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-public class CaseGraphique extends JPanel implements MouseListener {
+import static javax.swing.text.StyleConstants.setIcon;
+
+public class CaseGraphique extends JLayeredPane implements MouseListener {
     private int x;
     private int y;
 
+    private ImageIcon imgFond;
+    private String cheminImgFond;
+    private ImageIcon imgPlante;
+    private String cheminImgPlante;
     private JProgressBar progressBar;
     private boolean afficherBar;
 
     private Potager p; // pointeur sur le potager
 
-    public CaseGraphique() {
-        super();
-
-        // couleur de fond
-        setBackground(Color.BLUE);
-        // bordure
-        setBorderSimple();
-
-        this.x = 0;
-        this.y = 0;
-        this.p = null;
-    }
+    /*public CaseGraphique() {
+        this(0,0,);
+    }*/
 
     public CaseGraphique(int y, int x, Potager p) {
         super();
@@ -52,19 +52,54 @@ public class CaseGraphique extends JPanel implements MouseListener {
         //bar de progression
         this.progressBar = new JProgressBar(0);
         this.progressBar.setForeground(new Color(0x69B00B));
-        add(this.progressBar, BorderLayout.SOUTH);
+        this.progressBar.setBorder(BorderFactory.createLineBorder(Color.red,2));
+        add(this.progressBar, BorderLayout.SOUTH, Integer.valueOf(3)); // tout devant
 
         afficherBar(this.p.estUneculture(this.y, this.x));
+
+
+        //img de la plante
+        //sans la tile set
+        this.cheminImgPlante = "img/salade.png";
+        this.imgPlante = new ImageIcon(this.cheminImgPlante);
+
+        JLabel planteLabel = new JLabel();
+        planteLabel.setVisible(true);
+        planteLabel.setOpaque(true);
+        planteLabel.setIcon(this.imgPlante);
+
+        add(planteLabel, BorderLayout.CENTER, Integer.valueOf(1)); //entre les 2
+
+
+        /*avec la tile set
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("img/data.png"));
+        } catch (java.io.IOException e) {
+            System.out.println("ERREUR : Impossoble d'ouvrir le fichier img/data.png  "+ e.getMessage());
+        }
+
+        BufferedImage plantes = image.getSubimage(0, 0, 140, 140); // image du légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+        ImageIcon iconePlante = new ImageIcon(plantes.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
+
+        JLabel planteLabel = new JLabel();
+        planteLabel.setVisible(true);
+        planteLabel.setIcon(iconePlante);
+
+        add(planteLabel, BorderLayout.CENTER, Integer.valueOf(0)); //tout derrière
+        */
+    }
+
+    public void changerImgPlante(String nouveauChemin){
+        this.cheminImgPlante = nouveauChemin;
     }
 
     public void setBorderSimple(){
-        Border blackline = BorderFactory.createLineBorder(Color.black,1);
-        setBorder(blackline);
+        setBorder(BorderFactory.createLineBorder(Color.black,1));
     }
 
     public void setBorderOver(){
-        Border boldline = BorderFactory.createLineBorder(Color.black,3);
-        setBorder(boldline);
+        setBorder(BorderFactory.createDashedBorder(Color.black,3, 7, 5, false));
     }
 
     public void updateBar(){
