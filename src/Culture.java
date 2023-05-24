@@ -4,7 +4,6 @@ public class Culture extends Case {
     private Plante plante;
     private ConditionEnvironementale conditionCase;
 
-<<<<<<< HEAD
     //TODO:VERIFIER SI ON DOIT GARDER 
     private final int nbStadeDev = 4;
 
@@ -14,11 +13,6 @@ public class Culture extends Case {
         this.plante = new Plante("Default", 0);
         this.conditionCase = new ConditionEnvironementale();
         }
-=======
-    public Culture(){
-        super();
-    }
->>>>>>> d164653525261adb3b16efb911a5afa1d132c1a7
 
 
     public Culture(Plante plante, ConditionEnvironementale conditionCase){
@@ -41,6 +35,10 @@ public class Culture extends Case {
         return this.plante.getId();
     }
 
+    public int getDeveloppement(){
+        return this.plante.getDeveloppement();
+    }
+
     @Override
     public void afficher(){
         System.out.println("-------------------");
@@ -54,15 +52,8 @@ public class Culture extends Case {
 
     @Override
     public void run(){
-        System.out.println(this.plante.getDeveloppement());
-        this.plante.developper(this.conditionCase, 1);
-        if (this.plante.getDeveloppement() > 50){
-            if (this.plante.getDeveloppement()==100) setBackground(Color.green);
-            else setBackground(Color.yellow);
-        }
-        else{
-            System.out.println("Je suis censé changer de couleur pour du rouge wtf");
-            setBackground(Color.red);
-        } 
+        this.plante.afficher();
+        this.plante.developper(this.conditionCase, 10);
+        
     }
 }   

@@ -1,14 +1,9 @@
-<<<<<<< HEAD
 import javax.swing.JPanel;
 
 //TODO: replace JPANEL
 public class Case extends JPanel implements Runnable{
     public Case(){
         super();
-=======
-public class Case implements Runnable {
-    public Case() {
->>>>>>> d164653525261adb3b16efb911a5afa1d132c1a7
         Ordonnanceur.getOrdonnanceur().addRunable(this);
     }
 

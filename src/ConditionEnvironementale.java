@@ -65,10 +65,16 @@ public class ConditionEnvironementale {
         }
     }
 
+    /***
+     *
+     * @param condition
+     * @param ecartTolere
+     * @return True si l'écart entre les 2 CE est plus petit que ecartTolere, False sinon
+     */
     public boolean compareCE(ConditionEnvironementale condition, int ecartTolere){
-        return (Math.abs(this.ensoleillement - condition.ensoleillement) > ecartTolere
-            || Math.abs(this.humidite - condition.humidite) > ecartTolere
-                || Math.abs(this.temperature - condition.temperature) > ecartTolere);
+        return (Math.abs(this.ensoleillement - condition.ensoleillement) <= ecartTolere
+            && Math.abs(this.humidite - condition.humidite) <= ecartTolere
+            && Math.abs(this.temperature - condition.temperature) <= ecartTolere);
     }
 
     public void afficher(){
