@@ -70,4 +70,13 @@ public class ConditionEnvironementale {
             || Math.abs(this.humidite - condition.humidite) > ecartTolere
                 || Math.abs(this.temperature - condition.temperature) > ecartTolere);
     }
+
+    public void afficher(){
+        System.out.println("-------------------");
+        System.out.println("AFFICHAGE DE CONDITIONENVIRONEMENTALE");
+        System.out.println("humidite: "+this.humidite);
+        System.out.println("temperature: "+this.temperature);
+        System.out.println("temperature: "+this.temperature);
+        System.out.println("-------------------");
+    }
 }

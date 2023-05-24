@@ -1,8 +1,3 @@
-/*package Jardin;*/
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -11,14 +6,7 @@ import java.awt.event.*;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.BorderFactory;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JMenu;
+import javax.swing.*;
 
 import javax.swing.border.Border;
 
@@ -65,8 +53,10 @@ public class Vue extends JFrame implements Observer{
         
         setTitle("Le poti potager");
         setSize(1000, 1000);
+
         JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
+
 
         for(int i = 0; i<this.p.HAUTEUR;i++){
             for(int j = 0; j<this.p.LARGEUR;j++){
