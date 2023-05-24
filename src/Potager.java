@@ -18,7 +18,8 @@ public class Potager extends Observable implements Runnable {
 
         for (int i = 0; i < HAUTEUR; i++) {
             for (int j = 0; j < LARGEUR; j++) {
-                this.cases[i][j] = new Case();
+                if(i==0 && j==0) this.cases[i][j] = new Culture();
+                else this.cases[i][j] = new Case();
             }
         }
 

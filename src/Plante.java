@@ -89,4 +89,9 @@ public class Plante {
     public boolean estVivante(){
         return this.estVivante;
     }
+
+    public int getDeveloppement(){
+        return this.developpement;
+    }
+
 }
