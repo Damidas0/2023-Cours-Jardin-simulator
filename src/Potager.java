@@ -11,6 +11,7 @@ public class Potager extends Observable implements Runnable {
     private ConditionEnvironementale conditionGlobal;
 
     public Potager(){
+        Ordonnanceur.getOrdonnanceur().addRunable(this);
         this.conditionGlobal = new ConditionEnvironementale(50,50,50);
         this.vitesse = 1;
         this.cases = new Case[HAUTEUR][LARGEUR];
@@ -20,6 +21,8 @@ public class Potager extends Observable implements Runnable {
                 this.cases[i][j] = new Case();
             }
         }
+
+        
     }
 
     public void planter(Plante plante, int yCase, int xCase){
@@ -47,15 +50,7 @@ public class Potager extends Observable implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("Je suis dans le run de potager");
 
-        while(true) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            setChanged();
-            notifyObservers();
-        }
     }
 }
