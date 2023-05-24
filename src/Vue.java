@@ -14,13 +14,13 @@ import javax.swing.border.Border;
 public class Vue extends JFrame implements Observer{
 
     public Potager p;
-    public JComponent[][] tabG;
+    public CaseGraphique[][] tabG;
 
     public Vue(Potager potager) {
         super();
         
         this.p = potager;
-        this.tabG = new JComponent[this.p.HAUTEUR][this.p.LARGEUR];
+        this.tabG = new CaseGraphique[this.p.HAUTEUR][this.p.LARGEUR];
 
         build();
         
@@ -55,13 +55,12 @@ public class Vue extends JFrame implements Observer{
 
         JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
-
+        //getVerifyInputWhenFocusTarget();
 
         for(int i = 0; i<this.p.HAUTEUR;i++){
             for(int j = 0; j<this.p.LARGEUR;j++){
-                JComponent ptest = new CaseGraphique(i,j,p, this);
+                CaseGraphique ptest = new CaseGraphique(i,j,p,this);
                 tabG[i][j] = ptest;
-                ptest.setBorder(blackline);
                 pan.add(ptest);
 
                 final int ii = i;
@@ -78,10 +77,12 @@ public class Vue extends JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        //System.out.println("JE MUPDATE");
+        //System.out.println("JE MUPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
         for(int i=0; i<this.p.HAUTEUR; i++) {
             for(int j=0; j<this.p.LARGEUR; j++) {
+                tabG[i][j].updateBar();
                 if(p.estUneculture(i,j)) {
+                    //System.out.println("CULTUREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                     if (this.p.getDeveloppement(i,j) > 50){
                         if (this.p.getDeveloppement(i,j)==100) tabG[i][j].setBackground(Color.GREEN);
                         else tabG[i][j].setBackground(Color.YELLOW);

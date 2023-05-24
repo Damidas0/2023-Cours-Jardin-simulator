@@ -35,7 +35,10 @@ public class Potager extends Observable implements Runnable {
     public void recolter(int yCase, int xCase) {
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             if (this.cases[yCase][xCase] instanceof Culture) {
-                this.cases[yCase][xCase] = new Case();
+                if(getDeveloppement(yCase,xCase) == 100){
+                    //TODO gagner des trucs
+                    this.cases[yCase][xCase] = new Case();
+                }
             }
         }
     }

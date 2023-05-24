@@ -51,6 +51,7 @@ public class Culture extends Case {
 
     @Override
     public void run(){
+        //this.plante.afficher();
         this.plante.developper(this.conditionCase, 10);
         
     }
