@@ -1,4 +1,3 @@
-import java.awt.Color;
 
 public class Culture extends Case {
     private Plante plante;
