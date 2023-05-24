@@ -65,10 +65,30 @@ public class ConditionEnvironementale {
         }
     }
 
-    public boolean compareCE(ConditionEnvironementale condition, int ecartTolere){
-        return (Math.abs(this.ensoleillement - condition.ensoleillement) > ecartTolere
-            || Math.abs(this.humidite - condition.humidite) > ecartTolere
-                || Math.abs(this.temperature - condition.temperature) > ecartTolere);
+    /***
+     *
+     * @param condition
+     * @param ecartTolere
+     * @return True si l'écart entre les 2 CE est plus petit que ecartTolere, False sinon
+     */
+    public boolean compareCEBasique(ConditionEnvironementale condition, int ecartTolere){
+        return (Math.abs(this.ensoleillement - condition.ensoleillement) <= ecartTolere
+            && Math.abs(this.humidite - condition.humidite) <= ecartTolere
+            && Math.abs(this.temperature - condition.temperature) <= ecartTolere);
+    }
+
+    /***
+     * Retourne un entier qui correspons à la comparaison des 2 CE :
+     * [0: tolérable, 1: manque de soleil, 2: manque d'humidité, 3: manque de température]
+     * @param condition
+     * @param ecartTolere
+     * @return int
+     */
+    public int compareCE(ConditionEnvironementale condition, ConditionEnvironementale ecartTolere){
+        if (Math.abs(this.ensoleillement - condition.ensoleillement) <= ecartTolere.ensoleillement) return 1;
+        if (Math.abs(this.humidite - condition.humidite) <= ecartTolere.humidite) return 2;
+        if (Math.abs(this.temperature - condition.temperature) <= ecartTolere.temperature) return 3;
+        else return 0;
     }
 
     public void afficher(){

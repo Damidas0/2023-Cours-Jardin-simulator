@@ -8,8 +8,8 @@ public class Plante {
     protected float modificateurVitesse;
 
     protected ConditionEnvironementale conditionOptimale;
-    protected int ecartTolerable;
-    protected int ecartCritique;
+    protected ConditionEnvironementale ecartTolerable;
+    protected ConditionEnvironementale ecartCritique;
 
     protected int nbJoursSurvie;
     protected int nbJoursSurvieMax;
@@ -20,8 +20,8 @@ public class Plante {
         this.developpement = 0;
 
         this.conditionOptimale = new ConditionEnvironementale();
-        this.ecartTolerable = 5;
-        this.ecartCritique = 10;
+        this.ecartTolerable = new ConditionEnvironementale(5,5,5);
+        this.ecartCritique = new ConditionEnvironementale(10,10,10);
 
         this.nbJoursSurvie = 0;
         this.nbJoursSurvieMax = 5;
@@ -36,8 +36,8 @@ public class Plante {
         this.developpement = plante.developpement;
 
         this.conditionOptimale = new ConditionEnvironementale(plante.conditionOptimale);
-        this.ecartTolerable = plante.ecartTolerable;
-        this.ecartCritique = plante.ecartCritique;
+        this.ecartTolerable = new ConditionEnvironementale(plante.ecartTolerable);
+        this.ecartCritique = new ConditionEnvironementale(plante.ecartCritique);
 
         this.nbJoursSurvie = plante.nbJoursSurvie;
         this.nbJoursSurvieMax = plante.nbJoursSurvieMax;
@@ -52,8 +52,8 @@ public class Plante {
         this.developpement = 0;
 
         this.conditionOptimale = new ConditionEnvironementale(ensoleillementOpti, humiditeOpti, temperatureOpti);
-        this.ecartTolerable = ecartTolerable;
-        this.ecartCritique = 2*ecartTolerable;
+        this.ecartTolerable =  new ConditionEnvironementale(ecartTolerable,ecartTolerable,ecartTolerable);
+        this.ecartCritique = new ConditionEnvironementale(2*ecartTolerable,2*ecartTolerable,2*ecartTolerable);
 
         this.nbJoursSurvie = 0;
         this.nbJoursSurvieMax = 5;
@@ -67,18 +67,16 @@ public class Plante {
         this.estVivante = false;
     }
 
-    public boolean testCondition(ConditionEnvironementale conditionCase, int ecart){
-        return this.conditionOptimale.compareCE(conditionCase, ecart);
-    }
 
     public void developper(ConditionEnvironementale conditionCase, int vitesse){
-        if (testCondition(conditionCase, this.ecartTolerable)){
+        if (this.conditionOptimale.compareCE(conditionCase, this.ecartTolerable) == 0){
+            this.nbJoursSurvie = 0;
             this.developpement += (int)vitesse * this.modificateurVitesse;
             if(this.developpement > 100){
                 this.developpement = 100;
             }
         }
-        if (! testCondition(conditionCase, this.ecartCritique)){
+        if (this.conditionOptimale.compareCE(conditionCase, this.ecartCritique) != 0){
             this.nbJoursSurvie += vitesse;
             if(this.nbJoursSurvie > this.nbJoursSurvieMax){
                 mourir();
@@ -100,8 +98,6 @@ public class Plante {
         System.out.println("id: "+this.id);
         System.out.println("nom: "+this.nom);
         System.out.println("developpement (sur 100): "+this.developpement);
-        System.out.println("ecartTolerable: "+this.ecartTolerable);
-        System.out.println("ecartCritique: "+this.ecartCritique);
         System.out.println("nbJoursSurvie / nbMax: "+this.nbJoursSurvie+" / "+this.nbJoursSurvieMax);
         if (this.estVivante){ System.out.println("estVivante: TRUE");}
         else {System.out.println("estVivante: FALSE");}
@@ -111,6 +107,10 @@ public class Plante {
 
         System.out.print("condition optimal :");
         this.conditionOptimale.afficher();
+        System.out.println("ecartTolerable: ");
+        this.ecartTolerable.afficher();
+        System.out.println("ecartCritique: ");
+        this.ecartCritique.afficher();
         System.out.println("-------------------");
     }
 }

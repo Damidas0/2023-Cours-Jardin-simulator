@@ -38,21 +38,21 @@ public class Vue extends JFrame implements Observer{
     public void build() {
         
         JMenuBar jm = new JMenuBar();
-        
         JMenu m = new JMenu("Jeu");
-        
         JMenuItem mi = new JMenuItem("Partie");
         
-        //ItemListener i = new Item
-        
+
         m.add(mi);
-        
         jm.add(m);
-    
         setJMenuBar(jm);
         
         setTitle("Le poti potager");
         setSize(1000, 1000);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // changer l'icon de la fenetre
+        ImageIcon image = new ImageIcon("img/logo.png");
+        setIconImage(image.getImage()); //change l'icon de la frame
 
         JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
