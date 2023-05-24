@@ -8,6 +8,8 @@
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JPanel;
 
 /**
@@ -23,8 +25,8 @@ public class Case extends JPanel implements Runnable{
         Ordonnanceur.getOrdonnanceur().addRunable(this);
         
         addMouseListener(new MouseAdapter() {
-        
-            /*@Override
+            /*
+            @Override
             public void mouseEntered(MouseEvent arg0) {
                 super.mouseClicked(arg0);
                 setBackground(Color.BLACK);
@@ -47,7 +49,7 @@ public class Case extends JPanel implements Runnable{
         
         System.out.println("DJZQIDJQODJZIJDQDJQDIQJZOI");
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
+        //throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
     
 }
