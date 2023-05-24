@@ -1,8 +1,8 @@
 import java.util.Observable;
 
 public class Potager extends Observable implements Runnable {
-    static final int HAUTEUR = 10;
-    static final int LARGEUR = 10;
+    final int HAUTEUR = 10;
+    final int LARGEUR = 10;
 
     private int vitesse;
 
