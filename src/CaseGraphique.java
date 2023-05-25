@@ -105,6 +105,9 @@ public class CaseGraphique extends JPanel implements MouseListener {
     public void mouseEntered(MouseEvent e) {
         setBorderOver();
         InfoPannel infoP = new InfoPannel();
+        
+        infoP.setBounds(0,0,50,50); 
+        infoP.setBackground(Color.black);
         infoP.setVisible(true);
         v.add(infoP);
         
