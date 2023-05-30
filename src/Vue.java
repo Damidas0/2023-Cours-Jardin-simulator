@@ -3,10 +3,14 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import java.awt.event.*;
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import java.awt.image.BufferedImage;
 
 import javax.swing.border.Border;
 
@@ -19,9 +23,10 @@ public class Vue extends JFrame implements Observer{
     public Potager p;
     public CaseGraphique[][] tabG;
 
+    private BufferedImage tileset;
+
     public Vue(Potager potager) {
         super();
-        
         this.p = potager;
         this.tabG = new CaseGraphique[this.p.HAUTEUR][this.p.LARGEUR];
 
@@ -34,8 +39,8 @@ public class Vue extends JFrame implements Observer{
                 System.exit(0);
             }
         });
-        
-        
+
+        this.tileset = null;
     }
     
     public void build() {
@@ -56,6 +61,7 @@ public class Vue extends JFrame implements Observer{
         jm.add(m);
         setJMenuBar(jm);
 
+        chargerImages();
         
         JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
@@ -63,20 +69,26 @@ public class Vue extends JFrame implements Observer{
 
         for(int i = 0; i<this.p.HAUTEUR;i++){
             for(int j = 0; j<this.p.LARGEUR;j++){
-                CaseGraphique ptest = new CaseGraphique(i,j,p,this);
+                CaseGraphique ptest = new CaseGraphique(i,j,p,this, this.tileset);
                 tabG[i][j] = ptest;
                 pan.add(ptest);
 
                 final int ii = i;
                 final int jj = j;
 
-                
-        
             }
         }
         pan.setBorder(blackline);
         add(pan);
         //setContentPane(pan);
+    }
+
+    public void chargerImages(){
+        try {
+            this.tileset = ImageIO.read(new File("./src/img/data.png")); // chargement de l'image globale
+        } catch (java.io.IOException e) {
+            System.out.println("ERREUR : Impossoble d'ouvrir la tileset ./src/img/data.png   "+ e.getMessage());
+        }
     }
 
     @Override
@@ -86,18 +98,9 @@ public class Vue extends JFrame implements Observer{
             for(int j=0; j<this.p.LARGEUR; j++) {
                 tabG[i][j].updateBar();
                 if(p.estUneculture(i,j)) {
-                    //System.out.println("CULTUREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-                    if (this.p.getDeveloppement(i,j) > 50){
-                        if (this.p.getDeveloppement(i,j)==100) tabG[i][j].setBackground(Color.GREEN);
-                        else tabG[i][j].setBackground(Color.YELLOW);
-                    }
-                    else{
-                        //System.out.println("Je suis censé changer de couleur pour du rouge wtf");
-                        tabG[i][j].setBackground(Color.RED);
-                    } 
+
                 }
                 else {
-                    tabG[i][j].setBackground(Color.LIGHT_GRAY);
                     //TODO:Remplacer par de la terre
                 }
             }

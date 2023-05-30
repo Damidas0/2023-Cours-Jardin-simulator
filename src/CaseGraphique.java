@@ -24,12 +24,16 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     private Potager p; // pointeur sur le potager
     private Vue v;// pointeur sur ka vue ref
 
-    private ImageIcon imgFond;
-    private String cheminImgFond;
-    private ImageIcon imgPlante;
-    private String cheminImgPlante;
+    private BufferedImage tileset;
+
+    private ImageIcon iconFond;
+    private JLabel imgFond;
+
+    private ImageIcon iconPlante;
+    private JLabel imgPlante;
+
     private JProgressBar progressBar;
-    private boolean afficherBar;
+    private boolean afficherBarPlante;
 
     /*
      * public CaseGraphique() {
@@ -37,7 +41,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
      * }
      */
 
-    public CaseGraphique(int y, int x, Potager p, Vue v) {
+    public CaseGraphique(int y, int x, Potager p, Vue v, BufferedImage tileset) {
         super();
         addMouseListener(this);
 
@@ -46,58 +50,67 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         this.p = p;
         this.v = v;
 
+        Color maron = new Color(124, 94, 68);
+
         // couleur de fond
-        setBackground(Color.BLUE);
+        //setBackground(maron);
+        setOpaque(true);
         // bordure
         setBorderSimple();
 
-        setLayout(new BorderLayout());
+        //setLayout(new BorderLayout());
 
         // bar de progression
         this.progressBar = new JProgressBar(0);
         this.progressBar.setForeground(new Color(0x69B00B));
-        this.progressBar.setBorder(BorderFactory.createLineBorder(Color.red, 2));
-        add(this.progressBar, BorderLayout.SOUTH, Integer.valueOf(3)); // tout devant
+        this.progressBar.setBorder(BorderFactory.createLineBorder(maron, 1));
+        this.progressBar.setBounds(0,eh(80),ew(100),eh(20));
+        add(this.progressBar, Integer.valueOf(2)); // tout devant
 
-        afficherBar(this.p.estUneculture(this.y, this.x));
+
+        this.tileset = tileset;
+
 
         // img de la plante
-        // sans la tile set
-        this.cheminImgPlante = "img/salade.png";
-        this.imgPlante = new ImageIcon(this.cheminImgPlante);
+        this.imgPlante = new JLabel();
+        this.imgPlante.setBounds(ew(10),eh(10),ew(80),eh(80));
+        add(this.imgPlante, Integer.valueOf(1)); //au milieu
+        changerImgPlante(0,0,140,140);
 
-        JLabel planteLabel = new JLabel();
-        planteLabel.setVisible(true);
-        planteLabel.setOpaque(true);
-        planteLabel.setIcon(this.imgPlante);
 
-        add(planteLabel, BorderLayout.CENTER, Integer.valueOf(1)); // entre les 2
+        // img du fond
+        this.imgFond = new JLabel();
+        this.imgFond.setVisible(true);
+        this.imgFond.setBounds(0,0,ew(100),eh(100));
+        add(this.imgFond, Integer.valueOf(0)); //tout derrière
+        changerImgFond(170,0,159,159); // la terre
 
-        /*
-         * avec la tile set
-         * BufferedImage image = null;
-         * try {
-         * image = ImageIO.read(new File("img/data.png"));
-         * } catch (java.io.IOException e) {
-         * System.out.println("ERREUR : Impossoble d'ouvrir le fichier img/data.png  "+
-         * e.getMessage());
-         * }
-         * 
-         * BufferedImage plantes = image.getSubimage(0, 0, 140, 140); // image du légume
-         * (x, y : coin supérieur gauche, w, h : largeur et hauteur)
-         * ImageIcon iconePlante = new ImageIcon(plantes.getScaledInstance(20, 20,
-         * java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
-         * 
-         * JLabel planteLabel = new JLabel();
-         * planteLabel.setVisible(true);
-         * planteLabel.setIcon(iconePlante);
-         * 
-         * add(planteLabel, BorderLayout.CENTER, Integer.valueOf(0)); //tout derrière
-         */
+
+
+        afficherBarPlante(this.p.estUneculture(this.y, this.x));
     }
 
-    public void changerImgPlante(String nouveauChemin) {
-        this.cheminImgPlante = nouveauChemin;
+
+    public int ew(double pourcent){
+        //return (int)Math.floor(getSize().width * pourcent /100);
+        return (int)Math.floor(100 * pourcent /100);
+    }
+
+    public int eh(double pourcent){
+        //return (int)Math.floor(getSize().height * pourcent /100);
+        return (int)Math.floor(100 * pourcent /100);
+    }
+
+    public void changerImgPlante(int xCoinSupG, int yCoinSupG, int width, int height) {
+        BufferedImage boutTileset = this.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+        this.iconPlante = new ImageIcon(boutTileset.getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
+        this.imgPlante.setIcon(this.iconPlante);
+    }
+
+    public void changerImgFond(int xCoinSupG, int yCoinSupG, int width, int height) {
+        BufferedImage boutTileset = this.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+        this.iconFond = new ImageIcon(boutTileset.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
+        this.imgFond.setIcon(this.iconFond);
     }
 
     public void setBorderSimple() {
@@ -113,17 +126,19 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         if (this.p.estUneculture(this.y, this.x)) {
             this.progressBar.setValue(this.p.getDeveloppement(this.y, this.x));
         }
-        afficherBar(this.p.estUneculture(this.y, this.x));
+        afficherBarPlante(this.p.estUneculture(this.y, this.x));
     }
 
-    public void afficherBar(boolean bool) {
-        this.afficherBar = bool;
+    public void afficherBarPlante(boolean bool) {
+        this.afficherBarPlante = bool;
         this.progressBar.setVisible(bool);
+        this.imgPlante.setVisible(bool);
     }
 
-    public void afficherBar() {
-        afficherBar(true);
+    public void afficherBarPlante() {
+        afficherBarPlante(true);
     }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
