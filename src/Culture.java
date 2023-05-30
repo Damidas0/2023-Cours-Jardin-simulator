@@ -40,7 +40,7 @@ public class Culture extends Case {
 
     @Override
     public void afficher(){
-        System.out.println("-------------------");
+        System.out.println("---------JPanel----------");
         System.out.println("AFFICHAGE DE CULTURE");
         System.out.print("condition environemental :");
         this.conditionCase.afficher();

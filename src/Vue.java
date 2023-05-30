@@ -53,6 +53,7 @@ public class Vue extends JFrame implements Observer{
         jm.add(m);
         setJMenuBar(jm);
 
+        
         JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
         //getVerifyInputWhenFocusTarget();

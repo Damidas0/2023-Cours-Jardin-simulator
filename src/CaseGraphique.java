@@ -17,7 +17,7 @@ public class CaseGraphique extends JPanel implements MouseListener {
     private int y;
 
     private Potager p; //pointeur sur le potager
-    private Vue v;// vue ref
+    private Vue v;// pointeur sur ka vue ref
 
     private JProgressBar progressBar;
     private boolean afficherBar;
@@ -104,8 +104,9 @@ public class CaseGraphique extends JPanel implements MouseListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         setBorderOver();
+
         InfoPannel infoP = new InfoPannel();
-        
+        infoP.setSize(200, 200);
         infoP.setBounds(0,0,50,50); 
         infoP.setBackground(Color.black);
         infoP.setVisible(true);
