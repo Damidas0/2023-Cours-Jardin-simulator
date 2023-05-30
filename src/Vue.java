@@ -11,7 +11,10 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 
+
+
 public class Vue extends JFrame implements Observer{
+    final String CHEMIN_IMG = "img/";
 
     public Potager p;
     public CaseGraphique[][] tabG;
