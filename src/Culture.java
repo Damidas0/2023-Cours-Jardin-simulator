@@ -20,6 +20,10 @@ public class Culture extends Case {
         this.conditionCase = new ConditionEnvironementale(conditionCase);
     }
 
+    public int recolter(){
+        return this.plante.recolter();
+    }
+
     /***
      * Revoie un entier symbolisant le type de la case :
      * [0 : case cide, 1 : culture, ]

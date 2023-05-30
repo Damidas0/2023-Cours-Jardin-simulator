@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Observable;
 
 public class Potager extends Observable implements Runnable {
@@ -7,6 +8,10 @@ public class Potager extends Observable implements Runnable {
     private int vitesse;
 
     private Case cases[][];
+
+    private int idPlanteSelectionner;
+
+    private HashMap<Integer, Integer> stock;
 
     private ConditionEnvironementale conditionGlobale;
 
@@ -22,6 +27,67 @@ public class Potager extends Observable implements Runnable {
             }
         }
 
+        this.stock = new HashMap<>();
+        idPlanteSelectionner = -1;
+    }
+
+
+    public void selectionnerPlante(int idPlante){
+        if (this.stock.get(idPlante) != null){
+            this.idPlanteSelectionner = idPlante;
+        }
+    }
+
+    public void ajouterPlanteStock(Plante plante, int quantite){
+        ajouterPlanteStock(plante.getId(), quantite);
+    }
+
+    public void ajouterPlanteStock(int idPlante, int quantite){
+        if(quantite > 0){
+            if(this.stock.get(idPlante) != null){
+                this.stock.put(idPlante, this.stock.get(idPlante) + quantite);
+            }else{
+                this.stock.put(idPlante, quantite);
+            }
+        }else {
+            System.out.println("On ne peut pas ajouter un nombre < 0 de plante");
+        }
+    }
+
+    public void enleverPlante(int idPlante, int quantite){
+        if(this.stock.get(idPlante) != null){
+            if(this.stock.get(idPlante) - quantite >= 0){
+                this.stock.put(idPlante, this.stock.get(idPlante) - quantite);
+            } else {
+                System.out.println("Pas assez de plante "+ idPlante+ "vous en avez "+this.stock.get(idPlante)+ "et vous voulez en enlenver "+ quantite);
+            }
+        }else{
+            System.out.println("Vous n'avez pas la plante "+idPlante+" en stock");
+        }
+    }
+
+
+    public void planterSelection(int yCase, int xCase) {
+
+        //TODO mettre la bonne plante ...
+        //comment on fait pour le stock de plante
+        //un classe mere de palnte avec - de chose genre graine
+        Plante pla = new Plante();
+
+        planterStock(pla, yCase, xCase);
+    }
+
+    public void planterStock(Plante plante, int yCase, int xCase) {
+        if (this.stock.get(plante.getId()) != null){
+            if (this.stock.get(plante.getId()) > 0){
+                planter(plante, yCase, xCase);
+                enleverPlante(plante.getId(), 1);
+            }else {
+                System.out.println("Vous n'avez plus la plante "+plante.getId()+" en stock");
+            }
+        }else {
+            System.out.println("Vous n'avez pas la plante "+plante.getId()+" en stock");
+        }
     }
 
     public void planter(Plante plante, int yCase, int xCase) {
@@ -36,7 +102,11 @@ public class Potager extends Observable implements Runnable {
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             if (this.cases[yCase][xCase] instanceof Culture) {
                 if(getDeveloppement(yCase,xCase) == 100){
-                    //TODO gagner des trucs
+                    Culture tmp = (Culture)this.cases[yCase][xCase];
+
+                    // on met à jour le stock
+                    ajouterPlanteStock(tmp.getIdPlante(), tmp.recolter());
+
                     this.cases[yCase][xCase] = new Case();
                 }
             }
@@ -74,6 +144,13 @@ public class Potager extends Observable implements Runnable {
         System.out.println("HAUTEUR: " + HAUTEUR);
         System.out.println("LARGEUR: " + LARGEUR);
         System.out.println("vitesse: " + this.vitesse);
+
+        System.out.println("idPlanteSelectionner: " + this.idPlanteSelectionner);
+        System.out.println("Stock: ");
+        for (Integer key : this.stock.keySet()) {
+            System.out.println("    - id: "+key+", quantité: "+this.stock.get(key));
+        }
+
         System.out.println("condition globale: " + this.conditionGlobale);
         System.out.println("-------------------");
     }
