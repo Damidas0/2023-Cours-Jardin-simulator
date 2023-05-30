@@ -20,6 +20,8 @@ public class Culture extends Case {
         this.conditionCase = new ConditionEnvironementale(conditionCase);
     }
 
+    
+
     /***
      * Revoie un entier symbolisant le type de la case :
      * [0 : case cide, 1 : culture, ]
@@ -54,5 +56,26 @@ public class Culture extends Case {
         //this.plante.afficher();
         this.plante.developper(this.conditionCase, 10);
         
+    }
+
+
+    public String getNomPlante() {
+
+        return this.plante.getNom();
+    }
+
+
+    public int getInfoEau() {
+        return this.conditionCase.getHumidite();
+    }
+
+
+    public int getInfoTemp() {
+        return this.conditionCase.getTemperature();
+    }
+
+
+    public int getInfoSoleil() {
+        return this.conditionCase.getEnsoleillement();
     }
 }   

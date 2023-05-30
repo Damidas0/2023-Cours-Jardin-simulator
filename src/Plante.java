@@ -100,6 +100,10 @@ public class Plante {
         return this.id;
     }
 
+    public String getNom() {
+        return this.nom;
+    }
+
     public void afficher(){
         System.out.println("-------------------");
         System.out.println("AFFICHAGE DE PLANTE");
@@ -121,4 +125,6 @@ public class Plante {
         this.ecartCritique.afficher();
         System.out.println("-------------------");
     }
+
+    
 }

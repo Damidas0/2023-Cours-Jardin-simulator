@@ -17,13 +17,16 @@ public class Vue extends JFrame implements Observer{
     public Potager p;
     public CaseGraphique[][] tabG;
 
+    private InfoPannel InfoP;
+
     public Vue(Potager potager) {
         super();
         
         this.p = potager;
         this.tabG = new CaseGraphique[this.p.HAUTEUR][this.p.LARGEUR];
+        this.InfoP = new InfoPannel();
 
-        build();
+        buildBis();
         
         addWindowListener(new WindowAdapter() {
             @Override
@@ -40,11 +43,12 @@ public class Vue extends JFrame implements Observer{
         
         JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
 
-        Border blackline = BorderFactory.createLineBorder(Color.black,1);
+        //Border blackline = BorderFactory.createLineBorder(Color.black,1);
 
         for(int i = 0; i<this.p.HAUTEUR;i++){
             for(int j = 0; j<this.p.LARGEUR;j++){
                 CaseGraphique ptest = new CaseGraphique(i,j,p,this);
+                //tabG[i][j].setSize(80,80);
                 tabG[i][j] = ptest;
                 pan.add(ptest);
             }
@@ -55,7 +59,11 @@ public class Vue extends JFrame implements Observer{
 
     public void buildBis(){
         // paramétrage de la fenetre
-        this.setLayout(new GridBagLayout());
+        //this.setLayout(new GridBagLayout());
+        
+        JPanel jp = new JPanel(new GridBagLayout());
+        setContentPane(jp);
+
         this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         this.setTitle("Le poti potager");
         this.setSize(1000, 1000);
@@ -84,21 +92,22 @@ public class Vue extends JFrame implements Observer{
         c.gridwidth = 1;
         c.gridheight=3;
         c.weightx = 0.6;
+        c.weighty = 1;
 
         c.anchor = GridBagConstraints.CENTER;
 
         c.fill = GridBagConstraints.BOTH;
-        this.add(buildPotager(), c);
+        jp.add(buildPotager(), c);
 
         //SubMenu
-        c.gridx = 0;
-        c.gridy = 1;
+        c.gridx = 1;
+        c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight=1;
-        c.weightx = 0.2;
+        c.weightx = 0.3;
 
-        c.fill = GridBagConstraints.NONE;
-        this.add(buildSubMenu(), c);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        jp.add(buildSubMenu(), c);
 
         //menu
         c.gridx = 1;
@@ -108,17 +117,17 @@ public class Vue extends JFrame implements Observer{
         c.weightx = 0.2;
 
         //c.fill = GridBagConstraints.BOTH;
-        this.add(buildMenu(), c);
+        jp.add(buildMenu(), c);
 
         //infoPannel
-        c.gridx = 2;
-        c.gridy = 1;
+        c.gridx = 1;
+        c.gridy = 2;
         c.gridwidth = 1;
         c.gridheight=1;
         c.weightx = 0.2;
 
         //c.fill = GridBagConstraints.BOTH;
-        this.add(buildInfoPannel(), c);
+        jp.add(this.InfoP, c);
 
         this.pack();
         this.setVisible(true);
@@ -136,7 +145,7 @@ public class Vue extends JFrame implements Observer{
     
     private Component buildInfoPannel() {
         //TODO:replacecode
-        return new InfoPannel();
+        return this.InfoP;
     }
 
     public void build() {
@@ -203,6 +212,19 @@ public class Vue extends JFrame implements Observer{
                 }
             }
         }
+    }
+
+    public void majInfoPanel(int y, int x) {
+        this.InfoP.majInfoPanel(this.p.getNomPlante(y,x), 
+                                this.p.getInfoEau(y,x),
+                                this.p.getInfoSoleil(y,x),
+                                this.p.getInfoTemp(y,x));
+        
+    }
+
+    public void resetInfoPannel() {
+        this.InfoP.majInfoPanel("Debug", -21, -1, -1);
+        //TODO:lier cette fonction aux params de la météo
     }
 
 
