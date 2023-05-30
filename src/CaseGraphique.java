@@ -21,16 +21,13 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     private int x;
     private int y;
 
-<<<<<<< HEAD
     private Potager p; //pointeur sur le potager
     private Vue v;// pointeur sur ka vue ref
 
-=======
     private ImageIcon imgFond;
     private String cheminImgFond;
     private ImageIcon imgPlante;
     private String cheminImgPlante;
->>>>>>> e2d3e56d9f155332f93fb51e92aa87edafe91eb0
     private JProgressBar progressBar;
     private boolean afficherBar;
 

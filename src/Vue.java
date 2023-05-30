@@ -1,12 +1,10 @@
 
-import java.awt.Color;
-import java.awt.GridLayout;
-
 import java.awt.event.*;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.*;
+import java.awt.*;
 
 import javax.swing.border.Border;
 
@@ -37,7 +35,110 @@ public class Vue extends JFrame implements Observer{
         
         
     }
+
+    private JComponent buildPotager(){
+        
+        JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
+
+        Border blackline = BorderFactory.createLineBorder(Color.black,1);
+
+        for(int i = 0; i<this.p.HAUTEUR;i++){
+            for(int j = 0; j<this.p.LARGEUR;j++){
+                CaseGraphique ptest = new CaseGraphique(i,j,p,this);
+                tabG[i][j] = ptest;
+                pan.add(ptest);
+            }
+        }
+        return pan;
+    }
+
+
+    public void buildBis(){
+        // paramétrage de la fenetre
+        this.setLayout(new GridBagLayout());
+        this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        this.setTitle("Le poti potager");
+        this.setSize(1000, 1000);
+
+        // changer l'icon de la fenetre
+        ImageIcon image = new ImageIcon("img/logo.png");
+        this.setIconImage(image.getImage()); //change l'icon de la frame
+
+        //Menus
+        JMenuBar jm = new JMenuBar();
+        JMenu m = new JMenu("Jeu");
+        JMenuItem mi = new JMenuItem("Partie");
+
+        m.add(mi);
+        jm.add(m);
+        this.setJMenuBar(jm);
+
+        //===GridbagLayout===
+        GridBagConstraints c = new GridBagConstraints();
+
+
+        //Potager
+        //Gestion potager
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        c.gridheight=3;
+        c.weightx = 0.6;
+
+        c.anchor = GridBagConstraints.CENTER;
+
+        c.fill = GridBagConstraints.BOTH;
+        this.add(buildPotager(), c);
+
+        //SubMenu
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        c.gridheight=1;
+        c.weightx = 0.2;
+
+        c.fill = GridBagConstraints.NONE;
+        this.add(buildSubMenu(), c);
+
+        //menu
+        c.gridx = 1;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        c.gridheight=1;
+        c.weightx = 0.2;
+
+        //c.fill = GridBagConstraints.BOTH;
+        this.add(buildMenu(), c);
+
+        //infoPannel
+        c.gridx = 2;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        c.gridheight=1;
+        c.weightx = 0.2;
+
+        //c.fill = GridBagConstraints.BOTH;
+        this.add(buildInfoPannel(), c);
+
+        this.pack();
+        this.setVisible(true);
+    }
+
+    private Component buildSubMenu() {
+        //TODO:replacecode
+        return new InfoPannel();
+    }
+
+    private Component buildMenu() {
+        //TODO:replacecode
+        return new InfoPannel();
+    }
     
+    private Component buildInfoPannel() {
+        //TODO:replacecode
+        return new InfoPannel();
+    }
+
     public void build() {
         // paramétrage de la fenetre
         this.setTitle("Le poti potager");
@@ -57,7 +158,7 @@ public class Vue extends JFrame implements Observer{
         setJMenuBar(jm);
 
         
-        JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
+        /*JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
         //getVerifyInputWhenFocusTarget();
 
@@ -74,8 +175,8 @@ public class Vue extends JFrame implements Observer{
         
             }
         }
-        pan.setBorder(blackline);
-        add(pan);
+        pan.setBorder(blackline);*/
+        add(buildPotager());
         //setContentPane(pan);
     }
 
