@@ -56,13 +56,14 @@ public class Vue extends JFrame implements Observer{
         jm.add(m);
         setJMenuBar(jm);
 
+        
         JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
-
+        //getVerifyInputWhenFocusTarget();
 
         for(int i = 0; i<this.p.HAUTEUR;i++){
             for(int j = 0; j<this.p.LARGEUR;j++){
-                CaseGraphique ptest = new CaseGraphique(i,j,p);
+                CaseGraphique ptest = new CaseGraphique(i,j,p,this);
                 tabG[i][j] = ptest;
                 pan.add(ptest);
 

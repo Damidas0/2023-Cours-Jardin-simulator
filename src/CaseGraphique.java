@@ -21,26 +21,32 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     private int x;
     private int y;
 
+<<<<<<< HEAD
+    private Potager p; //pointeur sur le potager
+    private Vue v;// pointeur sur ka vue ref
+
+=======
     private ImageIcon imgFond;
     private String cheminImgFond;
     private ImageIcon imgPlante;
     private String cheminImgPlante;
+>>>>>>> e2d3e56d9f155332f93fb51e92aa87edafe91eb0
     private JProgressBar progressBar;
     private boolean afficherBar;
 
-    private Potager p; // pointeur sur le potager
 
     /*public CaseGraphique() {
         this(0,0,);
     }*/
 
-    public CaseGraphique(int y, int x, Potager p) {
+    public CaseGraphique(int y, int x, Potager p, Vue v){
         super();
         addMouseListener(this);
 
         this.x = x;
         this.y = y;
         this.p = p;
+        this.v = v;
 
         // couleur de fond
         setBackground(Color.BLUE);
@@ -136,6 +142,18 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         setBorderOver();
+
+        InfoPannel infoP = new InfoPannel();
+        infoP.setSize(200, 200);
+        infoP.setBounds(0,0,50,50); 
+        infoP.setBackground(Color.black);
+        infoP.setVisible(true);
+        v.add(infoP);
+        
+        System.out.println(e.getX() + " / " + e.getY());
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+        
     }
 
     @Override
