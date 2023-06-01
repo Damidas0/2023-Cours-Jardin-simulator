@@ -93,12 +93,12 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
 
     public int ew(double pourcent){
         //return (int)Math.floor(getSize().width * pourcent /100);
-        return (int)Math.floor(100 * pourcent /100);
+        return (int)Math.floor(60 * pourcent /100);
     }
 
     public int eh(double pourcent){
         //return (int)Math.floor(getSize().height * pourcent /100);
-        return (int)Math.floor(100 * pourcent /100);
+        return (int)Math.floor(60 * pourcent /100);
     }
 
     public void changerImgPlante(int xCoinSupG, int yCoinSupG, int width, int height) {
@@ -149,32 +149,26 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
             // TODO:récupérer le fruit du labeur de laterre (mettre dans un inventaire?)
             this.p.recolter(y, x);
         }
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method
-        // 'mouseClicked'");
+        
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         setBorderOver();
 
-        InfoPannel infoP = new InfoPannel();
-        infoP.setSize(200, 200);
-        infoP.setBounds(0, 0, 50, 50);
-        infoP.setBackground(Color.black);
-        infoP.setVisible(true);
-        v.add(infoP);
+        if(this.p.estUneculture(y, x)){
+            this.v.majInfoPanel(y,x);
+        }
 
-        System.out.println(e.getX() + " / " + e.getY());
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method
-        // 'mouseEntered'");
+        //System.out.println(e.getX() + " / " + e.getY());
+       
 
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         setBorderSimple();
+        this.v.resetInfoPannel();
     }
 
     @Override

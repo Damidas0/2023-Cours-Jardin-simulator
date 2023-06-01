@@ -106,6 +106,10 @@ public class Plante extends Graine{
         return this.id;
     }
 
+    public String getNom() {
+        return this.nom;
+    }
+
     public void afficher(){
         System.out.println("-------------------");
         System.out.println("AFFICHAGE DE PLANTE");
@@ -128,4 +132,6 @@ public class Plante extends Graine{
         this.ecartCritique.afficher();
         System.out.println("-------------------");
     }
+
+    
 }

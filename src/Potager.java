@@ -165,4 +165,44 @@ public class Potager extends Observable implements Runnable {
         //System.out.println("Je suis dans le run de potager");
 
     }
+
+    public String getNomPlante(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (estUneculture(yCase, xCase)) {
+                Culture tmp = (Culture)this.cases[yCase][xCase]; 
+                return (tmp.getNomPlante());
+            }
+        }
+        return "-1";
+    }
+
+    public int getInfoEau(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (estUneculture(yCase, xCase)) {
+                Culture tmp = (Culture)this.cases[yCase][xCase]; 
+                return (tmp.getInfoEau());
+            }
+        }
+        return -1;
+    }
+
+    public int getInfoTemp(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (estUneculture(yCase, xCase)) {
+                Culture tmp = (Culture)this.cases[yCase][xCase]; 
+                return (tmp.getInfoTemp());
+            }
+        }
+        return -1;
+    }
+
+    public int getInfoSoleil(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (estUneculture(yCase, xCase)) {
+                Culture tmp = (Culture)this.cases[yCase][xCase]; 
+                return (tmp.getInfoSoleil());
+            }
+        }
+        return -1;
+    }
 }

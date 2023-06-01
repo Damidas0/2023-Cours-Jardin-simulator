@@ -59,4 +59,25 @@ public class Culture extends Case {
         this.plante.developper(this.conditionCase, 10);
         
     }
+
+
+    public String getNomPlante() {
+
+        return this.plante.getNom();
+    }
+
+
+    public int getInfoEau() {
+        return this.conditionCase.getHumidite();
+    }
+
+
+    public int getInfoTemp() {
+        return this.conditionCase.getTemperature();
+    }
+
+
+    public int getInfoSoleil() {
+        return this.conditionCase.getEnsoleillement();
+    }
 }   
