@@ -1,3 +1,4 @@
+import java.util.concurrent.ThreadLocalRandom;
 public class Plante {
     protected String nom;
     protected int id;
@@ -6,6 +7,9 @@ public class Plante {
     protected boolean estVivante;
 
     protected float modificateurVitesse;
+
+    protected int rendementMin;
+    protected int rendementMax;
 
     protected ConditionEnvironementale conditionOptimale;
     protected ConditionEnvironementale ecartTolerable;
@@ -32,6 +36,9 @@ public class Plante {
 
         this.estVivante = true;
         this.modificateurVitesse = 1;
+
+        this.rendementMin = 1;
+        this.rendementMax = 3;
     }
 
     public Plante(Plante plante){
@@ -48,6 +55,8 @@ public class Plante {
 
         this.estVivante = plante.estVivante;
         this.modificateurVitesse = plante.modificateurVitesse;
+        this.rendementMin = plante.rendementMin;
+        this.rendementMax = plante.rendementMax;
     }
 
     public Plante(String nom, int id, int ensoleillementOpti, int humiditeOpti, int temperatureOpti, int ecartTolerable){
@@ -64,6 +73,9 @@ public class Plante {
 
         this.estVivante = true;
         this.modificateurVitesse = 1;
+
+        this.rendementMin = 1;
+        this.rendementMax = 3;
     }
 
 
@@ -71,6 +83,10 @@ public class Plante {
         this.estVivante = false;
     }
 
+    public int recolter(){
+        mourir();
+        return ThreadLocalRandom.current().nextInt(this.rendementMin,this.rendementMax + 1);
+    }
 
     public void developper(ConditionEnvironementale conditionCase, int vitesse){
         if (this.conditionOptimale.compareCE(conditionCase, this.ecartTolerable) == 0){
@@ -114,7 +130,8 @@ public class Plante {
         if (this.estVivante){ System.out.println("estVivante: TRUE");}
         else {System.out.println("estVivante: FALSE");}
         System.out.println("modificateurVitesse: "+this.modificateurVitesse);
-        System.out.println("nom: "+this.nom);
+        System.out.println("rendementMin: "+this.rendementMin);
+        System.out.println("rendementMax: "+this.rendementMax);
 
 
         System.out.print("condition optimal :");
