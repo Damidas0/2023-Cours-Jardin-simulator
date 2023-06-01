@@ -5,11 +5,18 @@ public class Potager extends Observable implements Runnable {
     final int HAUTEUR = 10;
     final int LARGEUR = 10;
 
+    final private Graine[] LISTE_GRAINE = {
+            new Graine("ail", 0, 75, 25, 50, 25, 15, 1, 1,5),
+            new Graine("salade", 1, 65, 50, 50, 15, 10, 1, 2,4),
+            new Graine("carotte", 2, 50, 50, 50, 25, 15, 1, 2,3),
+            new Graine("patate", 3, 65, 65, 45, 35, 15, 1, 2,3),
+    };
+
     private int vitesse;
 
     private Case cases[][];
 
-    private int idPlanteSelectionner;
+    private int idGraineSelectionner;
 
     private HashMap<Integer, Integer> stock;
 
@@ -28,13 +35,13 @@ public class Potager extends Observable implements Runnable {
         }
 
         this.stock = new HashMap<>();
-        idPlanteSelectionner = -1;
+        idGraineSelectionner = -1;
     }
 
 
-    public void selectionnerPlante(int idPlante){
-        if (this.stock.get(idPlante) != null){
-            this.idPlanteSelectionner = idPlante;
+    public void selectionnerPlante(int idGraine){
+        if (this.stock.get(idGraine) != null){
+            this.idGraineSelectionner = idGraine;
         }
     }
 
@@ -42,39 +49,37 @@ public class Potager extends Observable implements Runnable {
         ajouterPlanteStock(plante.getId(), quantite);
     }
 
-    public void ajouterPlanteStock(int idPlante, int quantite){
+    public void ajouterPlanteStock(int idGraine, int quantite){
         if(quantite > 0){
-            if(this.stock.get(idPlante) != null){
-                this.stock.put(idPlante, this.stock.get(idPlante) + quantite);
+            if(this.stock.get(idGraine) != null){
+                this.stock.put(idGraine, this.stock.get(idGraine) + quantite);
             }else{
-                this.stock.put(idPlante, quantite);
+                this.stock.put(idGraine, quantite);
             }
         }else {
             System.out.println("On ne peut pas ajouter un nombre < 0 de plante");
         }
     }
 
-    public void enleverPlante(int idPlante, int quantite){
-        if(this.stock.get(idPlante) != null){
-            if(this.stock.get(idPlante) - quantite >= 0){
-                this.stock.put(idPlante, this.stock.get(idPlante) - quantite);
+    public void enleverPlante(int idGraine, int quantite){
+        if(this.stock.get(idGraine) != null){
+            if(this.stock.get(idGraine) - quantite >= 0){
+                this.stock.put(idGraine, this.stock.get(idGraine) - quantite);
             } else {
-                System.out.println("Pas assez de plante "+ idPlante+ "vous en avez "+this.stock.get(idPlante)+ "et vous voulez en enlenver "+ quantite);
+                System.out.println("Pas assez de plante "+ idGraine+ "vous en avez "+this.stock.get(idGraine)+ "et vous voulez en enlenver "+ quantite);
             }
         }else{
-            System.out.println("Vous n'avez pas la plante "+idPlante+" en stock");
+            System.out.println("Vous n'avez pas la plante "+idGraine+" en stock");
         }
     }
 
 
     public void planterSelection(int yCase, int xCase) {
-
-        //TODO mettre la bonne plante ...
-        //comment on fait pour le stock de plante
-        //un classe mere de palnte avec - de chose genre graine
-        Plante pla = new Plante();
-
-        planterStock(pla, yCase, xCase);
+        if(this.idGraineSelectionner != -1) {
+            planterStock(new Plante(this.LISTE_GRAINE[this.idGraineSelectionner]), yCase, xCase);
+        }else{
+            System.out.println("Aucune graine n'est séléctionnée.");
+        }
     }
 
     public void planterStock(Plante plante, int yCase, int xCase) {
@@ -145,7 +150,7 @@ public class Potager extends Observable implements Runnable {
         System.out.println("LARGEUR: " + LARGEUR);
         System.out.println("vitesse: " + this.vitesse);
 
-        System.out.println("idPlanteSelectionner: " + this.idPlanteSelectionner);
+        System.out.println("idGraineSelectionner: " + this.idGraineSelectionner);
         System.out.println("Stock: ");
         for (Integer key : this.stock.keySet()) {
             System.out.println("    - id: "+key+", quantité: "+this.stock.get(key));
