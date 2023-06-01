@@ -64,6 +64,10 @@ public class Vue extends JFrame implements Observer{
     public void buildBis(){
         // paramétrage de la fenetre
         //this.setLayout(new GridBagLayout());
+
+        //on ajoute et séléctionne une graine de base
+        this.p.ajouterGraineStock(0,10);
+        this.p.selectionnerGraine(0);
         
         JPanel jp = new JPanel(new GridBagLayout());
         setContentPane(jp);
@@ -205,6 +209,9 @@ public class Vue extends JFrame implements Observer{
     @Override
     public void update(Observable o, Object arg) {
         //System.out.println("JE MUPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+
+        this.p.afficherStock();
+
         for(int i=0; i<this.p.HAUTEUR; i++) {
             for(int j=0; j<this.p.LARGEUR; j++) {
                 tabG[i][j].updateBar();

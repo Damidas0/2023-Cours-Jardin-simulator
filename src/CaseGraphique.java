@@ -144,7 +144,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         // System.out.println("CA CLICCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCc");
         if (!p.estUneculture(y, x)) {
-            this.p.planter(new Plante(), y, x);
+            this.p.planterSelection(y, x);
         } else if (p.estPoussee(y, x)) {
             // TODO:récupérer le fruit du labeur de laterre (mettre dans un inventaire?)
             this.p.recolter(y, x);

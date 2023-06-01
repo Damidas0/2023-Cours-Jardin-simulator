@@ -47,6 +47,14 @@ public class Graine {
         this.rendementMax = rendementMax;
     }
 
+    public int getId(){
+        return this.id;
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
     public void afficher(){
         System.out.println("-------------------");
         System.out.println("AFFICHAGE DE GRAINE");

@@ -102,13 +102,6 @@ public class Plante extends Graine{
         return this.developpement;
     }
 
-    public int getId(){
-        return this.id;
-    }
-
-    public String getNom() {
-        return this.nom;
-    }
 
     public void afficher(){
         System.out.println("-------------------");
