@@ -16,7 +16,7 @@ import javax.swing.border.Border;
 
 
 
-public class Vue extends JFrame implements Observer{
+public class Vue extends JFrame implements Observer, ComponentListener{
     final String CHEMIN_IMG = "img/";
 
     public Potager p;
@@ -27,6 +27,8 @@ public class Vue extends JFrame implements Observer{
 
     public Vue(Potager potager) {
         super();
+        addComponentListener(this);
+
         this.p = potager;
         this.tabG = new CaseGraphique[this.p.HAUTEUR][this.p.LARGEUR];
         this.InfoP = new InfoPannel();
@@ -65,6 +67,10 @@ public class Vue extends JFrame implements Observer{
     public void buildBis(){
         // paramétrage de la fenetre
         //this.setLayout(new GridBagLayout());
+
+        //on ajoute et séléctionne une graine de base
+        this.p.ajouterGraineStock(0,10);
+        this.p.selectionnerGraine(0);
         
         JPanel jp = new JPanel(new GridBagLayout());
         setContentPane(jp);
@@ -202,6 +208,7 @@ public class Vue extends JFrame implements Observer{
     @Override
     public void update(Observable o, Object arg) {
         //System.out.println("JE MUPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+
         for(int i=0; i<this.p.HAUTEUR; i++) {
             for(int j=0; j<this.p.LARGEUR; j++) {
                 tabG[i][j].updateBar();
@@ -232,5 +239,27 @@ public class Vue extends JFrame implements Observer{
     }
 
 
-    
+    @Override
+    public void componentResized(ComponentEvent e) {
+        for(int i=0; i<this.p.HAUTEUR; i++) {
+            for (int j = 0; j < this.p.LARGEUR; j++) {
+                //this.tabG[i][j].rechargerImg();
+            }
+        }
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
+    }
 }

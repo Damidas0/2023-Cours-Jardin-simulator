@@ -1,44 +1,34 @@
 import java.util.concurrent.ThreadLocalRandom;
-public class Plante {
-    protected String nom;
-    protected int id;
+public class Plante extends Graine{
     protected int developpement;
-
     protected boolean estVivante;
-
-    protected float modificateurVitesse;
-
-    protected int rendementMin;
-    protected int rendementMax;
-
-    protected ConditionEnvironementale conditionOptimale;
-    protected ConditionEnvironementale ecartTolerable;
-    protected ConditionEnvironementale ecartCritique;
-
     protected int nbJoursSurvie;
-    protected int nbJoursSurvieMax;
 
     public Plante(){
         this("Default", -1);
     }
 
     public Plante(String nom, int id){
-        this.nom = nom;
-        this.id = id;
-        this.developpement = 0;
+        this("debug", -1, 0,0,0,25,10,1,1,1);
+    }
 
-        this.conditionOptimale = new ConditionEnvironementale();
-        this.ecartTolerable = new ConditionEnvironementale(5,5,5);
-        this.ecartCritique = new ConditionEnvironementale(10,10,10);
+    public Plante(Graine Graine){
+        this.nom = Graine.nom;
+        this.id = Graine.id;
 
-        this.nbJoursSurvie = 0;
-        this.nbJoursSurvieMax = 5;
+        this.conditionOptimale = new ConditionEnvironementale(Graine.conditionOptimale);
+        this.ecartTolerable = new ConditionEnvironementale(Graine.ecartTolerable);
+        this.ecartCritique = new ConditionEnvironementale(Graine.ecartCritique);
+
+        this.nbJoursSurvieMax = Graine.nbJoursSurvieMax;
+
+        this.modificateurVitesse = Graine.modificateurVitesse;
+        this.rendementMin = Graine.rendementMin;
+        this.rendementMax = Graine.rendementMax;
 
         this.estVivante = true;
-        this.modificateurVitesse = 1;
-
-        this.rendementMin = 1;
-        this.rendementMax = 3;
+        this.nbJoursSurvie = 0;
+        this.developpement = 0;
     }
 
     public Plante(Plante plante){
@@ -59,7 +49,7 @@ public class Plante {
         this.rendementMax = plante.rendementMax;
     }
 
-    public Plante(String nom, int id, int ensoleillementOpti, int humiditeOpti, int temperatureOpti, int ecartTolerable){
+    public Plante(String nom, int id, int ensoleillementOpti, int humiditeOpti, int temperatureOpti, int ecartTolerable, int nbJoursSurvieMax, int modificateurVitesse, int rendementMin, int rendementMax){
         this.nom = nom;
         this.id = id;
         this.developpement = 0;
@@ -69,13 +59,13 @@ public class Plante {
         this.ecartCritique = new ConditionEnvironementale(2*ecartTolerable,2*ecartTolerable,2*ecartTolerable);
 
         this.nbJoursSurvie = 0;
-        this.nbJoursSurvieMax = 5;
+        this.nbJoursSurvieMax = nbJoursSurvieMax;
 
         this.estVivante = true;
-        this.modificateurVitesse = 1;
+        this.modificateurVitesse = modificateurVitesse;
 
-        this.rendementMin = 1;
-        this.rendementMax = 3;
+        this.rendementMin = rendementMin;
+        this.rendementMax = rendementMax;
     }
 
 
@@ -112,13 +102,6 @@ public class Plante {
         return this.developpement;
     }
 
-    public int getId(){
-        return this.id;
-    }
-
-    public String getNom() {
-        return this.nom;
-    }
 
     public void afficher(){
         System.out.println("-------------------");
