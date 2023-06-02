@@ -1,15 +1,16 @@
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Label;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class InfoPannel extends JPanel{
-    private JLabel nomPlante;
-    private JLabel infoEau;
-    private JLabel infoSoleil;
-    private JLabel infoTemperature;
+    private Label nomPlante;
+    public Label infoEau;
+    private Label infoSoleil;
+    private Label infoTemperature;
 
 
 
@@ -24,17 +25,17 @@ public class InfoPannel extends JPanel{
 
     public InfoPannel(String nomPlante, String infoEau, String infoSoleil, String infoTemperature){
         this.setLayout(new GridLayout(1, 4));
-        this.nomPlante = new JLabel(nomPlante);
-        this.infoEau = new JLabel(infoEau);
-        this.infoSoleil = new JLabel(infoSoleil);
-        this.infoTemperature = new JLabel(infoTemperature);
+        this.nomPlante = new Label(nomPlante);
+        this.infoEau = new Label(infoEau);
+        this.infoSoleil = new Label(infoSoleil);
+        this.infoTemperature = new Label(infoTemperature);
 
-        this.add(new JLabel(nomPlante));
-        this.add(new JLabel(infoEau)); 
-        this.add(new JLabel(infoSoleil)); 
-        this.add(new JLabel(infoTemperature));
+        this.add(new Label(nomPlante));
+        this.add(new Label(infoEau)); 
+        this.add(new Label(infoSoleil)); 
+        this.add(new Label(infoTemperature));
 
-        this.setBackground(Color.black);
+        this.setBackground(Color.red);
         this.setVisible(true);
     }
 
@@ -55,6 +56,6 @@ public class InfoPannel extends JPanel{
         this.infoSoleil.setText(String.valueOf(infoSoleil));
         this.infoTemperature.setText(String.valueOf(infoTemp));
         System.out.println(this.nomPlante.getText());
-        //this.repaint();
+        this.repaint();
     }
 }

@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
+import javax.sound.midi.MidiDevice.Info;
 import javax.swing.*;
 import java.awt.*;
 
@@ -149,10 +150,6 @@ public class Vue extends JFrame implements Observer{
         return new InfoPannel();
     }
     
-    private Component buildInfoPannel() {
-        //TODO:replacecode
-        return this.InfoP;
-    }
 
     public void build() {
         // paramétrage de la fenetre
@@ -208,6 +205,8 @@ public class Vue extends JFrame implements Observer{
         for(int i=0; i<this.p.HAUTEUR; i++) {
             for(int j=0; j<this.p.LARGEUR; j++) {
                 tabG[i][j].updateBar();
+                InfoP.setToolTipText(String.valueOf(i));
+                //System.out.println(InfoP.infoEau.getText());
                 if(p.estUneculture(i,j)) {
 
                 }
@@ -216,6 +215,7 @@ public class Vue extends JFrame implements Observer{
                 }
             }
         }
+        
     }
 
     public void majInfoPanel(int y, int x) {
