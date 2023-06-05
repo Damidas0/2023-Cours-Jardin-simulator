@@ -18,6 +18,8 @@ import javax.swing.border.Border;
 import static javax.swing.text.StyleConstants.setIcon;
 
 public class CaseGraphique extends JLayeredPane implements MouseListener {
+
+
     private int x;
     private int y;
 
@@ -76,7 +78,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         this.imgPlante = new JLabel();
         this.imgPlante.setBounds(ew(10),eh(10),ew(80),eh(80));
         add(this.imgPlante, Integer.valueOf(1)); //au milieu
-        changerImgPlante(0,0,140,140);
+        changerImgPlante(v.IMAGE_GRAINE[0]);
 
 
         // img du fond
@@ -102,10 +104,20 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         return (int)Math.floor((this.v.getSize().height-30)/10 * pourcent /100);
     }
 
+
+
     public void changerImgPlante(int xCoinSupG, int yCoinSupG, int width, int height) {
         BufferedImage boutTileset = this.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
         this.iconPlante = new ImageIcon(boutTileset.getScaledInstance(ew(80), eh(80), java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
         this.imgPlante.setIcon(this.iconPlante);
+    }
+
+    public void changerImgPlante(CoordImg coordImg) {
+        changerImgPlante(coordImg.xCoinSupG, coordImg.yCoinSupG, coordImg.width, coordImg.height);
+    }
+
+    public void changerImgPlante(int id) {
+        changerImgPlante(v.IMAGE_GRAINE[id]);
     }
 
     public void changerImgSelection(int xCoinSupG, int yCoinSupG, int width, int height) {
@@ -114,11 +126,20 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         this.imgSelection.setIcon(this.iconSelection);
     }
 
+    public void changerImgSelection(CoordImg coordImg) {
+        changerImgSelection(coordImg.xCoinSupG, coordImg.yCoinSupG, coordImg.width, coordImg.height);
+    }
+
     public void changerImgFond(int xCoinSupG, int yCoinSupG, int width, int height) {
         BufferedImage boutTileset = this.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
         this.iconFond = new ImageIcon(boutTileset.getScaledInstance(ew(100), eh(100), java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
         this.imgFond.setIcon(this.iconFond);
     }
+
+    public void changerImgFond(CoordImg coordImg) {
+        changerImgFond(coordImg.xCoinSupG, coordImg.yCoinSupG, coordImg.width, coordImg.height);
+    }
+
 
     public void rechargerImg(){
         changerImgSelection(170,159,159,159);

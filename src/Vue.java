@@ -16,6 +16,13 @@ import javax.swing.border.Border;
 
 
 public class Vue extends JFrame implements Observer, ComponentListener{
+
+    // coordonnée de l'image des graines dans la tileset IMAGE_GRAINE[id_graine]
+    final static public CoordImg[] IMAGE_GRAINE = {
+            new CoordImg(0,0,140,140)
+    };
+
+
     final String CHEMIN_IMG = "img/";
 
     public Potager p;

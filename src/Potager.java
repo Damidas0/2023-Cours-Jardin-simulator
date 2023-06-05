@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Observable;
 
-public class Potager extends Observable implements Runnable {
+public class Potager extends Observable{
     final int HAUTEUR = 10;
     final int LARGEUR = 10;
 
@@ -15,6 +15,8 @@ public class Potager extends Observable implements Runnable {
 
     private int vitesse;
 
+    private SystemeMeteo meteo;
+
     private Case cases[][];
 
     private int idGraineSelectionner;
@@ -24,7 +26,6 @@ public class Potager extends Observable implements Runnable {
     private ConditionEnvironementale conditionGlobale;
 
     public Potager() {
-        Ordonnanceur.getOrdonnanceur().addRunable(this);
         this.conditionGlobale = new ConditionEnvironementale(0, 0, 0);
         this.vitesse = 1;
         this.cases = new Case[HAUTEUR][LARGEUR];
@@ -37,6 +38,8 @@ public class Potager extends Observable implements Runnable {
 
         this.stock = new HashMap<>();
         idGraineSelectionner = -1;
+
+        this.meteo = new SystemeMeteo();
     }
 
 
@@ -161,11 +164,6 @@ public class Potager extends Observable implements Runnable {
         System.out.println("-------------------");
     }
 
-    @Override
-    public void run() {
-        //System.out.println("Je suis dans le run de potager");
-
-    }
 
     public String getNomPlante(int yCase, int xCase) {
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
