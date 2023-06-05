@@ -17,7 +17,7 @@ public class SystemeMeteo implements Runnable{
     private int dureeSaison;
 
     public SystemeMeteo(){
-        Ordonnanceur.getOrdonnanceur().addRunable(this);
+        //Ordonnanceur.getOrdonnanceur().addRunable(this);
         this.saison = new Saison();
 
         this.jourAvProchaineSaison = 0;
@@ -30,8 +30,6 @@ public class SystemeMeteo implements Runnable{
         updateMeteo();
         updateCondition();
         updateSaison();
-
-        afficher();
     }
 
 
@@ -56,6 +54,10 @@ public class SystemeMeteo implements Runnable{
             this.jourAvProchaineSaison = 0;
             this.saisonActuelle = (this.saisonActuelle+1) % 4;
         }
+    }
+
+    public ConditionEnvironementale getCondition() {
+        return conditionActuelle;
     }
 
     @Override
