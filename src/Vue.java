@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
+import javax.sound.midi.MidiDevice.Info;
 import javax.swing.*;
 import java.awt.*;
 
@@ -162,10 +163,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         return new InfoPannel();
     }
     
-    private Component buildInfoPannel() {
-        //TODO:replacecode
-        return this.InfoP;
-    }
 
     public void build() {
         // paramétrage de la fenetre
@@ -222,6 +219,8 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         for(int i=0; i<this.p.HAUTEUR; i++) {
             for(int j=0; j<this.p.LARGEUR; j++) {
                 tabG[i][j].updateBar();
+                InfoP.setToolTipText(String.valueOf(i));
+                //System.out.println(InfoP.infoEau.getText());
                 if(p.estUneculture(i,j)) {
 
                 }
@@ -230,6 +229,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
                 }
             }
         }
+        
     }
 
     public void majInfoPanel(int y, int x) {
@@ -241,7 +241,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     }
 
     public void resetInfoPannel() {
-        this.InfoP.majInfoPanel("Debug", -21, -1, -1);
+        this.InfoP.majInfoPanel("Debug", -1, -1, -1);
         //TODO:lier cette fonction aux params de la météo
     }
 
