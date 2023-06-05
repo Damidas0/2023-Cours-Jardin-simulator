@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class InfoPannel extends JPanel{
+public class InfoPannel extends JPanel implements Runnable{
     private Label nomPlante;
     public Label infoEau;
     private Label infoSoleil;
@@ -37,6 +37,7 @@ public class InfoPannel extends JPanel{
 
         this.setBackground(Color.red);
         this.setVisible(true);
+        Ordonnanceur.getOrdonnanceur();
     }
 
     /*public static void main(String[] args) {
@@ -51,11 +52,17 @@ public class InfoPannel extends JPanel{
     }*/
 
     public void majInfoPanel(String nomPlante, int infoEau, int infoSoleil, int infoTemp) {
-        this.nomPlante.setText(nomPlante);
+        //this.nomPlante.setText(nomPlante);
+        this.nomPlante = new Label(nomPlante);
         this.infoEau.setText(String.valueOf(infoEau));
         this.infoSoleil.setText(String.valueOf(infoSoleil));
         this.infoTemperature.setText(String.valueOf(infoTemp));
         System.out.println(this.nomPlante.getText());
+    }
+
+    @Override
+    public void run() {
+        this.revalidate();
         this.repaint();
     }
 }

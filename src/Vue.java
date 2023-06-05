@@ -222,6 +222,9 @@ public class Vue extends JFrame implements Observer, ComponentListener{
                 }
             }
         }
+
+        this.InfoP.revalidate();
+        this.InfoP.repaint();
         
     }
 
