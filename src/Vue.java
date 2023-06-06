@@ -9,9 +9,11 @@ import javax.sound.midi.MidiDevice.Info;
 import javax.swing.*;
 import java.awt.*;
 
+
 import java.awt.image.BufferedImage;
 
 import javax.swing.border.Border;
+
 
 
 
@@ -30,6 +32,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     public CaseGraphique[][] tabG;
 
     private InfoPannel InfoP;
+    private MenuPanel menuP;
     private BufferedImage tileset;
 
     public Vue(Potager potager) {
@@ -39,6 +42,8 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         this.p = potager;
         this.tabG = new CaseGraphique[this.p.HAUTEUR][this.p.LARGEUR];
         this.InfoP = new InfoPannel();
+        this.menuP = new MenuPanel(this);
+        this.menuP.setBounds(20,20,100,20);
 
         buildBis();
         
@@ -127,7 +132,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         c.weightx = 0.3;
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        jp.add(buildSubMenu(), c);
+        jp.add(menuP, c);
 
         //menu
         c.gridx = 1;
@@ -150,13 +155,10 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         jp.add(this.InfoP, c);
 
         this.pack();
+        
         this.setVisible(true);
     }
 
-    private Component buildSubMenu() {
-        //TODO:replacecode
-        return new InfoPannel();
-    }
 
     private Component buildMenu() {
         //TODO:replacecode
