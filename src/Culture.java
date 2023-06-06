@@ -10,7 +10,7 @@ public class Culture extends Case {
     public Culture(){
         super();
         this.plante = new Plante();
-        this.conditionCase = new ConditionEnvironementale(100,100,100);
+        this.conditionCase = new ConditionEnvironementale(0,0,0);
         //TODO relier la météo au potager
     }
 
@@ -27,6 +27,10 @@ public class Culture extends Case {
 
     public int niveauDeSurvie(){
         return this.plante.niveauDeSurvie();
+    }
+
+    public boolean[] getBesoin() {
+        return this.plante.getBesoin();
     }
 
     /***

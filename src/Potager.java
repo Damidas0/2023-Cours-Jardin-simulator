@@ -6,7 +6,7 @@ public class Potager extends Observable{
     final int LARGEUR = 10;
 
     final private Graine[] LISTE_GRAINE = {
-            new Graine("debug", 0, 0,0,0,0,200,1,1,3),
+            new Graine("debug", 0, 0,0,0,5,200,1,1,3),
             new Graine("salade", 1, 65, 50, 50, 15, 10, 1, 2,4),
             new Graine("carotte", 2, 50, 50, 50, 25, 15, 1, 2,3),
             new Graine("patate", 3, 65, 65, 45, 35, 15, 1, 2,3),
@@ -39,8 +39,9 @@ public class Potager extends Observable{
         idGraineSelectionner = -1;
 
         this.meteo = new SystemeMeteo();
-        this.conditionGlobale = meteo.getCondition();
+        //this.conditionGlobale = meteo.getCondition();
         //TODO relier le systeme de météo et le potager
+        this.conditionGlobale = new ConditionEnvironementale(0,0,100);
     }
 
 
@@ -129,6 +130,18 @@ public class Potager extends Observable{
 
         return -1;
     }
+
+    public boolean[] getBesoin(int yCase, int xCase){
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (this.cases[yCase][xCase] instanceof Culture) {
+                Culture tmp = (Culture)this.cases[yCase][xCase];
+                return tmp.getBesoin();
+            }
+        }
+
+        return new boolean[]{true};
+    }
+
 
     public boolean estUneculture(int yCase, int xCase) {
         //System.out.println("Y : " + yCase + "X : " + xCase);

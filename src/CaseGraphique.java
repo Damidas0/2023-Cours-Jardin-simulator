@@ -30,6 +30,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
 
     private ImageIcon iconSelection;
     private JLabel imgSelection;
+
     private ImageIcon iconFond;
     private JLabel imgFond;
 
@@ -41,6 +42,8 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
 
     private JProgressBar progressionMort;
     private boolean afficherBarMort;
+
+    private IndicateurBesoin iconBesoin;
 
     /*
      * public CaseGraphique() {
@@ -66,9 +69,15 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         // img de séléction
         this.imgSelection = new JLabel();
         this.imgSelection.setBounds(ew(0),eh(0),ew(100),eh(100));
-        add(this.imgSelection, Integer.valueOf(3)); //tout devant
+        add(this.imgSelection, Integer.valueOf(4)); //tout devant
         changerImgSelection(170,159,159,159);
         this.imgSelection.setVisible(false);
+
+        //icon de besoin
+        this.iconBesoin = new IndicateurBesoin(ew(100), eh(100), this.tileset);
+        this.iconBesoin.setBounds(ew(0),eh(15),ew(100),eh(70));
+        this.iconBesoin.setVisible(true);
+        add(this.iconBesoin, Integer.valueOf(3)); // presque devant
 
         // bar de progression pousse
         this.progressionPousse = new JProgressBar(0);
@@ -199,6 +208,15 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     }
     public void afficherBarMort() {
         afficherBarMort(true);
+    }
+
+    public void updateBesoin(){
+        this.iconBesoin.afficherBesoin(p.getBesoin(this.y, this.x));
+    }
+
+    public void update (){
+        updateBar();
+        updateBesoin();
     }
 
     @Override

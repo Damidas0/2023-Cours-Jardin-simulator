@@ -218,11 +218,10 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
         for(int i=0; i<this.p.HAUTEUR; i++) {
             for(int j=0; j<this.p.LARGEUR; j++) {
-                tabG[i][j].updateBar();
                 InfoP.setToolTipText(String.valueOf(i));
                 //System.out.println(InfoP.infoEau.getText());
                 if(p.estUneculture(i,j)) {
-
+                    tabG[i][j].update();
                 }
                 else {
                     //TODO:Remplacer par de la terre

@@ -93,15 +93,31 @@ public class ConditionEnvironementale {
      * @param ecartTolere
      * @return int
      */
-    public int compareCE(ConditionEnvironementale condition, ConditionEnvironementale ecartTolere) {
-        if (Math.abs(this.ensoleillement - condition.ensoleillement) > ecartTolere.ensoleillement)
-            return 1;
+    public boolean[] compareCE(ConditionEnvironementale condition, ConditionEnvironementale ecartTolere) {
+        this.afficher();
+        condition.afficher();
+        ecartTolere.afficher();
+        System.out.println("////////////////////////////////////////////////////");
+
+        // {la plante va bien,  manque H, trop H, manque T, trop T, manque E, trop E}
+        boolean [] besoin = {false, false, false, false, false, false, false};
         if (Math.abs(this.humidite - condition.humidite) > ecartTolere.humidite)
-            return 2;
+            if(this.humidite > condition.humidite){
+                besoin[1] = true;
+            }else besoin[2] = true;
         if (Math.abs(this.temperature - condition.temperature) > ecartTolere.temperature)
-            return 3;
-        else
-            return 0;
+            if(this.temperature > condition.temperature){
+                besoin[3] = true;
+            }else besoin[4] = true;
+        if (Math.abs(this.ensoleillement - condition.ensoleillement) > ecartTolere.ensoleillement)
+            if(this.ensoleillement > condition.ensoleillement){
+                besoin[5] = true;
+            }else besoin[6] = true;
+        else {
+            besoin[0] = true;
+        }
+
+        return besoin;
     }
 
     public void afficher() {

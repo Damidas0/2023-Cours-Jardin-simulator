@@ -14,6 +14,20 @@ public class CoordImg {
         }
     }
 
+    public CoordImg(int xCase, int yCase){
+        int width = 100;
+        int height = 100;
+        if (xCase>=0 && yCase>=0){
+            this.xCoinSupG = xCase * width;
+            this.yCoinSupG = yCase * height;
+            this.width = width;
+            this.height = height;
+        }else{
+            System.out.println("l'une de ces valeurs est incorecte : ");
+            afficher();
+        }
+    }
+
     public void afficher() {
         System.out.println("-------------------");
         System.out.println("AFFICHAGE DE COORDIMG");
