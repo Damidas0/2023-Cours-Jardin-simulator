@@ -36,33 +36,39 @@ public class ConditionEnvironementale {
     }
 
     public void setEnsoleillement(int ensoleillement) {
-        if (ensoleillement < 0) {
+        /*if (ensoleillement < 0) {
             this.ensoleillement = 0;
         } else if (ensoleillement > 100) {
             this.ensoleillement = 100;
         } else {
             this.ensoleillement = ensoleillement;
-        }
+        }*/
+
+        this.ensoleillement = ensoleillement;
     }
 
     public void setHumidite(int humidite) {
-        if (humidite < 0) {
+        /*if (humidite < 0) {
             this.humidite = 0;
         } else if (humidite > 100) {
             this.humidite = 100;
         } else {
             this.humidite = humidite;
-        }
+        }*/
+
+        this.humidite = humidite;
     }
 
     public void setTemperature(int temperature) {
-        if (temperature < 0) {
+        /*if (temperature < 0) {
             this.temperature = 0;
         } else if (temperature > 100) {
             this.temperature = 100;
         } else {
             this.temperature = temperature;
-        }
+        }*/
+
+        this.temperature = temperature;
     }
 
     /***

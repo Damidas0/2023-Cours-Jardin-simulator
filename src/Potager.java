@@ -1,12 +1,12 @@
 import java.util.HashMap;
 import java.util.Observable;
 
-public class Potager extends Observable implements Runnable {
+public class Potager extends Observable{
     final int HAUTEUR = 10;
     final int LARGEUR = 10;
 
     final private Graine[] LISTE_GRAINE = {
-            new Graine("debug", 0, 0,0,0,100,100,1,1,3),
+            new Graine("debug", 0, 0,0,0,0,200,1,1,3),
             new Graine("salade", 1, 65, 50, 50, 15, 10, 1, 2,4),
             new Graine("carotte", 2, 50, 50, 50, 25, 15, 1, 2,3),
             new Graine("patate", 3, 65, 65, 45, 35, 15, 1, 2,3),
@@ -14,6 +14,8 @@ public class Potager extends Observable implements Runnable {
     };
 
     private int vitesse;
+
+    private SystemeMeteo meteo;
 
     private Case cases[][];
 
@@ -24,8 +26,6 @@ public class Potager extends Observable implements Runnable {
     private ConditionEnvironementale conditionGlobale;
 
     public Potager() {
-        Ordonnanceur.getOrdonnanceur().addRunable(this);
-        this.conditionGlobale = new ConditionEnvironementale(0, 0, 0);
         this.vitesse = 1;
         this.cases = new Case[HAUTEUR][LARGEUR];
 
@@ -37,6 +37,10 @@ public class Potager extends Observable implements Runnable {
 
         this.stock = new HashMap<>();
         idGraineSelectionner = -1;
+
+        this.meteo = new SystemeMeteo();
+        this.conditionGlobale = meteo.getCondition();
+        //TODO relier le systeme de météo et le potager
     }
 
 
@@ -115,6 +119,17 @@ public class Potager extends Observable implements Runnable {
         }
     }
 
+    public int niveauDeSurvie(int yCase, int xCase){
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (this.cases[yCase][xCase] instanceof Culture) {
+                Culture tmp = (Culture)this.cases[yCase][xCase];
+                return tmp.niveauDeSurvie();
+            }
+        }
+
+        return -1;
+    }
+
     public boolean estUneculture(int yCase, int xCase) {
         //System.out.println("Y : " + yCase + "X : " + xCase);
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
@@ -140,32 +155,6 @@ public class Potager extends Observable implements Runnable {
         return false; 
     }
 
-    public void afficherStock(){
-        System.out.println("Stock: ");
-        for (Integer key : this.stock.keySet()) {
-            System.out.println("    - id: "+key+", quantité: "+this.stock.get(key));
-        }
-    }
-
-    public void afficher() {
-        System.out.println("-------------------");
-        System.out.println("AFFICHAGE DE POTAGER");
-        System.out.println("HAUTEUR: " + HAUTEUR);
-        System.out.println("LARGEUR: " + LARGEUR);
-        System.out.println("vitesse: " + this.vitesse);
-
-        System.out.println("idGraineSelectionner: " + this.idGraineSelectionner);
-        this.afficherStock();
-
-        System.out.println("condition globale: " + this.conditionGlobale);
-        System.out.println("-------------------");
-    }
-
-    @Override
-    public void run() {
-        //System.out.println("Je suis dans le run de potager");
-
-    }
 
     public String getNomPlante(int yCase, int xCase) {
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
@@ -206,4 +195,27 @@ public class Potager extends Observable implements Runnable {
         }
         return -1;
     }
+
+
+    public void afficherStock(){
+        System.out.println("Stock: ");
+        for (Integer key : this.stock.keySet()) {
+            System.out.println("    - id: "+key+", quantité: "+this.stock.get(key));
+        }
+    }
+
+    public void afficher() {
+        System.out.println("-------------------");
+        System.out.println("AFFICHAGE DE POTAGER");
+        System.out.println("HAUTEUR: " + HAUTEUR);
+        System.out.println("LARGEUR: " + LARGEUR);
+        System.out.println("vitesse: " + this.vitesse);
+
+        System.out.println("idGraineSelectionner: " + this.idGraineSelectionner);
+        this.afficherStock();
+
+        System.out.println("condition globale: " + this.conditionGlobale);
+        System.out.println("-------------------");
+    }
+
 }

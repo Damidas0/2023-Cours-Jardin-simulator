@@ -102,6 +102,13 @@ public class Plante extends Graine{
         return this.developpement;
     }
 
+    /***
+     *
+     * @return nbJoursSurvie / nbJoursSurvieMax * 100
+     */
+    public int niveauDeSurvie(){
+        return 100 * this.nbJoursSurvie / this.nbJoursSurvieMax;
+    }
 
     public void afficher(){
         System.out.println("-------------------");
