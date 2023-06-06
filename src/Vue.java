@@ -237,7 +237,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     }
 
     public void resetInfoPannel() {
-        this.InfoP.majInfoPanel("Debug", -21, -1, -1);
+        this.InfoP.majInfoPanel("Debug", -1, -1, -1);
         //TODO:lier cette fonction aux params de la météo
     }
 
