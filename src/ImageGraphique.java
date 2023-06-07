@@ -55,6 +55,12 @@ public class ImageGraphique extends JLabel {
         changerImg(this.coordImg);
     }
 
+    public void changerImgAmenagement(int idAmenagement) {
+        this.coordImg = Tileset.IMAGE_AMENAGEMENT[idAmenagement];
+        changerImg(this.coordImg);
+    }
+
+
     public void changerImg(String nom) {
         this.coordImg = Tileset.IMAGE_AUTRE.get(nom);
         changerImg(this.coordImg);

@@ -3,24 +3,22 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class IndicateurBesoin extends JPanel {
-    private BufferedImage tileset;
 
     private ImageIcon icons[];
     private JLabel imgs[];
 
     private CoordImg coordImgs[] = {
-            new CoordImg(0,600,150,150), // manque d'humidité
-            new CoordImg(150,600,150,150), // trop d'humidité
-            new CoordImg(300,600,150,150), // manque de température (froid)
-            new CoordImg(0,750,150,150), // trop de température (chaud)
-            new CoordImg(150,750,150,150), // manque d'ensoleillement
-            new CoordImg(300,750,150,150), // trop d'ensoleillement
+            new CoordImg(2,0), // manque d'humidité
+            new CoordImg(2,1), // trop d'humidité
+            new CoordImg(2,2), // manque de température (froid)
+            new CoordImg(2,3), // trop de température (chaud)
+            new CoordImg(2,4), // manque d'ensoleillement
+            new CoordImg(2,5), // trop d'ensoleillement
     };
 
-    public IndicateurBesoin(int widthCase, int heightCase, BufferedImage tileset){
+    public IndicateurBesoin(int widthCase, int heightCase){
         this.icons = new ImageIcon[6];
         this.imgs = new JLabel[6];
-        this.tileset = tileset;
 
         this.setOpaque(false);
 
@@ -29,7 +27,6 @@ public class IndicateurBesoin extends JPanel {
         for (int i = 0; i < 6; i++) {
             this.imgs[i] = new JLabel();
             this.imgs[i].setVisible(false);
-            //this.imgs[i].setBounds(0,0,widthCase,heightCase);
             add(this.imgs[i]); //au milieu
             changerImg(this.coordImgs[i], i, widthCase,heightCase);
         }

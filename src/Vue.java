@@ -29,9 +29,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
             new CoordImg(0,0,140,140)
     };
 
-
-    final String CHEMIN_IMG = "img/";
-
     public Potager p;
     public CaseGraphique[][] tabG;
 
