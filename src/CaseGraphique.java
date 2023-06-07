@@ -200,6 +200,9 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
 
             this.progressionMort.setValue(this.p.niveauDeSurvie(this.y, this.x));
             afficherBarMort(this.p.niveauDeSurvie(this.y, this.x) > 0);
+            if(this.p.niveauDeSurvie(this.y, this.x) > 100){
+                afficherPlanteMorte();
+            }
         }
         //afficherBarPlante(this.p.estUneculture(this.y, this.x));
     }
@@ -223,7 +226,9 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         }
     }
     public void afficherPlanteMorte() {
-        afficherBarPlante(false);
+        this.progressionPousse.setVisible(false);
+        this.progressionMort.setVisible(false);
+        this.iconBesoin.setVisible(false);
         this.imgPlante.changerImg("plante_morte");
     }
 
@@ -265,6 +270,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
                     afficherBarPlante(false);
                 } else if (!p.estVivante(y, x)) {
                     this.p.arracher(y, x);
+                    afficherBarPlante(false);
                     afficherPlanteMorte();
                 }
             }
