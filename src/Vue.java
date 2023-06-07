@@ -48,7 +48,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         this.menuP.setBounds(20,20,100,20);
 
         buildBis();
-        
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent arg0) {
@@ -83,7 +83,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         //on ajoute et séléctionne une graine de base
         this.p.ajouterGraineStock(0,10);
         this.p.selectionnerGraine(0);
-        
+
         JPanel jp = new JPanel(new GridBagLayout());
         setContentPane(jp);
 
@@ -127,20 +127,21 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight=1;
-        c.weightx = 0.3;
+        c.weightx = 0.2;
         c.weighty = 1;
 
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.BOTH;
         jp.add(buildMenu(), c);
 
-        
+
 
         //infoPannel
         c.gridx = 1;
         c.gridy = 1;
         c.gridwidth = 1;
         c.gridheight=1;
-        c.weightx = 0.2;
+        c.weighty=0.1;
+        c.weightx = 0;
 
         //c.fill = GridBagConstraints.BOTH;
         jp.add(this.InfoP, c);
@@ -152,29 +153,36 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
 
     private JTabbedPane buildMenu() {
+        UIManager.getLookAndFeelDefaults().put("TabbedPane:TabbedPaneTab.contentMargins", new Insets(0,0,100,100));
         JTabbedPane tabbedPane = new JTabbedPane();
 
         JComponent panel1 = new InventairePanel();
-        panel1.setBounds(0, 0, 100, 100);
-
         tabbedPane.addTab("Inventaire", panel1);
-        
+
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
         List<ShopElementCulture> l = new ArrayList<ShopElementCulture>();
         HashMap<Integer, Integer> prix = new HashMap<>();
         prix.put(1,3);
-        
+
         l.add(new ShopElementCulture("Carotte", 2, prix));
+
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+        /*l.add(new ShopElementCulture("Carotte", 2, prix));
+        l.add(new ShopElementCulture("Carotte", 2, prix));*/
+
+
         JComponent panel2 = new Shop(l,p);
-        panel2.setBounds(0, 0, 100, 100);
+        panel2.setVisible(true);
+        //panel2.setBounds(0, 0, 100, 100);
         tabbedPane.add("Shop", panel2);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-
+        pack();
         return tabbedPane;
     }
-    
+
 
     public void build() {
         // paramétrage de la fenetre
@@ -223,11 +231,11 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     }
 
     public void majInfoPanel(int y, int x) {
-        this.InfoP.majInfoPanel(this.p.getNomPlante(y,x), 
-                                this.p.getInfoEau(y,x),
-                                this.p.getInfoSoleil(y,x),
-                                this.p.getInfoTemp(y,x));
-        
+        this.InfoP.majInfoPanel(this.p.getNomPlante(y,x),
+                this.p.getInfoEau(y,x),
+                this.p.getInfoSoleil(y,x),
+                this.p.getInfoTemp(y,x));
+
     }
 
     public void resetInfoPannel() {
