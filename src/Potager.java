@@ -237,6 +237,10 @@ public class Potager extends Observable{
         return -1;
     }
 
+    public HashMap<Integer, Integer> getStock(){
+        return this.stock;
+    }
+
 
     public void afficherStock(){
         System.out.println("Stock: ");

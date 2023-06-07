@@ -42,9 +42,6 @@ public class Ordonnanceur extends Observable implements Runnable{
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
-        
-        
+        }   
     }
-
 }

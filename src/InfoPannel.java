@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.GridLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -27,11 +26,13 @@ public class InfoPannel extends JPanel {
         this.add(this.infoSoleil);
         this.add(this.infoTemperature);
 
-        this.setBackground(Color.RED);
+        //this.setBackground(Color.RED);
         this.setVisible(true);
+        Ordonnanceur.getOrdonnanceur();
     }
 
     public void majInfoPanel(String nomPlante, int infoEau, int infoSoleil, int infoTemp) {
+        //this.nomPlante.setText(nomPlante);
         this.nomPlante.setText(nomPlante);
         this.infoEau.setText(String.valueOf(infoEau));
         this.infoSoleil.setText(String.valueOf(infoSoleil));
