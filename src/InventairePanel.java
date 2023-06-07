@@ -7,16 +7,19 @@ import javax.swing.JPanel;
 
 
 public class InventairePanel extends JPanel {
-    private Graine[][] lgraine;
+    private HashMap<Integer, Integer> stock;  
 
 
     public InventairePanel(){
         
     }
 
-    public InventairePanel(List<Graine> lGraine){
+    public InventairePanel(HashMap<Integer, Integer> stockInit){
         this.setLayout(new GridLayout(5,4));
-        
+        this.stock = stockInit;
+        for (Integer key : stock.keySet()) {
+            //charger les images dans l'inventaire
+        }
         
     }
 
