@@ -115,6 +115,26 @@ public class ConditionEnvironementale {
         return besoin;
     }
 
+    public boolean[] compareCE(ConditionEnvironementale condition, ConditionEnvironementale ecartTolere, boolean[] protectionsEnvironementales) {
+        // {la plante va bien,  manque H, trop H, manque T, trop T, manque E, trop E}
+        boolean [] besoin = {false, false, false, false, false, false, false};
+        if (Math.abs(this.humidite - condition.humidite) > ecartTolere.humidite)
+            if(this.humidite > condition.humidite && !protectionsEnvironementales[0]) besoin[1] = true;
+            else if(!protectionsEnvironementales[1]) besoin[2] = true;
+        if (Math.abs(this.temperature - condition.temperature) > ecartTolere.temperature)
+            if(this.temperature > condition.temperature && !protectionsEnvironementales[1])besoin[3] = true;
+            else if(!protectionsEnvironementales[3]) besoin[4] = true;
+        if (Math.abs(this.ensoleillement - condition.ensoleillement) > ecartTolere.ensoleillement)
+            if(this.ensoleillement > condition.ensoleillement && !protectionsEnvironementales[4])besoin[5] = true;
+            else if(!protectionsEnvironementales[5]) besoin[6] = true;
+
+        if (!besoin[1] && !besoin[2] && !besoin[3] && !besoin[4] && !besoin[5] && !besoin[6]){
+            besoin[0] = true;
+        }
+
+        return besoin;
+    }
+
     public void afficher() {
         System.out.println("-------------------");
         System.out.println("AFFICHAGE DE CONDITIONENVIRONEMENTALE");

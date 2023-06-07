@@ -1,24 +1,20 @@
+import java.util.Arrays;
 
 public class Culture extends Case {
     private Plante plante;
-    private ConditionEnvironementale conditionCase;
 
-    //TODO:VERIFIER SI ON DOIT GARDER 
-    private final int nbStadeDev = 4;
+    private boolean protectionsEnvironementales[];
 
 
-    public Culture(){
-        super();
-        this.plante = new Plante();
-        this.conditionCase = new ConditionEnvironementale(0,0,0);
-        //TODO relier la météo au potager
-    }
 
-
-    public Culture(Plante plante, ConditionEnvironementale conditionCase){
+    public Culture(Plante plante){
         super();
         this.plante = new Plante(plante);
-        this.conditionCase = new ConditionEnvironementale(conditionCase);
+        /*this.CEmin = new ConditionEnvironementale(0,0,0);
+        this.CEmax = new ConditionEnvironementale(100,100,100);*/
+        this.protectionsEnvironementales = new boolean[6];
+        Arrays.fill(this.protectionsEnvironementales, false);
+
     }
 
     public int recolter(){
@@ -64,17 +60,23 @@ public class Culture extends Case {
     public void afficher(){
         System.out.println("---------JPanel----------");
         System.out.println("AFFICHAGE DE CULTURE");
-        System.out.print("condition environemental :");
-        this.conditionCase.afficher();
-        System.out.print("plante :");
+        /*System.out.print("condition environemental min:");
+        this.CEmin.afficher();
+        System.out.print("condition environemental max:");
+        this.CEmax.afficher();
+        System.out.print("plante :");*/
+        System.out.println("protectionsEnvironementales :");
+        System.out.println(protectionsEnvironementales.toString());
+        System.out.println("plante :");
         this.plante.afficher();
         System.out.println("-------------------");
     }
 
+
     @Override
     public void run(){
         //this.plante.afficher();
-        this.plante.developper(this.conditionCase, 10);
+        this.plante.developper(SystemeMeteo.conditionGlobale, Potager.vitesse, this.protectionsEnvironementales);
         
     }
 
@@ -86,16 +88,16 @@ public class Culture extends Case {
 
 
     public int getInfoEau() {
-        return this.conditionCase.getHumidite();
+        return 0; //Todo voir avec damien
     }
 
 
     public int getInfoTemp() {
-        return this.conditionCase.getTemperature();
+        return 0; //Todo voir avec damien
     }
 
 
     public int getInfoSoleil() {
-        return this.conditionCase.getEnsoleillement();
+        return 0; //Todo voir avec damien
     }
 }   

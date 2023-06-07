@@ -5,6 +5,7 @@ public class Potager extends Observable{
     final int HAUTEUR = 10;
     final int LARGEUR = 10;
 
+    static int vitesse;
     final private Graine[] LISTE_GRAINE = {
             new Graine("debug", 0, 0,0,0,5,200,1,1,3),
             new Graine("salade", 1, 65, 50, 50, 15, 10, 1, 2,4),
@@ -15,8 +16,6 @@ public class Potager extends Observable{
             new Graine("courge", 6, 75, 40, 55, 25, 15, 1, 1,4),
     };
 
-    private int vitesse;
-
     private SystemeMeteo meteo;
 
     private Case cases[][];
@@ -25,10 +24,8 @@ public class Potager extends Observable{
 
     private HashMap<Integer, Integer> stock;
 
-    private ConditionEnvironementale conditionGlobale;
-
     public Potager() {
-        this.vitesse = 1;
+        Potager.vitesse = 10;
         this.cases = new Case[HAUTEUR][LARGEUR];
 
         for (int i = 0; i < HAUTEUR; i++) {
@@ -41,9 +38,6 @@ public class Potager extends Observable{
         idGraineSelectionner = -1;
 
         this.meteo = new SystemeMeteo();
-        //this.conditionGlobale = meteo.getCondition();
-        //TODO relier le systeme de météo et le potager
-        this.conditionGlobale = new ConditionEnvironementale(0,0,0);
     }
 
 
@@ -78,31 +72,35 @@ public class Potager extends Observable{
     }
 
 
-    public void planterSelection(int yCase, int xCase) {
+    public boolean planterSelection(int yCase, int xCase) {
         if(this.idGraineSelectionner != -1) {
-            planterStock(new Plante(this.LISTE_GRAINE[this.idGraineSelectionner]), yCase, xCase);
+            return planterStock(new Plante(this.LISTE_GRAINE[this.idGraineSelectionner]), yCase, xCase);
         }else{
             System.out.println("Aucune graine n'est séléctionnée.");
+            return false;
         }
     }
 
-    public void planterStock(Plante plante, int yCase, int xCase) {
+    public boolean planterStock(Plante plante, int yCase, int xCase) {
         if (this.stock.get(plante.getId()) != null){
             if (this.stock.get(plante.getId()) > 0){
                 planter(plante, yCase, xCase);
                 enleverPlante(plante.getId(), 1);
+                return true;
             }else {
                 System.out.println("Vous n'avez plus la plante "+plante.getId()+" en stock");
+                return false;
             }
         }else {
             System.out.println("Vous n'avez pas la plante "+plante.getId()+" en stock");
+            return false;
         }
     }
 
     public void planter(Plante plante, int yCase, int xCase) {
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             if (!(this.cases[yCase][xCase] instanceof Culture)) {
-                this.cases[yCase][xCase] = new Culture(plante, this.conditionGlobale);
+                this.cases[yCase][xCase] = new Culture(plante);
             }
         }
     }
@@ -110,11 +108,8 @@ public class Potager extends Observable{
     public boolean estVivante(int yCase, int xCase) {
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             if (this.cases[yCase][xCase] instanceof Culture) {
-                if (getDeveloppement(yCase, xCase) == 100) {
-                    Culture tmp = (Culture) this.cases[yCase][xCase];
-
-                    return tmp.estVivante();
-                }
+                Culture tmp = (Culture) this.cases[yCase][xCase];
+                return tmp.estVivante();
             }
         }
         return false;
@@ -207,6 +202,17 @@ public class Potager extends Observable{
         return "-1";
     }
 
+    public int getIdPlante(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (estUneculture(yCase, xCase)) {
+                Culture tmp = (Culture)this.cases[yCase][xCase];
+                return (tmp.getIdPlante());
+            }
+        }
+        return -1;
+    }
+
+
     public int getInfoEau(int yCase, int xCase) {
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             if (estUneculture(yCase, xCase)) {
@@ -249,6 +255,14 @@ public class Potager extends Observable{
         }
     }
 
+    public void afficherPlante(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (estUneculture(yCase, xCase)) {
+                Culture tmp = (Culture)this.cases[yCase][xCase];
+                tmp.afficher();
+            }
+        }
+    }
     public void afficher() {
         System.out.println("-------------------");
         System.out.println("AFFICHAGE DE POTAGER");
@@ -259,7 +273,8 @@ public class Potager extends Observable{
         System.out.println("idGraineSelectionner: " + this.idGraineSelectionner);
         this.afficherStock();
 
-        System.out.println("condition globale: " + this.conditionGlobale);
+        System.out.println("systeme météo: ");
+        this.meteo.afficher();
         System.out.println("-------------------");
     }
 

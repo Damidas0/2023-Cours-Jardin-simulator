@@ -9,21 +9,22 @@ public class SystemeMeteo implements Runnable{
             new Meteo(-5, 5, -35, -20,-20,-5), /*|neige |*/
     };
 
-    private ConditionEnvironementale conditionActuelle;
     private int meteoActuelle; // | soleil : 0 | nuage : 1 | pluie : 2 | neige : 3 |
     private int saisonActuelle; // | été : 0 | automne : 1 | hiver : 2 | printemps : 3 |
 
     private int jourAvProchaineSaison;
     private int dureeSaison;
 
+    public static ConditionEnvironementale conditionGlobale;
+
     public SystemeMeteo(){
-        //Ordonnanceur.getOrdonnanceur().addRunable(this);
+        Ordonnanceur.getOrdonnanceur().addRunable(this);
         this.saison = new Saison();
 
         this.jourAvProchaineSaison = 0;
         this.dureeSaison = 100;
 
-        this.conditionActuelle = new ConditionEnvironementale(50,50,50);
+        SystemeMeteo.conditionGlobale = new ConditionEnvironementale(50,50,50);
     }
 
     public void update(){
@@ -45,7 +46,7 @@ public class SystemeMeteo implements Runnable{
     }
 
     private void updateCondition(){
-        this.conditionActuelle = this.meteos[this.meteoActuelle].impacter(this.conditionActuelle, this.saison.getConditionMini(this.saisonActuelle), this.saison.getConditionMaxi(this.saisonActuelle));
+        SystemeMeteo.conditionGlobale = this.meteos[this.meteoActuelle].impacter(SystemeMeteo.conditionGlobale, this.saison.getConditionMini(this.saisonActuelle), this.saison.getConditionMaxi(this.saisonActuelle));
     }
 
     private void updateSaison(){
@@ -57,7 +58,7 @@ public class SystemeMeteo implements Runnable{
     }
 
     public ConditionEnvironementale getCondition() {
-        return conditionActuelle;
+        return conditionGlobale;
     }
 
     @Override
@@ -100,7 +101,7 @@ public class SystemeMeteo implements Runnable{
         }
         System.out.println("jourAvProchaineSaison : " + this.jourAvProchaineSaison + "/" + this.dureeSaison);
         System.out.println("Condition actuelle: ");
-        this.conditionActuelle.afficher();
+        SystemeMeteo.conditionGlobale.afficher();
         System.out.println("-------------------");
     }
 }

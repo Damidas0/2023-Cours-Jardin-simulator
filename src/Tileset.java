@@ -29,6 +29,7 @@ public class Tileset {
         Tileset.IMAGE_AUTRE.put("filtre_aire", new CoordImg(0,0));
         Tileset.IMAGE_AUTRE.put("ombrelle", new CoordImg(0,0));
         Tileset.IMAGE_AUTRE.put("miroire", new CoordImg(0,0));
+        Tileset.IMAGE_AUTRE.put("plante_morte", new CoordImg(1,3));
 
         charger();
     }

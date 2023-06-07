@@ -86,11 +86,11 @@ public class Plante extends Graine{
         return 1;
     }
 
-    public void developper(ConditionEnvironementale conditionCase, int vitesse){
-        this.besoin = this.conditionOptimale.compareCE(conditionCase, this.ecartTolerable);
+    public void developper(ConditionEnvironementale conditionCase, int vitesse, boolean[] protectionsEnvironementales){
+        this.besoin = this.conditionOptimale.compareCE(conditionCase, this.ecartTolerable, protectionsEnvironementales);
         if (besoin[0]){
             this.nbJoursSurvie = 0;
-            this.developpement += (int)vitesse * this.modificateurVitesse;
+            this.developpement += (int) (vitesse * this.modificateurVitesse);
             if(this.developpement > 100){
                 this.developpement = 100;
             }
@@ -101,8 +101,6 @@ public class Plante extends Graine{
                 mourir();
             }
         }
-
-        //TODO estce qu'on fait mourir si > ecart critique ?
     }
 
     public boolean[] getBesoin() {
