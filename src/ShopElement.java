@@ -28,6 +28,23 @@ public class ShopElement extends JLabel{
         this.prix = prix;
 
         this.setLayout(new GridLayout(1,3));
+        ImageGraphique imPlante = new ImageGraphique(100, 100, id);
+        imPlante.setVisible(true);
+        this.add(imPlante);
+                //TODO:verif taille image
+
+
+        this.add(new JLabel(nom));
+
+        JLabel lprix = new JLabel();
+        lprix.setLayout(new GridLayout(3,2));
+
+        for (Integer key : prix.keySet()) {
+            ImageGraphique imPrix = new ImageGraphique(100,100, key);
+            imPrix.setVisible(true);
+            lprix.add(imPrix);
+            lprix.add(new JLabel(String.valueOf(this.prix.get(key))));
+        }
     }
 
     

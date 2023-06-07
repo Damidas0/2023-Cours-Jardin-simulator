@@ -1,6 +1,10 @@
 
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -161,7 +165,12 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-        JComponent panel2 = new Shop();
+        List<ShopElementCulture> l = new ArrayList<ShopElementCulture>();
+        HashMap<Integer, Integer> prix = new HashMap<>();
+        prix.put(1,3);
+        
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+        JComponent panel2 = new Shop(l,p);
         panel2.setBounds(0, 0, 100, 100);
         tabbedPane.add("Shop", panel2);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
