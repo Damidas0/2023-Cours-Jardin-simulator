@@ -1,8 +1,11 @@
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 public class Plante extends Graine{
     protected int developpement;
     protected boolean estVivante;
     protected int nbJoursSurvie;
+
+    boolean besoin[] = {true, false, false, false, false, false, false};
 
     public Plante(){
         this("Default", -1);
@@ -78,20 +81,33 @@ public class Plante extends Graine{
         return ThreadLocalRandom.current().nextInt(this.rendementMin,this.rendementMax + 1);
     }
 
+    public int arracher(){
+        mourir();
+        return 1;
+    }
+
     public void developper(ConditionEnvironementale conditionCase, int vitesse){
-        if (this.conditionOptimale.compareCE(conditionCase, this.ecartTolerable) == 0){
+        this.besoin = this.conditionOptimale.compareCE(conditionCase, this.ecartTolerable);
+        if (besoin[0]){
             this.nbJoursSurvie = 0;
             this.developpement += (int)vitesse * this.modificateurVitesse;
             if(this.developpement > 100){
                 this.developpement = 100;
             }
         }
-        if (this.conditionOptimale.compareCE(conditionCase, this.ecartCritique) != 0){
+        else{
             this.nbJoursSurvie += vitesse;
             if(this.nbJoursSurvie > this.nbJoursSurvieMax){
                 mourir();
             }
         }
+
+        //TODO estce qu'on fait mourir si > ecart critique ?
+    }
+
+    public boolean[] getBesoin() {
+        //System.out.println(Arrays.toString(this.besoin));
+        return this.besoin;
     }
 
     public boolean estVivante(){
@@ -109,6 +125,7 @@ public class Plante extends Graine{
     public int niveauDeSurvie(){
         return 100 * this.nbJoursSurvie / this.nbJoursSurvieMax;
     }
+
 
     public void afficher(){
         System.out.println("-------------------");

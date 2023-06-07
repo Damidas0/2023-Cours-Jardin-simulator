@@ -33,7 +33,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
     private InfoPannel InfoP;
     private MenuPanel menuP;
-    private BufferedImage tileset;
 
     public Vue(Potager potager) {
         super();
@@ -55,7 +54,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
             }
         });
 
-        this.tileset = null;
     }
 
     private JComponent buildPotager(){
@@ -66,7 +64,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
         for(int i = 0; i<this.p.HAUTEUR;i++){
             for(int j = 0; j<this.p.LARGEUR;j++){
-                CaseGraphique ptest = new CaseGraphique(i,j,p,this,this.tileset);
+                CaseGraphique ptest = new CaseGraphique(i,j,p,this);
                 //tabG[i][j].setSize(80,80);
                 tabG[i][j] = ptest;
                 pan.add(ptest);
@@ -94,8 +92,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         // changer l'icon de la fenetre
         ImageIcon image = new ImageIcon("img/logo.png");
         this.setIconImage(image.getImage()); //change l'icon de la frame
-        
-        this.chargerImages();
 
         //Menus
         JMenuBar jm = new JMenuBar();
@@ -148,7 +144,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         jp.add(this.InfoP, c);
 
         this.pack();
-        
+
         this.setVisible(true);
     }
 
@@ -191,7 +187,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         jm.add(m);
         setJMenuBar(jm);
 
-        chargerImages();
+        Tileset.charger();
         
         /*JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
@@ -213,14 +209,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         //setContentPane(pan);
     }
 
-    public void chargerImages(){
-        try {
-            this.tileset = ImageIO.read(new File("./src/img/data.png")); // chargement de l'image globale
-        } catch (java.io.IOException e) {
-            System.out.println("ERREUR : Impossoble d'ouvrir la tileset ./src/img/data.png   "+ e.getMessage());
-        }
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         //System.out.println("JE MUPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
@@ -231,7 +219,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
                 InfoP.setToolTipText(String.valueOf(i));
                 //System.out.println(InfoP.infoEau.getText());
                 if(p.estUneculture(i,j)) {
-
+                    tabG[i][j].update();
                 }
                 else {
                     //TODO:Remplacer par de la terre
@@ -241,7 +229,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
         this.InfoP.revalidate();
         this.InfoP.repaint();
-        
+
     }
 
     public void majInfoPanel(int y, int x) {
