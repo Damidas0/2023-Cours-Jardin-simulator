@@ -99,17 +99,18 @@ public class Shop extends JPanel{
     }
 
     private void achat(ShopElement s){
-        if(estAchetable(s.getPrix(), this.p.getStock())){
+        if(estAchetable(s.getPrix(), this.p.getStock()) != 1 ){
             //this.inventaire.ajouter(sc.Achete())
+            this.p.ajouterGraineStock(s.getId(), 1);
             this.majShop((ShopElement) s);
         }
     }
     
-    private boolean estAchetable(HashMap<Integer, Integer> prix, HashMap<Integer, Integer> stock) {
+    private int estAchetable(HashMap<Integer, Integer> prix, HashMap<Integer, Integer> stock) {
         for (Integer key : prix.keySet()) {
-            if(stock.get(key) < prix.get(key)) return false;
+            if(stock.get(key) < prix.get(key)) return -1;
         }
-        return true;
+        return 1;
     }
 
     private void majShop(ShopElement s) {

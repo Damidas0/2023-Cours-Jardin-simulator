@@ -113,7 +113,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
-        c.gridheight=3;
+        c.gridheight=2;
         c.weightx = 0.6;
         c.weighty = 1;
 
@@ -122,29 +122,22 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         c.fill = GridBagConstraints.BOTH;
         jp.add(buildPotager(), c);
 
-        //SubMenu
+        //Menu
         c.gridx = 1;
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight=1;
         c.weightx = 0.3;
+        c.weighty = 1;
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        jp.add(menuP, c);
-
-        //menu
-        c.gridx = 1;
-        c.gridy = 1;
-        c.gridwidth = 1;
-        c.gridheight=1;
-        c.weightx = 0.2;
-
-        //c.fill = GridBagConstraints.BOTH;
         jp.add(buildMenu(), c);
+
+        
 
         //infoPannel
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         c.gridwidth = 1;
         c.gridheight=1;
         c.weightx = 0.2;
@@ -158,9 +151,23 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     }
 
 
-    private Component buildMenu() {
-        //TODO:replacecode
-        return new InfoPannel();
+    private JTabbedPane buildMenu() {
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        JComponent panel1 = new InventairePanel();
+        panel1.setBounds(0, 0, 100, 100);
+
+        tabbedPane.addTab("Inventaire", panel1);
+        
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+
+        JComponent panel2 = new Shop();
+        panel2.setBounds(0, 0, 100, 100);
+        tabbedPane.add("Shop", panel2);
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+
+
+        return tabbedPane;
     }
     
 
