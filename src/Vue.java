@@ -60,7 +60,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     }
 
     private JComponent buildPotager(){
-        
         JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
 
         //Border blackline = BorderFactory.createLineBorder(Color.black,1);
@@ -90,20 +89,20 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
         this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         this.setTitle("Le poti potager");
-        this.setSize(1000, 1000);
+        this.setSize(1650, 1000);
 
         // changer l'icon de la fenetre
         ImageIcon image = new ImageIcon("img/logo.png");
         this.setIconImage(image.getImage()); //change l'icon de la frame
 
         //Menus
-        JMenuBar jm = new JMenuBar();
+        /*JMenuBar jm = new JMenuBar();
         JMenu m = new JMenu("Jeu");
         JMenuItem mi = new JMenuItem("Partie");
 
         m.add(mi);
         jm.add(m);
-        this.setJMenuBar(jm);
+        this.setJMenuBar(jm);*/
 
         //===GridbagLayout===
         GridBagConstraints c = new GridBagConstraints();
@@ -204,25 +203,8 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         setJMenuBar(jm);
 
         Tileset.charger();
-        
-        /*JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
-        Border blackline = BorderFactory.createLineBorder(Color.black,1);
-        //getVerifyInputWhenFocusTarget();
 
-        for(int i = 0; i<this.p.HAUTEUR;i++){
-            for(int j = 0; j<this.p.LARGEUR;j++){
-                CaseGraphique ptest = new CaseGraphique(i,j,p,this, this.tileset);
-                tabG[i][j] = ptest;
-                pan.add(ptest);
-
-                final int ii = i;
-                final int jj = j;
-
-            }
-        }
-        pan.setBorder(blackline);*/
         add(buildPotager());
-        //setContentPane(pan);
     }
 
     @Override
@@ -264,9 +246,13 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
     @Override
     public void componentResized(ComponentEvent e) {
-        for(int i=0; i<this.p.HAUTEUR; i++) {
-            for (int j = 0; j < this.p.LARGEUR; j++) {
-                //this.tabG[i][j].rechargerImg();
+        System.out.println(this.getSize().getHeight()+" "+ this.getSize().getWidth());
+        if(this.getSize().getHeight() == 1038.0 && this.getSize().getWidth() == 1938.0){
+            System.out.println("-----------------------");
+            for(int i=0; i<this.p.HAUTEUR; i++) {
+                for (int j = 0; j < this.p.LARGEUR; j++) {
+                    this.tabG[i][j].rechargerImg();
+                }
             }
         }
     }

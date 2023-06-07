@@ -26,16 +26,6 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     private Potager p; // pointeur sur le potager
     private Vue v;// pointeur sur la vue ref
 
-
-    /*private ImageIcon iconSelection;
-    private JLabel imgSelection;
-
-    private ImageIcon iconFond;
-    private JLabel imgFond;
-
-    private ImageIcon iconPlante;
-    private JLabel imgPlante;*/
-
     private JProgressBar progressionPousse;
     private boolean afficherBarPlante;
 
@@ -49,12 +39,6 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     private ImageGraphique imgPlante;
     private ImageGraphique imgSelection;
 
-    /*
-     * public CaseGraphique() {
-     * this(0,0,);
-     * }
-     */
-
     public CaseGraphique(int y, int x, Potager p, Vue v) {
         super();
         addMouseListener(this);
@@ -66,18 +50,12 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         // bordure
         setBorderSimple();
 
-        //setLayout(new BorderLayout());
-
         // img de séléction
         this.imgSelection = new ImageGraphique(ew(100), eh(100), "selection");
         this.imgSelection.setBounds(0,0,ew(100),eh(100));
         this.imgSelection.setVisible(false);
         add(this.imgSelection, Integer.valueOf(1)); //au milieu
-        /*this.imgSelection = new JLabel();
-        this.imgSelection.setBounds(ew(0),eh(0),ew(100),eh(100));
-        add(this.imgSelection, Integer.valueOf(4)); //tout devant
-        changerImgSelection(Tileset.IMAGE_AUTRE.get("selection"));
-        this.imgSelection.setVisible(false);*/
+
 
         //icon de besoin
         this.iconBesoin = new IndicateurBesoin(ew(100), eh(100));
@@ -104,24 +82,12 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         this.imgPlante = new ImageGraphique(ew(100), eh(100), 0);
         this.imgPlante.setBounds(ew(10),eh(10),ew(80),eh(80));
         add(this.imgPlante, Integer.valueOf(1)); //au milieu
-        /*this.imgPlante = new JLabel();
-        this.imgPlante.setBounds(ew(10),eh(10),ew(80),eh(80));
-        add(this.imgPlante, Integer.valueOf(1)); //au milieu
-        changerImgPlante(Tileset.IMAGE_GRAINE[0]);*/
-
 
         // img du fond
         this.imgFond = new ImageGraphique(ew(100), eh(100), "sol_case");
         this.imgFond.setVisible(true);
         this.imgFond.setBounds(0,0,ew(100),eh(100));
         add(this.imgFond, Integer.valueOf(0)); //tout derrière
-        /*this.imgFond = new JLabel();
-        this.imgFond.setVisible(true);
-        this.imgFond.setBounds(0,0,ew(100),eh(100));
-        add(this.imgFond, Integer.valueOf(0)); //tout derrière
-        changerImgFond(170,0,159,159); // la terre*/
-
-
 
         afficherBarPlante(this.p.estUneculture(this.y, this.x));
     }
@@ -129,58 +95,13 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
 
     public int ew(double pourcent){
         //return (int)Math.floor(getSize().width * pourcent /100);
-        return (int)Math.floor((this.v.getSize().height-30)/10 * pourcent /100);
+        return (int)Math.floor((this.v.getSize().height)/10 * pourcent /100);
     }
 
     public int eh(double pourcent){
         //return (int)Math.floor(getSize().height * pourcent /100);
-        return (int)Math.floor((this.v.getSize().height-30)/10 * pourcent /100);
+        return (int)Math.floor((this.v.getSize().height)/10 * pourcent /100);
     }
-
-
-/*
-    public void changerImgPlante(int xCoinSupG, int yCoinSupG, int width, int height) {
-        BufferedImage boutTileset = Tileset.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
-        this.iconPlante = new ImageIcon(boutTileset.getScaledInstance(ew(80), eh(80), java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
-        this.imgPlante.setIcon(this.iconPlante);
-    }
-
-    public void changerImgPlante(CoordImg coordImg) {
-        changerImgPlante(coordImg.xCoinSupG, coordImg.yCoinSupG, coordImg.width, coordImg.height);
-    }
-
-    public void changerImgPlante(int id) {
-        changerImgPlante(v.IMAGE_GRAINE[id]);
-    }
-
-    public void changerImgSelection(int xCoinSupG, int yCoinSupG, int width, int height) {
-        BufferedImage boutTileset = Tileset.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
-        this.iconSelection = new ImageIcon(boutTileset.getScaledInstance(ew(100), eh(100), java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
-        this.imgSelection.setIcon(this.iconSelection);
-    }
-
-    public void changerImgSelection(CoordImg coordImg) {
-        changerImgSelection(coordImg.xCoinSupG, coordImg.yCoinSupG, coordImg.width, coordImg.height);
-    }
-
-    public void changerImgFond(int xCoinSupG, int yCoinSupG, int width, int height) {
-        BufferedImage boutTileset = Tileset.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
-        this.iconFond = new ImageIcon(boutTileset.getScaledInstance(ew(100), eh(100), java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
-        this.imgFond.setIcon(this.iconFond);
-    }
-
-    public void changerImgFond(CoordImg coordImg) {
-        changerImgFond(coordImg.xCoinSupG, coordImg.yCoinSupG, coordImg.width, coordImg.height);
-    }
-
-
-    public void rechargerImg(){
-        changerImgSelection(170,159,159,159);
-        changerImgPlante(0,0,140,140);
-        changerImgFond(170,0,159,159); // la terre
-    }
-
- */
 
     public void setBorderSimple() {
         setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -200,6 +121,9 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
 
             this.progressionMort.setValue(this.p.niveauDeSurvie(this.y, this.x));
             afficherBarMort(this.p.niveauDeSurvie(this.y, this.x) > 0);
+            if(this.p.niveauDeSurvie(this.y, this.x) > 100){
+                afficherPlanteMorte();
+            }
         }
         //afficherBarPlante(this.p.estUneculture(this.y, this.x));
     }
@@ -223,7 +147,9 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         }
     }
     public void afficherPlanteMorte() {
-        afficherBarPlante(false);
+        this.progressionPousse.setVisible(false);
+        this.progressionMort.setVisible(false);
+        this.iconBesoin.setVisible(false);
         this.imgPlante.changerImg("plante_morte");
     }
 
@@ -265,6 +191,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
                     afficherBarPlante(false);
                 } else if (!p.estVivante(y, x)) {
                     this.p.arracher(y, x);
+                    afficherBarPlante(false);
                     afficherPlanteMorte();
                 }
             }
@@ -274,6 +201,12 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
                 if(this.p.placerAmenagementSelectionner(y,x)) afficherAmenagement(true);
             }
         }
+    }
+
+    public void rechargerImg(){
+        this.imgFond.changerTaille(ew(100), eh(100));
+        this.imgSelection.changerTaille(ew(100), eh(100));
+        this.imgPlante.changerTaille(ew(100), eh(100));
     }
 
     @Override
