@@ -21,6 +21,8 @@ public class InventairePanel extends JPanel {
         for (Integer key : stock.keySet()) {
             JLabel invCase = new JLabel();
             invCase.setBounds(0, 0, 100, 100);
+            
+            
 
 
             //charger les images dans l'inventaire

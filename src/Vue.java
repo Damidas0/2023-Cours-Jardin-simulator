@@ -166,7 +166,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         prix.put(1,3);
 
         l.add(new ShopElementCulture("Carotte", 2, prix));
-
+        
         l.add(new ShopElementCulture("Carotte", 2, prix));
         l.add(new ShopElementCulture("Carotte", 2, prix));
         /*l.add(new ShopElementCulture("Carotte", 2, prix));

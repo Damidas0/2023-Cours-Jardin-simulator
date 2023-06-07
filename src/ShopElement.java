@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class ShopElement extends JLabel{
@@ -40,12 +41,14 @@ public class ShopElement extends JLabel{
         lprix.setLayout(new GridLayout(3,2));
 
         for (Integer key : prix.keySet()) {
-            ImageGraphique imPrix = new ImageGraphique(100,100, key);
+            ImageGraphique imPrix = new ImageGraphique(10,10, key);
             imPrix.setVisible(true);
             lprix.add(imPrix);
             lprix.add(new JLabel(String.valueOf(this.prix.get(key))));
         }
+        this.add(lprix);
     }
+    
 
     
     
@@ -61,5 +64,18 @@ public class ShopElement extends JLabel{
 
     public int getId() {
         return id;
+    }
+    public static void main(String[] args) {
+        Tileset tileset = new Tileset();
+        JFrame f = new JFrame();
+        HashMap<Integer, Integer> prix = new HashMap<>();
+        prix.put(1,3);
+        prix.put(2,3);
+        prix.put(3,3);
+        
+
+        f.setSize(1000, 1000);
+        f.add(new ShopElementCulture("Carotte", 2, prix));
+        f.setVisible(true);
     }
 }
