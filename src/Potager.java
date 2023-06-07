@@ -43,8 +43,8 @@ public class Potager extends Observable{
         this.stockAmenagemnt = new int[6];
         Arrays.fill(this.stockAmenagemnt,0);
         // TODO g
-        idAmenagementSelectionner = 0;
-        this.stockAmenagemnt [0] = 5;
+        idAmenagementSelectionner = 5;
+        this.stockAmenagemnt [5] = 5;
 
         this.meteo = new SystemeMeteo();
     }
@@ -209,6 +209,7 @@ public class Potager extends Observable{
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             if (caseLibre(yCase,xCase)) {
                 this.cases[yCase][xCase] = new Culture(plante);
+                repercuterAmenagements();
             }
         }
     }
