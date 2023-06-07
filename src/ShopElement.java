@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 public class ShopElement extends JLabel{
     private boolean estPermanent;
     private String nom; 
+    private int id;
 
     private HashMap<Integer, Integer> prix;  
     
@@ -20,8 +21,9 @@ public class ShopElement extends JLabel{
         
     }
 
-    public ShopElement(String nom, boolean estPermanent, HashMap<Integer, Integer> prix){
+    public ShopElement(String nom, int id, boolean estPermanent, HashMap<Integer, Integer> prix){
         this.nom = nom;
+        this.id = id;
         this.estPermanent = estPermanent;
         this.prix = prix;
 
@@ -38,5 +40,9 @@ public class ShopElement extends JLabel{
 
     public boolean estPermanent(){
         return this.estPermanent;
+    }
+
+    public int getId() {
+        return id;
     }
 }
