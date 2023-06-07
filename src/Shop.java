@@ -28,6 +28,10 @@ public class Shop extends JPanel{
         
     }
 
+    public Shop(List<ShopElementCulture> cultures, Potager p){
+        this(cultures, new ArrayList<ShopElementAmelioration>(), new ArrayList<ShopElementAmenagement>(), p);
+    }
+
     public Shop(List<ShopElementCulture> cultures, List<ShopElementAmelioration> ameliorations, List<ShopElementAmenagement> amenagements, Potager p){
         this.cultureListe = cultures;
         this.amenagementListe = amenagements;
@@ -45,8 +49,10 @@ public class Shop extends JPanel{
         s.add(this.buildAmelioration());
         s.add(new JLabel("Amenagement"));
         s.add(this.buildAmenagement());
-        
+        s.setBounds(0,0,100,100);
         JScrollPane scrollPane = new JScrollPane(s);
+
+        scrollPane.setBounds(0, 0, 100, 100);
 
         //Paramétrage scrollpane 
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -63,6 +69,7 @@ public class Shop extends JPanel{
                     achat(sc);
                 }
             });
+            culturePanel.setBounds(0,0,100,100);
             culturePanel.add(this.cultureListe.get(i));
         }
         return culturePanel;
