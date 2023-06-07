@@ -31,6 +31,8 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     public Potager p;
     public CaseGraphique[][] tabG;
 
+    public Tileset tileset = new Tileset();
+
     private InfoPannel InfoP;
     private MenuPanel menuP;
 
