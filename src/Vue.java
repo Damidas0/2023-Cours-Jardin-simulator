@@ -128,10 +128,10 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight=1;
-        c.weightx = 0.3;
+        c.weightx = 0.2;
         c.weighty = 1;
 
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.BOTH;
         jp.add(buildMenu(), c);
 
         
@@ -141,7 +141,8 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         c.gridy = 1;
         c.gridwidth = 1;
         c.gridheight=1;
-        c.weightx = 0.2;
+        c.weighty=0.1;
+        c.weightx = 0;
 
         //c.fill = GridBagConstraints.BOTH;
         jp.add(this.InfoP, c);
@@ -153,11 +154,10 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
 
     private JTabbedPane buildMenu() {
+        UIManager.getLookAndFeelDefaults().put("TabbedPane:TabbedPaneTab.contentMargins", new Insets(0,0,100,100));
         JTabbedPane tabbedPane = new JTabbedPane();
 
         JComponent panel1 = new InventairePanel();
-        panel1.setBounds(0, 0, 100, 100);
-
         tabbedPane.addTab("Inventaire", panel1);
         
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -167,12 +167,20 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         prix.put(1,3);
         
         l.add(new ShopElementCulture("Carotte", 2, prix));
+        
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+        /*l.add(new ShopElementCulture("Carotte", 2, prix));
+        l.add(new ShopElementCulture("Carotte", 2, prix));*/
+
+
         JComponent panel2 = new Shop(l,p);
-        panel2.setBounds(0, 0, 100, 100);
+        panel2.setVisible(true);
+        //panel2.setBounds(0, 0, 100, 100);
         tabbedPane.add("Shop", panel2);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-
+        pack();
         return tabbedPane;
     }
     
