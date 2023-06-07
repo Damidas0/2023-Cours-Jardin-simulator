@@ -26,11 +26,12 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
     final String CHEMIN_IMG = "img/";
 
+    public Tileset tileset = new Tileset();
+
     public Potager p;
     public CaseGraphique[][] tabG;
 
     private InfoPannel InfoP;
-    private BufferedImage tileset;
 
     public Vue(Potager potager) {
         super();
@@ -50,7 +51,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
             }
         });
 
-        this.tileset = null;
     }
 
     private JComponent buildPotager(){
@@ -61,7 +61,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
         for(int i = 0; i<this.p.HAUTEUR;i++){
             for(int j = 0; j<this.p.LARGEUR;j++){
-                CaseGraphique ptest = new CaseGraphique(i,j,p,this,this.tileset);
+                CaseGraphique ptest = new CaseGraphique(i,j,p,this);
                 //tabG[i][j].setSize(80,80);
                 tabG[i][j] = ptest;
                 pan.add(ptest);
@@ -89,8 +89,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         // changer l'icon de la fenetre
         ImageIcon image = new ImageIcon("img/logo.png");
         this.setIconImage(image.getImage()); //change l'icon de la frame
-        
-        this.chargerImages();
 
         //Menus
         JMenuBar jm = new JMenuBar();
@@ -182,7 +180,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         jm.add(m);
         setJMenuBar(jm);
 
-        chargerImages();
+        Tileset.charger();
         
         /*JComponent pan = new JPanel (new GridLayout(this.p.HAUTEUR, this.p.LARGEUR));
         Border blackline = BorderFactory.createLineBorder(Color.black,1);
@@ -202,14 +200,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         pan.setBorder(blackline);*/
         add(buildPotager());
         //setContentPane(pan);
-    }
-
-    public void chargerImages(){
-        try {
-            this.tileset = ImageIO.read(new File("./src/img/data.png")); // chargement de l'image globale
-        } catch (java.io.IOException e) {
-            System.out.println("ERREUR : Impossoble d'ouvrir la tileset ./src/img/data.png   "+ e.getMessage());
-        }
     }
 
     @Override

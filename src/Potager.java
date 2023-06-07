@@ -11,6 +11,8 @@ public class Potager extends Observable{
             new Graine("carotte", 2, 50, 50, 50, 25, 15, 1, 2,3),
             new Graine("patate", 3, 65, 65, 45, 35, 15, 1, 2,3),
             new Graine("ail", 4, 75, 25, 50, 25, 15, 1, 1,5),
+            new Graine("epinard", 5, 60, 35, 45, 20, 15, 1, 1,4),
+            new Graine("courge", 6, 75, 40, 55, 25, 15, 1, 1,4),
     };
 
     private int vitesse;
@@ -41,7 +43,7 @@ public class Potager extends Observable{
         this.meteo = new SystemeMeteo();
         //this.conditionGlobale = meteo.getCondition();
         //TODO relier le systeme de météo et le potager
-        this.conditionGlobale = new ConditionEnvironementale(0,0,100);
+        this.conditionGlobale = new ConditionEnvironementale(0,0,0);
     }
 
 
@@ -105,6 +107,19 @@ public class Potager extends Observable{
         }
     }
 
+    public boolean estVivante(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (this.cases[yCase][xCase] instanceof Culture) {
+                if (getDeveloppement(yCase, xCase) == 100) {
+                    Culture tmp = (Culture) this.cases[yCase][xCase];
+
+                    return tmp.estVivante();
+                }
+            }
+        }
+        return false;
+    }
+
     public void recolter(int yCase, int xCase) {
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             if (this.cases[yCase][xCase] instanceof Culture) {
@@ -116,6 +131,19 @@ public class Potager extends Observable{
 
                     this.cases[yCase][xCase] = new Case();
                 }
+            }
+        }
+    }
+
+    public void arracher(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (this.cases[yCase][xCase] instanceof Culture) {
+                Culture tmp = (Culture)this.cases[yCase][xCase];
+
+                // on met à jour le stock
+                ajouterGraineStock(tmp.getIdPlante(), tmp.arracher());
+
+                this.cases[yCase][xCase] = new Case();
             }
         }
     }

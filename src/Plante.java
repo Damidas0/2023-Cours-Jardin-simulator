@@ -81,6 +81,11 @@ public class Plante extends Graine{
         return ThreadLocalRandom.current().nextInt(this.rendementMin,this.rendementMax + 1);
     }
 
+    public int arracher(){
+        mourir();
+        return 1;
+    }
+
     public void developper(ConditionEnvironementale conditionCase, int vitesse){
         this.besoin = this.conditionOptimale.compareCE(conditionCase, this.ecartTolerable);
         if (besoin[0]){

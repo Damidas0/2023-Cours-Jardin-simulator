@@ -94,11 +94,6 @@ public class ConditionEnvironementale {
      * @return int
      */
     public boolean[] compareCE(ConditionEnvironementale condition, ConditionEnvironementale ecartTolere) {
-        this.afficher();
-        condition.afficher();
-        ecartTolere.afficher();
-        System.out.println("////////////////////////////////////////////////////");
-
         // {la plante va bien,  manque H, trop H, manque T, trop T, manque E, trop E}
         boolean [] besoin = {false, false, false, false, false, false, false};
         if (Math.abs(this.humidite - condition.humidite) > ecartTolere.humidite)

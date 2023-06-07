@@ -32,7 +32,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     private JLabel imgSelection;
 
     private ImageIcon iconFond;
-    private JLabel imgFond;
+    //private JLabel imgFond;
 
     private ImageIcon iconPlante;
     private JLabel imgPlante;
@@ -45,13 +45,16 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
 
     private IndicateurBesoin iconBesoin;
 
+
+    private ImageGraphique imgFond;
+
     /*
      * public CaseGraphique() {
      * this(0,0,);
      * }
      */
 
-    public CaseGraphique(int y, int x, Potager p, Vue v, BufferedImage tileset) {
+    public CaseGraphique(int y, int x, Potager p, Vue v) {
         super();
         addMouseListener(this);
         this.tileset = tileset;
@@ -70,7 +73,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         this.imgSelection = new JLabel();
         this.imgSelection.setBounds(ew(0),eh(0),ew(100),eh(100));
         add(this.imgSelection, Integer.valueOf(4)); //tout devant
-        changerImgSelection(170,159,159,159);
+        changerImgSelection(Tileset.IMAGE_AUTRE.get("selection"));
         this.imgSelection.setVisible(false);
 
         //icon de besoin
@@ -98,15 +101,19 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         this.imgPlante = new JLabel();
         this.imgPlante.setBounds(ew(10),eh(10),ew(80),eh(80));
         add(this.imgPlante, Integer.valueOf(1)); //au milieu
-        changerImgPlante(v.IMAGE_GRAINE[0]);
+        changerImgPlante(Tileset.IMAGE_GRAINE[0]);
 
 
         // img du fond
-        this.imgFond = new JLabel();
+        this.imgFond = new ImageGraphique(ew(100), eh(100), "sol_case");
         this.imgFond.setVisible(true);
         this.imgFond.setBounds(0,0,ew(100),eh(100));
         add(this.imgFond, Integer.valueOf(0)); //tout derrière
-        changerImgFond(170,0,159,159); // la terre
+        /*this.imgFond = new JLabel();
+        this.imgFond.setVisible(true);
+        this.imgFond.setBounds(0,0,ew(100),eh(100));
+        add(this.imgFond, Integer.valueOf(0)); //tout derrière
+        changerImgFond(170,0,159,159); // la terre*/
 
 
 
@@ -127,7 +134,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
 
 
     public void changerImgPlante(int xCoinSupG, int yCoinSupG, int width, int height) {
-        BufferedImage boutTileset = this.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+        BufferedImage boutTileset = Tileset.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
         this.iconPlante = new ImageIcon(boutTileset.getScaledInstance(ew(80), eh(80), java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
         this.imgPlante.setIcon(this.iconPlante);
     }
@@ -141,7 +148,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     }
 
     public void changerImgSelection(int xCoinSupG, int yCoinSupG, int width, int height) {
-        BufferedImage boutTileset = this.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+        BufferedImage boutTileset = Tileset.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
         this.iconSelection = new ImageIcon(boutTileset.getScaledInstance(ew(100), eh(100), java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
         this.imgSelection.setIcon(this.iconSelection);
     }
@@ -151,7 +158,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     }
 
     public void changerImgFond(int xCoinSupG, int yCoinSupG, int width, int height) {
-        BufferedImage boutTileset = this.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+        BufferedImage boutTileset = Tileset.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
         this.iconFond = new ImageIcon(boutTileset.getScaledInstance(ew(100), eh(100), java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
         this.imgFond.setIcon(this.iconFond);
     }
@@ -224,10 +231,10 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         if (!p.estUneculture(y, x)) {
             this.p.planterSelection(y, x);
         } else if (p.estPoussee(y, x)) {
-            // TODO:récupérer le fruit du labeur de laterre (mettre dans un inventaire?)
             this.p.recolter(y, x);
+        } else if (! p.estVivante(y,x)){
+            this.p.arracher(y,x);
         }
-        
     }
 
     @Override

@@ -25,6 +25,15 @@ public class Culture extends Case {
         return this.plante.recolter();
     }
 
+    public int arracher()
+    {
+        return this.plante.arracher();
+    }
+
+    public boolean estVivante(){
+        return this.plante.estVivante();
+    }
+
     public int niveauDeSurvie(){
         return this.plante.niveauDeSurvie();
     }

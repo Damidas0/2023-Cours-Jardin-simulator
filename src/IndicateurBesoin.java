@@ -36,7 +36,7 @@ public class IndicateurBesoin extends JPanel {
     }
 
     public void changerImg(int xCoinSupG, int yCoinSupG, int width, int height, int i, int widthCase, int heightCase) {
-        BufferedImage boutTileset = this.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+        BufferedImage boutTileset = Tileset.tileset.getSubimage(xCoinSupG, yCoinSupG, width, height); // image de la plante  (x, y : coin supérieur gauche, w, h : largeur et hauteur)
         this.icons[i] = new ImageIcon(boutTileset.getScaledInstance(widthCase/4, heightCase/4, java.awt.Image.SCALE_SMOOTH)); // icône redimentionnée
         this.imgs[i].setIcon(this.icons[i]);
     }
