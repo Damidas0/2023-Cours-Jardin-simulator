@@ -235,6 +235,16 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         afficherBarMort(true);
     }
 
+    public void afficherAmenagement(boolean bool){
+        if(bool) {
+            afficherBarPlante(false);
+            afficherBarMort(false);
+            this.iconBesoin.setVisible(false);
+
+            this.imgFond.changerImgAmenagement(p.getIdAmenagement(y,x));
+        }
+    }
+
     public void updateBesoin(){
         this.iconBesoin.afficherBesoin(p.getBesoin(this.y, this.x));
     }
@@ -247,7 +257,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getButton() == 1) { // clique gauche
-            if (!p.estUneculture(y, x)) {
+            if (p.caseLibre(y, x)) {
                 if (this.p.planterSelection(y, x)) afficherBarPlante(true);
             } else {
                 if (p.estPoussee(y, x)) {
@@ -260,7 +270,9 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
             }
         }
         else{ // clique droit ou autre
-            //this.v.nvMenuContextuel(y,x);
+            if(p.caseLibre(y, x)){
+                if(this.p.placerAmenagementSelectionner(y,x)) afficherAmenagement(true);
+            }
         }
     }
 

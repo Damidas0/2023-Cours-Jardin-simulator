@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Observable;
 
@@ -21,8 +22,10 @@ public class Potager extends Observable{
     private Case cases[][];
 
     private int idGraineSelectionner;
+    private int idAmenagementSelectionner;
 
-    private HashMap<Integer, Integer> stock;
+    private HashMap<Integer, Integer> stockGraine;
+    private int stockAmenagemnt[];
 
     public Potager() {
         Potager.vitesse = 10;
@@ -34,40 +37,145 @@ public class Potager extends Observable{
             }
         }
 
-        this.stock = new HashMap<>();
+        this.stockGraine = new HashMap<>();
         idGraineSelectionner = -1;
+
+        this.stockAmenagemnt = new int[6];
+        Arrays.fill(this.stockAmenagemnt,0);
+        // TODO g
+        idAmenagementSelectionner = 0;
+        this.stockAmenagemnt [0] = 5;
 
         this.meteo = new SystemeMeteo();
     }
 
 
     public void selectionnerGraine(int idGraine){
-        if (this.stock.get(idGraine) != null){
+        if (this.stockGraine.get(idGraine) != null){
             this.idGraineSelectionner = idGraine;
+        }else{
+            System.out.println("vous n'avez pas la graine d'id : "+ idGraine);
         }
     }
+
+    public void selectionnerAmenagement(int idAmenagement){
+        if (idAmenagement>=0 && idAmenagement<=5){
+            this.idAmenagementSelectionner = idAmenagement;
+        }else{
+            System.out.println("il n'existe pas d'aménagement : "+idAmenagement);
+        }
+    }
+
 
     public void ajouterGraineStock(Graine graine, int quantite){
         ajouterGraineStock(graine.getId(), quantite);
     }
 
+    public void ajouterAmenagementStock(int type, int quantite){
+        if(type>=0 && type<=5)  this.stockAmenagemnt[type] += quantite;
+    }
+
     public void ajouterGraineStock(int idGraine, int quantite){
         if(quantite > 0){
-            this.stock.merge(idGraine, quantite, (prev, one) -> prev + one);
+            this.stockGraine.merge(idGraine, quantite, (prev, one) -> prev + one);
         }else {
             System.out.println("On ne peut pas ajouter un nombre < 0 de plante");
         }
     }
 
+    public boolean placerAmenagementSelectionner(int yCase, int xCase){
+        return placerAmenagement(yCase,xCase,this.idAmenagementSelectionner);
+    }
+
+    private boolean placerAmenagement(int yCase, int xCase, int idAmenagement){
+        if (this.stockAmenagemnt[idAmenagement] > 0){
+            if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+                if (caseLibre(yCase,xCase)) {
+                    this.cases[yCase][xCase] = new Amenagement(idAmenagement);
+                    ajouterAmenagementStock(idAmenagement, -1);
+
+                    //on répercute les changements
+                    repercuterAmenagements();
+                    return true;
+                }
+            }
+        }else {
+            System.out.println("Vous n'avez plus l'aménagement' "+ idAmenagement +" dans votre stock d'aménagement");
+            return false;
+        }
+        return false;
+    }
+
+    public void enleverAmenagement(int yCase, int xCase){
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (this.cases[yCase][xCase] instanceof Amenagement) {
+                Amenagement tmp = (Amenagement) this.cases[yCase][xCase];
+                ajouterAmenagementStock(tmp.getType(), 1);
+
+                this.cases[yCase][xCase] = new Case();
+
+                //on répercute les changements
+                repercuterAmenagements();
+            }
+        }
+    }
+
+    public int getIdAmenagement(int yCase, int xCase){
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (this.cases[yCase][xCase] instanceof Amenagement) {
+                Amenagement tmp = (Amenagement) this.cases[yCase][xCase];
+                return tmp.getType();
+            }
+        }
+        return -1;
+    }
+
+    private void repercuterAmenagements(){
+        for (int i = 0; i <this.HAUTEUR ; i++) {
+            for (int j = 0; j < this.LARGEUR; j++) {
+                // on rentabilise les protections des cultures
+                if (this.cases[i][j] instanceof Culture) {
+                    Culture tmp = (Culture)this.cases[i][j];
+                    tmp.resetProtectionEnvironemental();
+                }
+                // on recherche tous les aménagements
+                if(this.cases[i][j] instanceof Amenagement){
+                    Amenagement tmp = (Amenagement) this.cases[i][j];
+                    //on parcours les 8 cases autours
+                    for (int k = -1; k < 1; k++) {
+                        for (int l = -1; l < 1; l++) {
+                            if(k!=0 || l!=0){
+                                //on vérifie qu'on sort pas du tableau
+                                if(i+k >=0 && i+k<HAUTEUR && j+l>=0 && j+l<LARGEUR){
+                                    changerProtectionEnvironemental(i+k, j+l, tmp.getType(), true);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void changerProtectionEnvironemental(int yCase, int xCase, int type, boolean bool) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            if (estUneculture(yCase, xCase)) {
+                Culture tmp = (Culture)this.cases[yCase][xCase];
+                tmp.changerProtectionEnvironemental(type, bool);
+                tmp.changerProtectionEnvironemental(type, bool);
+            }
+        }
+    }
+
     public void enleverPlante(int idGraine, int quantite){
-        if(this.stock.get(idGraine) != null){
-            if(this.stock.get(idGraine) - quantite >= 0){
-                this.stock.put(idGraine, this.stock.get(idGraine) - quantite);
+        if(this.stockGraine.get(idGraine) != null){
+            if(this.stockGraine.get(idGraine) - quantite >= 0){
+                this.stockGraine.put(idGraine, this.stockGraine.get(idGraine) - quantite);
             } else {
-                System.out.println("Pas assez de plante "+ idGraine+ "vous en avez "+this.stock.get(idGraine)+ "et vous voulez en enlenver "+ quantite);
+                System.out.println("Pas assez de plante "+ idGraine+ "vous en avez "+this.stockGraine.get(idGraine)+ "et vous voulez en enlenver "+ quantite);
             }
         }else{
-            System.out.println("Vous n'avez pas la plante "+idGraine+" en stock");
+            System.out.println("Vous n'avez pas la plante "+idGraine+" en stockGraine");
         }
     }
 
@@ -82,27 +190,31 @@ public class Potager extends Observable{
     }
 
     public boolean planterStock(Plante plante, int yCase, int xCase) {
-        if (this.stock.get(plante.getId()) != null){
-            if (this.stock.get(plante.getId()) > 0){
+        if (this.stockGraine.get(plante.getId()) != null){
+            if (this.stockGraine.get(plante.getId()) > 0){
                 planter(plante, yCase, xCase);
                 enleverPlante(plante.getId(), 1);
                 return true;
             }else {
-                System.out.println("Vous n'avez plus la plante "+plante.getId()+" en stock");
+                System.out.println("Vous n'avez plus la plante "+plante.getId()+" en stockGraine");
                 return false;
             }
         }else {
-            System.out.println("Vous n'avez pas la plante "+plante.getId()+" en stock");
+            System.out.println("Vous n'avez pas la plante "+plante.getId()+" en stockGraine");
             return false;
         }
     }
 
     public void planter(Plante plante, int yCase, int xCase) {
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
-            if (!(this.cases[yCase][xCase] instanceof Culture)) {
+            if (caseLibre(yCase,xCase)) {
                 this.cases[yCase][xCase] = new Culture(plante);
             }
         }
+    }
+
+    public boolean caseLibre(int yCase, int xCase){
+        return !(this.cases[yCase][xCase] instanceof Culture) && !(this.cases[yCase][xCase] instanceof Amenagement);
     }
 
     public boolean estVivante(int yCase, int xCase) {
@@ -121,7 +233,7 @@ public class Potager extends Observable{
                 if(getDeveloppement(yCase,xCase) == 100){
                     Culture tmp = (Culture)this.cases[yCase][xCase];
 
-                    // on met à jour le stock
+                    // on met à jour le stockGraine
                     ajouterGraineStock(tmp.getIdPlante(), tmp.recolter());
 
                     this.cases[yCase][xCase] = new Case();
@@ -135,7 +247,7 @@ public class Potager extends Observable{
             if (this.cases[yCase][xCase] instanceof Culture) {
                 Culture tmp = (Culture)this.cases[yCase][xCase];
 
-                // on met à jour le stock
+                // on met à jour le stockGraine
                 ajouterGraineStock(tmp.getIdPlante(), tmp.arracher());
 
                 this.cases[yCase][xCase] = new Case();
@@ -244,14 +356,14 @@ public class Potager extends Observable{
     }
 
     public HashMap<Integer, Integer> getStock(){
-        return this.stock;
+        return this.stockGraine;
     }
 
 
     public void afficherStock(){
         System.out.println("Stock: ");
-        for (Integer key : this.stock.keySet()) {
-            System.out.println("    - id: "+key+", quantité: "+this.stock.get(key));
+        for (Integer key : this.stockGraine.keySet()) {
+            System.out.println("    - id: "+key+", quantité: "+this.stockGraine.get(key));
         }
     }
 

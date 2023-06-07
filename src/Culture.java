@@ -56,6 +56,13 @@ public class Culture extends Case {
         return this.plante.getDeveloppement();
     }
 
+    public void changerProtectionEnvironemental(int type, boolean bool){
+        if(type>=0 && type<6) this.protectionsEnvironementales[type] = bool;
+    }
+    public void resetProtectionEnvironemental(){
+        Arrays.fill(this.protectionsEnvironementales, false);
+    }
+
     @Override
     public void afficher(){
         System.out.println("---------JPanel----------");
