@@ -28,9 +28,7 @@ public class InventairePanel extends JPanel {
 
 
         for (Integer key : stock.keySet()) {
-            ImageGraphique img = new ImageGraphique(100, 100, key);
-            img.setVisible(true);
-            InventaireElement iv = new InventaireElement(key, stock.get(key));
+            InventaireElement iv = new InventaireElement(key, stock.get(key), false);
             iv.setVisible(true);
 
             iv.addMouseListener(new MouseAdapter(){
@@ -46,10 +44,8 @@ public class InventairePanel extends JPanel {
         }
 
         for (Integer key : stockAmenagementInit.keySet()) {
-            ImageGraphique img = new ImageGraphique(100, 100, key);
-            img.changerImgAmenagement(key);
-            img.setVisible(true);
-            InventaireElement iv = new InventaireElement(key, stockAmenagementInit.get(key));
+            
+            InventaireElement iv = new InventaireElement(key, stockAmenagementInit.get(key), true);
             iv.setVisible(true);
 
             iv.addMouseListener(new MouseAdapter(){
@@ -79,9 +75,7 @@ public class InventairePanel extends JPanel {
             if(this.lj.containsKey(key)){
                 this.lj.get(key).majQte(nouveauStock.get(key));
             }else{
-                ImageGraphique img = new ImageGraphique(100, 100, key);
-                img.setVisible(true);
-                InventaireElement iv = new InventaireElement(key, stock.get(key));
+                InventaireElement iv = new InventaireElement(key, stock.get(key), false);
                 this.lj.put(key, iv);
                 iv.setVisible(true);
     
@@ -94,13 +88,14 @@ public class InventairePanel extends JPanel {
                 this.add(iv);
             }
         }
+
         for (Integer key : nStockAmenagement.keySet()) {
             if(this.listeAmenagement.containsKey(key)){
-                this.listeAmenagement.get(key).majQte(nouveauStock.get(key));
+                this.listeAmenagement.get(key).majQte(nStockAmenagement.get(key));
             }else{
                 ImageGraphique img = new ImageGraphique(100, 100, key);
                 img.setVisible(true);
-                InventaireElement iv = new InventaireElement(key, stock.get(key));
+                InventaireElement iv = new InventaireElement(key, stock.get(key), true);
                 this.listeAmenagement.put(key, iv);
                 iv.setVisible(true);
     
