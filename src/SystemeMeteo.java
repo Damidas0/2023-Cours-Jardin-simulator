@@ -32,7 +32,7 @@ public class SystemeMeteo implements Runnable{
         updateCondition();
         updateSaison();
 
-        afficher();
+        //afficher();
     }
 
 

@@ -25,7 +25,7 @@ public class Potager extends Observable{
     private int idAmenagementSelectionner;
 
     private HashMap<Integer, Integer> stockGraine;
-    private int stockAmenagemnt[];
+    private HashMap<Integer, Integer> stockAmenagemnt;
 
     public Potager() {
         Potager.vitesse = 1;
@@ -40,11 +40,10 @@ public class Potager extends Observable{
         this.stockGraine = new HashMap<>();
         idGraineSelectionner = -1;
 
-        this.stockAmenagemnt = new int[6];
-        Arrays.fill(this.stockAmenagemnt,0);
-        // TODO g
-        idAmenagementSelectionner = 5;
-        this.stockAmenagemnt [5] = 5;
+        this.stockAmenagemnt = new HashMap<>();
+        this.stockAmenagemnt.put(0,1);
+        idAmenagementSelectionner = 0;
+
 
         this.meteo = new SystemeMeteo();
     }
@@ -59,7 +58,7 @@ public class Potager extends Observable{
     }
 
     public void selectionnerAmenagement(int idAmenagement){
-        if (idAmenagement>=0 && idAmenagement<=5){
+        if (this.stockAmenagemnt.get(idAmenagement) != null){
             this.idAmenagementSelectionner = idAmenagement;
         }else{
             System.out.println("il n'existe pas d'aménagement : "+idAmenagement);
@@ -72,7 +71,11 @@ public class Potager extends Observable{
     }
 
     public void ajouterAmenagementStock(int type, int quantite){
-        if(type>=0 && type<=5)  this.stockAmenagemnt[type] += quantite;
+        if(quantite > 0){
+            this.stockGraine.merge(type, quantite, (prev, one) -> prev + one);
+        }else {
+            System.out.println("On ne peut pas ajouter un nombre < 0 de plante");
+        }
     }
 
     public void ajouterGraineStock(int idGraine, int quantite){
@@ -88,11 +91,11 @@ public class Potager extends Observable{
     }
 
     private boolean placerAmenagement(int yCase, int xCase, int idAmenagement){
-        if (this.stockAmenagemnt[idAmenagement] > 0){
+        if (this.stockAmenagemnt.get(idAmenagement) > 0){
             if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
                 if (caseLibre(yCase,xCase)) {
                     this.cases[yCase][xCase] = new Amenagement(idAmenagement);
-                    ajouterAmenagementStock(idAmenagement, -1);
+                    enleverAmenagement(idAmenagement, 1);
 
                     //on répercute les changements
                     repercuterAmenagements();
@@ -106,7 +109,19 @@ public class Potager extends Observable{
         return false;
     }
 
-    public void enleverAmenagement(int yCase, int xCase){
+    public void enleverAmenagement(int idAmenagement, int quantite){
+        if(this.stockAmenagemnt.get(idAmenagement) != null){
+            if(this.stockAmenagemnt.get(idAmenagement) - quantite >= 0){
+                this.stockAmenagemnt.put(idAmenagement, this.stockAmenagemnt.get(idAmenagement) - quantite);
+            } else {
+                System.out.println("Pas assez d'aménagement "+ idAmenagement+ "vous en avez "+this.stockAmenagemnt.get(idAmenagement)+ "et vous voulez en enlenver "+ quantite);
+            }
+        }else{
+            System.out.println("Vous n'avez pas l'aménagement "+idAmenagement+" en stock");
+        }
+    }
+
+    public void retirerAmenagement(int yCase, int xCase){
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             if (this.cases[yCase][xCase] instanceof Amenagement) {
                 Amenagement tmp = (Amenagement) this.cases[yCase][xCase];
@@ -280,14 +295,18 @@ public class Potager extends Observable{
 
 
     public boolean estUneculture(int yCase, int xCase) {
-        //System.out.println("Y : " + yCase + "X : " + xCase);
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
-            //this.cases[yCase][xCase].afficher();
             return this.cases[yCase][xCase] instanceof Culture;
         }
         return false;
     }
 
+    public boolean estUnAmenagement(int yCase, int xCase) {
+        if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
+            return this.cases[yCase][xCase] instanceof Amenagement;
+        }
+        return false;
+    }
     public int getDeveloppement(int yCase, int xCase){
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             //TODO:aucasouarevoir

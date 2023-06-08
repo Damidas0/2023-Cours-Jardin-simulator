@@ -184,6 +184,9 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         if(e.getButton() == 1) { // clique gauche
             if (p.caseLibre(y, x)) {
+                if(p.estUnAmenagement(y,x)){
+                    p.retirerAmenagement(y,x);
+                }
                 if (this.p.planterSelection(y, x)) afficherBarPlante(true);
             } else {
                 if (p.estPoussee(y, x)) {
