@@ -94,7 +94,7 @@ public class Shop extends JPanel{
             prixParasol.put(5,1);
             prixParasol.put(4,1);
 
-            lA.add(new ShopElementAmenagement("Parasol", 4 , true, prixParasol));
+            lA.add(new ShopElementAmenagement("Parasol", 5 , true, prixParasol));
 
         }
         this.cultureListe = l;
