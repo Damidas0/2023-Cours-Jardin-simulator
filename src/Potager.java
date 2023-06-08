@@ -72,9 +72,9 @@ public class Potager extends Observable{
 
     public void ajouterAmenagementStock(int type, int quantite){
         if(quantite > 0){
-            this.stockGraine.merge(type, quantite, (prev, one) -> prev + one);
+            this.stockAmenagemnt.merge(type, quantite, (prev, one) -> prev + one);
         }else {
-            System.out.println("On ne peut pas ajouter un nombre < 0 de plante");
+            System.out.println("On ne peut pas ajouter un nombre < 0 d'aménagement");
         }
     }
 
@@ -133,6 +133,8 @@ public class Potager extends Observable{
                 repercuterAmenagements();
             }
         }
+
+        //afficherStock();
     }
 
     public int getIdAmenagement(int yCase, int xCase){
@@ -388,6 +390,9 @@ public class Potager extends Observable{
         System.out.println("Stock: ");
         for (Integer key : this.stockGraine.keySet()) {
             System.out.println("    - id: "+key+", quantité: "+this.stockGraine.get(key));
+        }
+        for (Integer key : this.stockAmenagemnt.keySet()) {
+            System.out.println("    - id: "+key+", quantité: "+this.stockAmenagemnt.get(key));
         }
     }
 
