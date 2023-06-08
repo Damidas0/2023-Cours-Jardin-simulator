@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class Shop extends JPanel{
+    private boolean estShopCulture; 
     private List<ShopElementCulture> cultureListe; 
     private List<ShopElementAmenagement> amenagementListe;
 
@@ -22,6 +23,8 @@ public class Shop extends JPanel{
     public Shop(int qui, Potager p){
         //Jeu de base par défaut
         //init
+        this.p = p;
+        this.estShopCulture = (qui == 1);
         List<ShopElementCulture> l = new ArrayList<ShopElementCulture>();
         List<ShopElementAmenagement> lA = new ArrayList<ShopElementAmenagement>();
 
@@ -61,23 +64,37 @@ public class Shop extends JPanel{
             l.add(new ShopElementCulture("Courge", 6 , prixCourge));
 
         }else{
-            HashMap<Integer, Integer> prixCarotte = new HashMap<Integer, Integer>();
+            HashMap<Integer, Integer> prixFlaque = new HashMap<Integer, Integer>();
 
             //Ajout carotte
-            prixCarotte.put(1,6);
-            lA.add(new ShopElementAmenagement("Carotte", 2, true, prixCarotte));
+            prixFlaque.put(1,1);
+            lA.add(new ShopElementAmenagement("Flaque", 0, true, prixFlaque));
 
-            HashMap<Integer, Integer> prixPatate = new HashMap<>();
-            prixPatate.put(1,2);
-            prixPatate.put(2,4);
-            lA.add(new ShopElementAmenagement("Patate", 3 , true, prixPatate));
+            HashMap<Integer, Integer> prixSCheveux = new HashMap<>();
+            prixSCheveux.put(2,1);
+            lA.add(new ShopElementAmenagement("Séche cheveux", 1 , true, prixSCheveux));
 
-            HashMap<Integer, Integer> prixAil = new HashMap<>();
-            prixAil.put(1,3);
-            prixAil.put(2,3);
-            prixAil.put(3,5);
+            HashMap<Integer, Integer> prixRadiateur = new HashMap<>();
+            prixRadiateur.put(1,1);
+            prixRadiateur.put(2,1);
 
-            lA.add(new ShopElementAmenagement("Ail", 4 , true, prixAil));
+            lA.add(new ShopElementAmenagement("Radiateur", 2 , true, prixRadiateur));
+
+            HashMap<Integer, Integer> prixClim = new HashMap<>();
+            prixClim.put(3,2);
+
+            lA.add(new ShopElementAmenagement("Climatisation", 3 , true, prixClim));
+
+            HashMap<Integer, Integer> prixMiroir = new HashMap<>();
+            prixMiroir.put(6,1);
+
+            lA.add(new ShopElementAmenagement("Miroir", 4 , true, prixMiroir));
+
+            HashMap<Integer, Integer> prixParasol = new HashMap<>();
+            prixParasol.put(5,1);
+            prixParasol.put(4,1);
+
+            lA.add(new ShopElementAmenagement("Parasol", 4 , true, prixParasol));
 
         }
         this.cultureListe = l;
@@ -99,7 +116,7 @@ public class Shop extends JPanel{
             //c.gridx = i;
             sc.addMouseListener(new MouseAdapter(){
                 public void mouseClicked(MouseEvent e){
-
+                    System.out.println("Actuellement dans la fonction");
                     achat(sc);
                 }
             });
@@ -178,7 +195,7 @@ public class Shop extends JPanel{
             //c.gridx = i;
             sc.addMouseListener(new MouseAdapter(){
                 public void mouseClicked(MouseEvent e){
-
+                    System.out.println("dnqzodqndqzjndqjdnqzkj");
                     achat(sc);
                 }
             });
@@ -192,12 +209,17 @@ public class Shop extends JPanel{
 
 
     private void achat(ShopElement s){
-        if(estAchetable(s.getPrix(), this.p.getStock()) != 1 ){
-            //this.inventaire.ajouter(sc.Achete())
-            this.p.ajouterGraineStock(s.getId(), 1);
+        if(estAchetable(s.getPrix(), this.p.getStock()) != -1 ){
+            if(estShopCulture){
+                this.p.ajouterGraineStock(s.getId(), 1);
+                
+            }else{
+                this.p.ajouterAmenagementStock(s.getId(), 1);
+            }
             for(Integer key : s.getPrix().keySet()){
                 this.p.enleverPlante(key, s.getPrix().get(key));
             }
+            
             this.majShop((ShopElement) s);
         }
     }

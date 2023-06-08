@@ -81,9 +81,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         // paramétrage de la fenetre
         //this.setLayout(new GridBagLayout());
 
-        //on ajoute et séléctionne une graine de base
-        this.p.ajouterGraineStock(1,5);
-        this.p.selectionnerGraine(1);
         
         JPanel jp = new JPanel(new GridBagLayout());
         setContentPane(jp);

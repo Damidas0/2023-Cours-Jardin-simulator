@@ -38,7 +38,11 @@ public class Potager extends Observable{
         }
 
         this.stockGraine = new HashMap<>();
-        idGraineSelectionner = -1;
+        idGraineSelectionner = 1;
+
+        //on ajoute et séléctionne une graine de base
+        this.ajouterGraineStock(1,7);
+        
 
         this.stockAmenagemnt = new HashMap<>();
         for (int i = 0; i <6 ; i++) {
