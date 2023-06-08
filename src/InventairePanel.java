@@ -69,10 +69,6 @@ public class InventairePanel extends JPanel {
                 });
                 this.add(iv);
             }
-            
-            
-            
-
         }
     }
     
