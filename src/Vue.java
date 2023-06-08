@@ -49,7 +49,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         this.InfoP = new InfoPannel();
 
         buildBis();
-        
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent arg0) {
@@ -82,10 +82,16 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         //this.setLayout(new GridBagLayout());
 
         //on ajoute et séléctionne une graine de base
+<<<<<<< HEAD
         this.p.ajouterGraineStock(1,5);
 
         this.p.selectionnerGraine(1);
         
+=======
+        this.p.ajouterGraineStock(0,10);
+        this.p.selectionnerGraine(0);
+
+>>>>>>> e98af3c835e239ead8ab77f6744c5d7107172305
         JPanel jp = new JPanel(new GridBagLayout());
         setContentPane(jp);
 
@@ -135,7 +141,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         c.fill = GridBagConstraints.BOTH;
         jp.add(buildMenu(), c);
 
-        
+
 
         //infoPannel
         c.gridx = 1;
@@ -161,13 +167,13 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         JComponent panel1 = new InventairePanel(p.getStock(),p);
         panel1.setVisible(true);
         tabbedPane.addTab("Inventaire", panel1);
-        
+
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
         List<ShopElementCulture> l = new ArrayList<ShopElementCulture>();
         HashMap<Integer, Integer> prix = new HashMap<>();
         prix.put(1,3);
-        
+
         l.add(new ShopElementCulture("Carotte", 2, prix));
 
         prix.put(2,3);
@@ -192,7 +198,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         pack();
         return tabbedPane;
     }
-    
+
 
     public void build() {
         // paramétrage de la fenetre
@@ -241,11 +247,11 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     }
 
     public void majInfoPanel(int y, int x) {
-        this.InfoP.majInfoPanel(this.p.getNomPlante(y,x), 
-                                this.p.getInfoEau(y,x),
-                                this.p.getInfoSoleil(y,x),
-                                this.p.getInfoTemp(y,x));
-        
+        this.InfoP.majInfoPanel(this.p.getNomPlante(y,x),
+                this.p.getInfoEau(y,x),
+                this.p.getInfoSoleil(y,x),
+                this.p.getInfoTemp(y,x));
+
     }
 
     public void resetInfoPannel() {
