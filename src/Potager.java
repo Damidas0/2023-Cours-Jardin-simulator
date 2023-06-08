@@ -41,7 +41,9 @@ public class Potager extends Observable{
         idGraineSelectionner = -1;
 
         this.stockAmenagemnt = new HashMap<>();
-        this.stockAmenagemnt.put(0,1);
+        for (int i = 0; i <6 ; i++) {
+            ajouterAmenagementStock(i,1);
+        }
         idAmenagementSelectionner = 0;
 
 
@@ -321,7 +323,7 @@ public class Potager extends Observable{
     }
 
     public boolean estPoussee(int yCase, int xCase){
-        if (this.getDeveloppement(yCase, xCase) == 100) return true;
+        if (this.getDeveloppement(yCase, xCase) >= 100) return true;
         return false; 
     }
 

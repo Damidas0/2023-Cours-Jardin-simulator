@@ -112,17 +112,18 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
     }
     public void updateBar() {
         if (this.p.estUneculture(this.y, this.x)) {
-            this.progressionPousse.setValue(this.p.getDeveloppement(this.y, this.x));
-            if(this.p.getDeveloppement(this.y, this.x) == 100){
-                this.progressionPousse.setForeground(new Color(0x69B00B));
-            }else{
-                this.progressionPousse.setForeground(new Color(0xc9b48d));
-            }
-
-            this.progressionMort.setValue(this.p.niveauDeSurvie(this.y, this.x));
-            afficherBarMort(this.p.niveauDeSurvie(this.y, this.x) > 0);
-            if(this.p.niveauDeSurvie(this.y, this.x) > 100){
+            if(!this.p.estVivante(this.y, this.x)){
                 afficherPlanteMorte();
+            }else{
+                this.progressionPousse.setValue(this.p.getDeveloppement(this.y, this.x));
+                if(this.p.getDeveloppement(this.y, this.x) == 100){
+                    this.progressionPousse.setForeground(new Color(0x69B00B));
+                }else{
+                    this.progressionPousse.setForeground(new Color(0xc9b48d));
+                }
+
+                this.progressionMort.setValue(this.p.niveauDeSurvie(this.y, this.x));
+                afficherBarMort(this.p.niveauDeSurvie(this.y, this.x) > 0);
             }
         }
         //afficherBarPlante(this.p.estUneculture(this.y, this.x));

@@ -4,7 +4,7 @@ import java.util.Observable;
 public class Ordonnanceur extends Observable implements Runnable{
     private ArrayList<Runnable> listeRunnable;
 
-    public static int TICK = 1000;
+    public static int TICK = 100;
     private static Ordonnanceur o;//il a lui meme et ça marche vu que c de classe
 
     private Ordonnanceur() {

@@ -91,18 +91,19 @@ public class Plante extends Graine{
     }
 
     public void developper(ConditionEnvironementale conditionCase, int vitesse, boolean[] protectionsEnvironementales){
-        this.besoin = this.conditionOptimale.compareCE(conditionCase, this.ecartTolerable, protectionsEnvironementales);
-        if (besoin[0]){
-            this.nbJoursSurvie = 0;
-            this.developpement += (int) (vitesse * this.modificateurVitesse);
-            if(this.developpement > 100){
-                this.developpement = 100;
-            }
-        }
-        else{
-            this.nbJoursSurvie += vitesse;
-            if(this.nbJoursSurvie > this.nbJoursSurvieMax){
-                mourir();
+        if(estVivante && this.developpement < 100) {
+            this.besoin = this.conditionOptimale.compareCE(conditionCase, this.ecartTolerable, protectionsEnvironementales);
+            if (besoin[0]) {
+                this.nbJoursSurvie = 0;
+                this.developpement += (int) (vitesse * this.modificateurVitesse);
+                if (this.developpement > 100) {
+                    this.developpement = 100;
+                }
+            } else {
+                this.nbJoursSurvie += vitesse;
+                if (this.nbJoursSurvie > this.nbJoursSurvieMax) {
+                    mourir();
+                }
             }
         }
     }
