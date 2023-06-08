@@ -96,14 +96,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         ImageIcon image = new ImageIcon("img/logo.png");
         this.setIconImage(image.getImage()); //change l'icon de la frame
 
-        //Menus
-        /*JMenuBar jm = new JMenuBar();
-        JMenu m = new JMenu("Jeu");
-        JMenuItem mi = new JMenuItem("Partie");
-
-        m.add(mi);
-        jm.add(m);
-        this.setJMenuBar(jm);*/
+       
 
         //===GridbagLayout===
         GridBagConstraints c = new GridBagConstraints();
@@ -146,8 +139,11 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
         //c.fill = GridBagConstraints.BOTH;
         jp.add(this.InfoP, c);
-
+        
         this.pack();
+        this.setTitle("Le poti potager");
+        this.setSize(1650, 1000);
+        this.setResizable(false);
 
         this.setVisible(true);
     }
@@ -182,29 +178,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     }
 
 
-    public void build() {
-        // paramétrage de la fenetre
-        this.setTitle("Le poti potager");
-        this.setSize(1000, 1000);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // changer l'icon de la fenetre
-        ImageIcon image = new ImageIcon("img/logo.png");
-        this.setIconImage(image.getImage()); //change l'icon de la frame
-
-        JMenuBar jm = new JMenuBar();
-        JMenu m = new JMenu("Jeu");
-        JMenuItem mi = new JMenuItem("Partie");
-
-        m.add(mi);
-        jm.add(m);
-        setJMenuBar(jm);
-
-        Tileset.charger();
-
-        add(buildPotager());
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         //System.out.println("JE MUPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
@@ -235,7 +208,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
                 this.p.getInfoEau(y,x),
                 this.p.getInfoSoleil(y,x),
                 this.p.getInfoTemp(y,x));
-
     }
 
     public void resetInfoPannel() {
