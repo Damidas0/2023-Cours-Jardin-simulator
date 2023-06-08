@@ -153,7 +153,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         UIManager.getLookAndFeelDefaults().put("TabbedPane:TabbedPaneTab.contentMargins", new Insets(0,0,100,100));
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        this.ip = new InventairePanel(p.getStock(),p);
+        this.ip = new InventairePanel(p.getStock(), p.getStockAmenagement(),p);
         ip.setVisible(true);
         tabbedPane.addTab("Inventaire", ip);
 
@@ -196,7 +196,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
             }
         }
 
-        this.ip.majInventaire(p.getStock());
+        this.ip.majInventaire(p.getStock(), p.getStockAmenagement());
         
         this.InfoP.revalidate();
         this.InfoP.repaint();

@@ -12,19 +12,21 @@ import javax.swing.JPanel;
 public class InventairePanel extends JPanel {
     private HashMap<Integer, Integer> stock;
     private HashMap<Integer, InventaireElement> lj;
+    private HashMap<Integer, InventaireElement> listeAmenagement;
     private Potager p;
 
 
-    public InventairePanel(){
-        
-    }
+   
 
-    public InventairePanel(HashMap<Integer, Integer> stockInit, Potager p){
+    public InventairePanel(HashMap<Integer, Integer> stockInit, HashMap<Integer, Integer> stockAmenagementInit, Potager p){
         this.p = p;
         this.stock = stockInit;
         this.setLayout(new GridLayout(5,4));
         this.stock = stockInit;
         this.lj = new HashMap<Integer, InventaireElement>();
+        this.listeAmenagement = new HashMap<Integer, InventaireElement>();
+
+
         for (Integer key : stock.keySet()) {
             ImageGraphique img = new ImageGraphique(100, 100, key);
             img.setVisible(true);
@@ -42,6 +44,24 @@ public class InventairePanel extends JPanel {
 
             this.add(iv);
         }
+
+        for (Integer key : stockAmenagementInit.keySet()) {
+            ImageGraphique img = new ImageGraphique(100, 100, key);
+            img.changerImgAmenagement(key);
+            img.setVisible(true);
+            InventaireElement iv = new InventaireElement(key, stockAmenagementInit.get(key));
+            iv.setVisible(true);
+
+            iv.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+                    selectAmenagement(iv.getId());
+                }
+            });
+            listeAmenagement.put(key, iv);
+
+
+            this.add(iv);
+        }
         this.setVisible(true);
     }
 
@@ -49,7 +69,11 @@ public class InventairePanel extends JPanel {
         this.p.selectionnerGraine(id);
     }
 
-    public void majInventaire(HashMap<Integer, Integer> nouveauStock){
+    private void selectAmenagement(int id){
+        this.p.selectionnerAmenagement(id);
+    }
+
+    public void majInventaire(HashMap<Integer, Integer> nouveauStock, HashMap<Integer, Integer> nStockAmenagement){
         //this.stock = stock;
         for (Integer key : nouveauStock.keySet()) {
             if(this.lj.containsKey(key)){
@@ -59,6 +83,25 @@ public class InventairePanel extends JPanel {
                 img.setVisible(true);
                 InventaireElement iv = new InventaireElement(key, stock.get(key));
                 this.lj.put(key, iv);
+                iv.setVisible(true);
+    
+                iv.addMouseListener(new MouseAdapter(){
+                    public void mouseClicked(MouseEvent e){
+    
+                        selectGraine(iv.getId());
+                    }
+                });
+                this.add(iv);
+            }
+        }
+        for (Integer key : nStockAmenagement.keySet()) {
+            if(this.listeAmenagement.containsKey(key)){
+                this.listeAmenagement.get(key).majQte(nouveauStock.get(key));
+            }else{
+                ImageGraphique img = new ImageGraphique(100, 100, key);
+                img.setVisible(true);
+                InventaireElement iv = new InventaireElement(key, stock.get(key));
+                this.listeAmenagement.put(key, iv);
                 iv.setVisible(true);
     
                 iv.addMouseListener(new MouseAdapter(){
