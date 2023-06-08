@@ -27,6 +27,23 @@ public class InventairePanel extends JPanel {
         this.listeAmenagement = new HashMap<Integer, InventaireElement>();
 
 
+        
+        for (Integer key : stockAmenagementInit.keySet()) {
+            
+            InventaireElement iv = new InventaireElement(key, stockAmenagementInit.get(key), true);
+            iv.setVisible(true);
+
+            iv.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+                    selectAmenagement(iv.getId());
+                }
+            });
+            listeAmenagement.put(key, iv);
+
+
+            this.add(iv);
+        }
+
         for (Integer key : stock.keySet()) {
             InventaireElement iv = new InventaireElement(key, stock.get(key), false);
             iv.setVisible(true);
@@ -43,21 +60,6 @@ public class InventairePanel extends JPanel {
             this.add(iv);
         }
 
-        for (Integer key : stockAmenagementInit.keySet()) {
-            
-            InventaireElement iv = new InventaireElement(key, stockAmenagementInit.get(key), true);
-            iv.setVisible(true);
-
-            iv.addMouseListener(new MouseAdapter(){
-                public void mouseClicked(MouseEvent e){
-                    selectAmenagement(iv.getId());
-                }
-            });
-            listeAmenagement.put(key, iv);
-
-
-            this.add(iv);
-        }
         this.setVisible(true);
     }
 

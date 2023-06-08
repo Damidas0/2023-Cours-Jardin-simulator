@@ -121,7 +121,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight=1;
-        c.weightx = 0.2;
+        c.weightx = 0.3;
         c.weighty = 1;
 
         c.fill = GridBagConstraints.BOTH;
