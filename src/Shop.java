@@ -19,27 +19,69 @@ public class Shop extends JPanel{
     private Potager p;
 
 
-    public Shop(Potager p){
+    public Shop(int qui, Potager p){
         //Jeu de base par défaut
         //init
         List<ShopElementCulture> l = new ArrayList<ShopElementCulture>();
-        HashMap<Integer, Integer> prixCarotte = new HashMap<>();
+        List<ShopElementAmenagement> lA = new ArrayList<ShopElementAmenagement>();
 
-        //Ajout carotte
-        prixCarotte.put(1,6);
-        l.add(new ShopElementCulture("Carotte", 2, prixCarotte));
 
-        HashMap<Integer, Integer> prixPatate = new HashMap<>();
-        prixPatate.put(1,2);
-        prixPatate.put(2,4);
-        l.add(new ShopElementCulture("Patate", 3 , prixPatate));
+        if(qui == 1 ){
+            HashMap<Integer, Integer> prixCarotte = new HashMap<>();
 
-        HashMap<Integer, Integer> prixAil = new HashMap<>();
-        prixAil.put(1,3);
-        prixAil.put(2,3);
-        prixAil.put(3,5);
+            //Ajout carotte
+            prixCarotte.put(1,6);
+            l.add(new ShopElementCulture("Carotte", 2, prixCarotte));
 
-        l.add(new ShopElementCulture("Patate", 3 , prixPatate));
+            HashMap<Integer, Integer> prixPatate = new HashMap<>();
+            prixPatate.put(1,2);
+            prixPatate.put(2,4);
+            l.add(new ShopElementCulture("Patate", 3 , prixPatate));
+
+            HashMap<Integer, Integer> prixAil = new HashMap<>();
+            prixAil.put(1,3);
+            prixAil.put(2,3);
+            prixAil.put(3,5);
+
+            l.add(new ShopElementCulture("Ail", 4 , prixAil));
+
+            HashMap<Integer, Integer> prixEpindard = new HashMap<>();
+            prixEpindard.put(2,3);
+            prixEpindard.put(3,3);
+            prixEpindard.put(4,5);
+
+            l.add(new ShopElementCulture("Epinard", 5 , prixEpindard));
+
+            HashMap<Integer, Integer> prixCourge = new HashMap<>();
+
+            prixCourge.put(3,3);
+            prixCourge.put(4,3);
+            prixCourge.put(5,5);
+
+            l.add(new ShopElementCulture("Courge", 6 , prixCourge));
+
+        }else{
+            HashMap<Integer, Integer> prixCarotte = new HashMap<Integer, Integer>();
+
+            //Ajout carotte
+            prixCarotte.put(1,6);
+            lA.add(new ShopElementAmenagement("Carotte", 2, true, prixCarotte));
+
+            HashMap<Integer, Integer> prixPatate = new HashMap<>();
+            prixPatate.put(1,2);
+            prixPatate.put(2,4);
+            lA.add(new ShopElementAmenagement("Patate", 3 , true, prixPatate));
+
+            HashMap<Integer, Integer> prixAil = new HashMap<>();
+            prixAil.put(1,3);
+            prixAil.put(2,3);
+            prixAil.put(3,5);
+
+            lA.add(new ShopElementAmenagement("Ail", 4 , true, prixAil));
+
+        }
+        this.cultureListe = l;
+        this.amenagementListe = lA;
 
         
 
@@ -153,6 +195,9 @@ public class Shop extends JPanel{
         if(estAchetable(s.getPrix(), this.p.getStock()) != 1 ){
             //this.inventaire.ajouter(sc.Achete())
             this.p.ajouterGraineStock(s.getId(), 1);
+            for(Integer key : s.getPrix().keySet()){
+                this.p.enleverPlante(key, s.getPrix().get(key));
+            }
             this.majShop((ShopElement) s);
         }
     }

@@ -163,30 +163,19 @@ public class Vue extends JFrame implements Observer, ComponentListener{
 
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-        List<ShopElementCulture> l = new ArrayList<ShopElementCulture>();
-        HashMap<Integer, Integer> prix = new HashMap<>();
-        prix.put(1,3);
-
-        l.add(new ShopElementCulture("Carotte", 2, prix));
-
-        prix.put(2,3);
-        prix.put(3,3);
         
-        l.add(new ShopElementCulture("Carotte", 2, prix));
-        l.add(new ShopElementCulture("Carotte", 2, prix));
-        l.add(new ShopElementCulture("Carotte", 2, prix));
 
-        l.add(new ShopElementCulture("Carotte", 2, prix));
-
-        l.add(new ShopElementCulture("Carotte", 2, prix));
-
-        /*l.add(new ShopElementCulture("Carotte", 2, prix));
-        l.add(new ShopElementCulture("Carotte", 2, prix));*/
-
-        this.shopCulture = new Shop(l,p);
+        this.shopCulture = new Shop(1,p);
         this.shopCulture.setVisible(true);
-        tabbedPane.add("Shop", this.shopCulture);
+        tabbedPane.add("Shop Culture", this.shopCulture);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+
+
+
+        this.shopAmenagement = new Shop(2,p);
+        this.shopAmenagement.setVisible(true);
+        tabbedPane.add("Shop Amenagement", this.shopAmenagement);
+        tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
         pack();
         return tabbedPane;

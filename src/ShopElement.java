@@ -12,11 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class ShopElement extends JLabel{
-    private boolean estPermanent;
-    private String nom; 
-    private int id;
+    protected boolean estPermanent;
+    public String nom; 
+    protected int id;
 
-    private HashMap<Integer, Integer> prix;  
+    protected HashMap<Integer, Integer> prix;  
     
 
     public ShopElement(){
