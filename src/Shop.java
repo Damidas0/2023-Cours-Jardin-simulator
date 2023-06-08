@@ -19,10 +19,82 @@ public class Shop extends JPanel{
     private Potager p;
 
 
-    public Shop(){
-        this(new ArrayList<ShopElementCulture>(), 
+    public Shop(Potager p){
+        //Jeu de base par défaut
+        //init
+        List<ShopElementCulture> l = new ArrayList<ShopElementCulture>();
+        HashMap<Integer, Integer> prixCarotte = new HashMap<>();
+
+        //Ajout carotte
+        prixCarotte.put(1,6);
+        l.add(new ShopElementCulture("Carotte", 2, prixCarotte));
+
+        HashMap<Integer, Integer> prixPatate = new HashMap<>();
+        prixPatate.put(1,2);
+        prixPatate.put(2,4);
+        l.add(new ShopElementCulture("Patate", 3 , prixPatate));
+
+        HashMap<Integer, Integer> prixAil = new HashMap<>();
+        prixAil.put(1,3);
+        prixAil.put(2,3);
+        prixAil.put(3,5);
+
+        l.add(new ShopElementCulture("Patate", 3 , prixPatate));
+
+        
+
+        int tailleListe = this.cultureListe.size() + this.amenagementListe.size();
+
+
+        this.setLayout(new GridLayout(tailleListe,1));
+
+
+        
+        
+        for(int i = 0; i<this.cultureListe.size(); i++){
+            System.out.println(i);
+            ShopElement sc = (ShopElement) this.cultureListe.get(i);
+            //c.gridx = i;
+            sc.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+
+                    achat(sc);
+                }
+            });
+            sc.setVisible(true);
+            this.add(this.cultureListe.get(i));//,c);
+        }
+
+        for(int i = 0; i<this.amenagementListe.size(); i++){
+            System.out.println(i);
+            ShopElement sc = (ShopElement) this.amenagementListe.get(i);
+            //c.gridx = i;
+            sc.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+
+                    achat(sc);
+                }
+            });
+            sc.setVisible(true);
+            this.add(this.amenagementListe.get(i));//,c);
+        }
+
+        this.setVisible(true);
+
+
+        /*prix.put(2,3);
+        prix.put(3,3);
+        
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+        /*this(new ArrayList<ShopElementCulture>(), 
             new ArrayList<ShopElementAmenagement>(), 
-            new Potager());
+            new Potager());*/
         
     }
 
@@ -35,18 +107,14 @@ public class Shop extends JPanel{
         this.amenagementListe = amenagements;
         this.p = p;
 
-        this.setLayout(new GridLayout(3,1));
-
 
         int tailleListe = this.cultureListe.size() + this.amenagementListe.size();
 
-        /*GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridwidth = 1;
-        c.gridheight=1;
-        c.weightx = 1;
-        //c.weighty = ;*/
+
+        this.setLayout(new GridLayout(tailleListe,1));
+
+
+        
         
         for(int i = 0; i<this.cultureListe.size(); i++){
             System.out.println(i);
@@ -54,15 +122,26 @@ public class Shop extends JPanel{
             //c.gridx = i;
             sc.addMouseListener(new MouseAdapter(){
                 public void mouseClicked(MouseEvent e){
-                    System.out.println("ndqzjdzqoidjzqodoiqjd");
 
                     achat(sc);
-                    System.out.println("ndqzjdzqoidjzqodoiqjd");
                 }
             });
-            //culturePanel.setBounds(0,0,100,100);
             sc.setVisible(true);
             this.add(this.cultureListe.get(i));//,c);
+        }
+
+        for(int i = 0; i<this.amenagementListe.size(); i++){
+            System.out.println(i);
+            ShopElement sc = (ShopElement) this.amenagementListe.get(i);
+            //c.gridx = i;
+            sc.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+
+                    achat(sc);
+                }
+            });
+            sc.setVisible(true);
+            this.add(this.amenagementListe.get(i));//,c);
         }
 
         this.setVisible(true);
@@ -80,6 +159,7 @@ public class Shop extends JPanel{
     
     private int estAchetable(HashMap<Integer, Integer> prix, HashMap<Integer, Integer> stock) {
         for (Integer key : prix.keySet()) {
+            if(!stock.containsKey(key)) return -1;
             if(stock.get(key) < prix.get(key)) return -1;
         }
         return 1;
@@ -90,5 +170,4 @@ public class Shop extends JPanel{
             remove(s);
         }
     }
-
 }

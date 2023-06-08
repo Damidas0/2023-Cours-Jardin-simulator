@@ -35,7 +35,10 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     public Tileset tileset = new Tileset();
 
     private InfoPannel InfoP;
-    private MenuPanel menuP;
+    private InventairePanel ip;
+    private Shop shopCulture;
+    private Shop shopAmenagement;
+    
 
     public Vue(Potager potager) {
         super();
@@ -44,8 +47,6 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         this.p = potager;
         this.tabG = new CaseGraphique[this.p.HAUTEUR][this.p.LARGEUR];
         this.InfoP = new InfoPannel();
-        this.menuP = new MenuPanel(this);
-        this.menuP.setBounds(20,20,100,20);
 
         buildBis();
         
@@ -81,8 +82,9 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         //this.setLayout(new GridBagLayout());
 
         //on ajoute et séléctionne une graine de base
-        this.p.ajouterGraineStock(0,10);
-        this.p.selectionnerGraine(0);
+        this.p.ajouterGraineStock(1,5);
+
+        this.p.selectionnerGraine(1);
         
         JPanel jp = new JPanel(new GridBagLayout());
         setContentPane(jp);
@@ -156,7 +158,8 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         UIManager.getLookAndFeelDefaults().put("TabbedPane:TabbedPaneTab.contentMargins", new Insets(0,0,100,100));
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        JComponent panel1 = new InventairePanel();
+        JComponent panel1 = new InventairePanel(p.getStock(),p);
+        panel1.setVisible(true);
         tabbedPane.addTab("Inventaire", panel1);
         
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -166,17 +169,24 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         prix.put(1,3);
         
         l.add(new ShopElementCulture("Carotte", 2, prix));
+
+        prix.put(2,3);
+        prix.put(3,3);
         
         l.add(new ShopElementCulture("Carotte", 2, prix));
         l.add(new ShopElementCulture("Carotte", 2, prix));
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+
+        l.add(new ShopElementCulture("Carotte", 2, prix));
+
         /*l.add(new ShopElementCulture("Carotte", 2, prix));
         l.add(new ShopElementCulture("Carotte", 2, prix));*/
 
-
-        JComponent panel2 = new Shop(l,p);
-        panel2.setVisible(true);
-        //panel2.setBounds(0, 0, 100, 100);
-        tabbedPane.add("Shop", panel2);
+        this.shopCulture = new Shop(l,p);
+        this.shopCulture.setVisible(true);
+        tabbedPane.add("Shop", this.shopCulture);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
         pack();
