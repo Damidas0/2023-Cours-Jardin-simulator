@@ -52,6 +52,10 @@ public class Plante extends Graine{
         this.rendementMax = plante.rendementMax;
     }
 
+    public ConditionEnvironementale getCE(){
+        return conditionOptimale;
+    }
+
     public Plante(String nom, int id, int ensoleillementOpti, int humiditeOpti, int temperatureOpti, int ecartTolerable, int nbJoursSurvieMax, int modificateurVitesse, int rendementMin, int rendementMax){
         this.nom = nom;
         this.id = id;

@@ -79,7 +79,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
 
 
         // img de la plante
-        this.imgPlante = new ImageGraphique(ew(100), eh(100), 0);
+        this.imgPlante = new ImageGraphique(ew(80), eh(80), 0);
         this.imgPlante.setBounds(ew(10),eh(10),ew(80),eh(80));
         add(this.imgPlante, Integer.valueOf(1)); //au milieu
 

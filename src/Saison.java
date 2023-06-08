@@ -1,23 +1,23 @@
 public class Saison {
     private ConditionEnvironementale[] conditionMini ={
-            new ConditionEnvironementale(0,40,40), //été
+            new ConditionEnvironementale(20,40,40), //été
             new ConditionEnvironementale(30,25,0), //automne
             new ConditionEnvironementale(20,5,15), //hiver
             new ConditionEnvironementale(20,20,30), //primptemps
     };
     private ConditionEnvironementale[] conditionMaxi={
-            new ConditionEnvironementale(50,100,100), //été
-            new ConditionEnvironementale(100,70,70), //automne
-            new ConditionEnvironementale(70,60,80), //hiver
-            new ConditionEnvironementale(80,85,90), //primptemps
+            new ConditionEnvironementale(50,85,85), //été
+            new ConditionEnvironementale(85,65,65), //automne
+            new ConditionEnvironementale(70,55,70), //hiver
+            new ConditionEnvironementale(70,75,70), //primptemps
     };
 
     private int[][][] tableChangementMeteo = {
             {//été
                     /*|       |soleil|nuage|pluie|neige|*/
-                    /*|soleil|*/{60, 30, 40, 100},
-                    /*|nuage |*/{30, 30, 30, 0},
-                    /*|pluie |*/{10, 40, 40, 0},
+                    /*|soleil|*/{45, 30, 40, 100},
+                    /*|nuage |*/{35, 30, 30, 0},
+                    /*|pluie |*/{20, 40, 40, 0},
                     /*|neige |*/{0, 0, 0, 0},
             },
 

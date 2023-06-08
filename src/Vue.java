@@ -250,14 +250,13 @@ public class Vue extends JFrame implements Observer, ComponentListener{
     }
 
     public void resetInfoPannel() {
-        this.InfoP.majInfoPanel("Debug", -1, -1, -1);
-        //TODO:lier cette fonction aux params de la météo
+        this.InfoP.majInfoPanel(SystemeMeteo.getMeteo(), SystemeMeteo.conditionGlobale.getHumidite(), SystemeMeteo.conditionGlobale.getEnsoleillement(), SystemeMeteo.conditionGlobale.getTemperature());
     }
 
 
     @Override
     public void componentResized(ComponentEvent e) {
-        System.out.println(this.getSize().getHeight()+" "+ this.getSize().getWidth());
+        /*System.out.println(this.getSize().getHeight()+" "+ this.getSize().getWidth());
         if(this.getSize().getHeight() == 1038.0 && this.getSize().getWidth() == 1938.0){
             System.out.println("-----------------------");
             for(int i=0; i<this.p.HAUTEUR; i++) {
@@ -265,7 +264,7 @@ public class Vue extends JFrame implements Observer, ComponentListener{
                     this.tabG[i][j].rechargerImg();
                 }
             }
-        }
+        }*/
     }
 
     @Override

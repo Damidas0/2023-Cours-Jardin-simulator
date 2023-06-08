@@ -95,16 +95,18 @@ public class Culture extends Case {
 
 
     public int getInfoEau() {
-        return 0; //Todo voir avec damien
+        return this.plante.getCE().getHumidite();
     }
 
 
     public int getInfoTemp() {
-        return 0; //Todo voir avec damien
+
+        return this.plante.getCE().getTemperature();
     }
 
 
     public int getInfoSoleil() {
-        return 0; //Todo voir avec damien
+
+        return this.plante.getCE().getEnsoleillement();
     }
 }   
