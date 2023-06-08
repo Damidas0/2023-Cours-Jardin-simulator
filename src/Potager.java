@@ -154,20 +154,22 @@ public class Potager extends Observable{
             for (int j = 0; j < this.LARGEUR; j++) {
                 // on rentabilise les protections des cultures
                 if (this.cases[i][j] instanceof Culture) {
-                    Culture tmp = (Culture)this.cases[i][j];
+                    Culture tmp = (Culture) this.cases[i][j];
                     tmp.resetProtectionEnvironemental();
                 }
+            }
+        }
+        for (int i = 0; i <this.HAUTEUR ; i++) {
+            for (int j = 0; j < this.LARGEUR; j++) {
                 // on recherche tous les aménagements
                 if(this.cases[i][j] instanceof Amenagement){
                     Amenagement tmp = (Amenagement) this.cases[i][j];
                     //on parcours les 8 cases autours
-                    for (int k = -1; k < 1; k++) {
-                        for (int l = -1; l < 1; l++) {
-                            if(k!=0 || l!=0){
-                                //on vérifie qu'on sort pas du tableau
-                                if(i+k >=0 && i+k<HAUTEUR && j+l>=0 && j+l<LARGEUR){
-                                    changerProtectionEnvironemental(i+k, j+l, tmp.getType(), true);
-                                }
+                    for (int k = -1; k <= 1; k++) {
+                        for (int l = -1; l <= 1; l++) {
+                            //on vérifie qu'on sort pas du tableau
+                            if(i+k >=0 && i+k<HAUTEUR && j+l>=0 && j+l<LARGEUR){
+                                changerProtectionEnvironemental(i+k, j+l, tmp.getType(), true);
                             }
                         }
                     }
@@ -180,7 +182,6 @@ public class Potager extends Observable{
         if (yCase >= 0 && yCase < HAUTEUR && xCase >= 0 && xCase < LARGEUR) {
             if (estUneculture(yCase, xCase)) {
                 Culture tmp = (Culture)this.cases[yCase][xCase];
-                tmp.changerProtectionEnvironemental(type, bool);
                 tmp.changerProtectionEnvironemental(type, bool);
             }
         }
