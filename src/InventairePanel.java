@@ -52,7 +52,7 @@ public class InventairePanel extends JPanel {
     public void majInventaire(HashMap<Integer, Integer> nouveauStock){
         //this.stock = stock;
         for (Integer key : nouveauStock.keySet()) {
-            if(this.stock.containsKey(key)){
+            if(this.lj.containsKey(key)){
                 this.lj.get(key).majQte(nouveauStock.get(key));
             }else{
                 ImageGraphique img = new ImageGraphique(100, 100, key);

@@ -82,16 +82,10 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         //this.setLayout(new GridBagLayout());
 
         //on ajoute et séléctionne une graine de base
-<<<<<<< HEAD
         this.p.ajouterGraineStock(1,5);
 
         this.p.selectionnerGraine(1);
         
-=======
-        this.p.ajouterGraineStock(0,10);
-        this.p.selectionnerGraine(0);
-
->>>>>>> e98af3c835e239ead8ab77f6744c5d7107172305
         JPanel jp = new JPanel(new GridBagLayout());
         setContentPane(jp);
 
@@ -164,9 +158,9 @@ public class Vue extends JFrame implements Observer, ComponentListener{
         UIManager.getLookAndFeelDefaults().put("TabbedPane:TabbedPaneTab.contentMargins", new Insets(0,0,100,100));
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        JComponent panel1 = new InventairePanel(p.getStock(),p);
-        panel1.setVisible(true);
-        tabbedPane.addTab("Inventaire", panel1);
+        this.ip = new InventairePanel(p.getStock(),p);
+        ip.setVisible(true);
+        tabbedPane.addTab("Inventaire", ip);
 
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
@@ -241,6 +235,8 @@ public class Vue extends JFrame implements Observer, ComponentListener{
             }
         }
 
+        this.ip.majInventaire(p.getStock());
+        
         this.InfoP.revalidate();
         this.InfoP.repaint();
 
