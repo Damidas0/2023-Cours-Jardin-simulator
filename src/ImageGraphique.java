@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class ImageGraphique extends JLabel {
@@ -35,6 +37,10 @@ public class ImageGraphique extends JLabel {
         this.height = height;
         this.width = width;
         changerImg(this.coordImg);
+    }
+
+    public Image getImage(){
+        return this.icon.getImage();
     }
 
     private void changerImg(int xCoinSupG, int yCoinSupG, int width, int height) {

@@ -1,5 +1,6 @@
 
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
@@ -28,11 +29,10 @@ public class ShopElement extends JLabel{
         this.estPermanent = estPermanent;
         this.prix = prix;
 
-        this.setLayout(new GridLayout(1,3));
+        this.setLayout(new GridLayout(1,6));
         ImageGraphique imPlante = new ImageGraphique(100, 100, id);
         imPlante.setVisible(true);
         this.add(imPlante);
-                //TODO:verif taille image
 
 
         this.add(new JLabel(nom));
@@ -42,11 +42,14 @@ public class ShopElement extends JLabel{
 
         for (Integer key : prix.keySet()) {
             ImageGraphique imPrix = new ImageGraphique(10,10, key);
-            imPrix.setVisible(true);
-            lprix.add(imPrix);
-            lprix.add(new JLabel(String.valueOf(this.prix.get(key))));
+            Image im = imPrix.getImage(); 
+            im = im.getScaledInstance(50,50, Image.SCALE_DEFAULT);
+
+            ImageIcon imF = new ImageIcon(im);
+            this.add(new JLabel(imF));
+            this.add(new JLabel(String.valueOf(this.prix.get(key))));
         }
-        this.add(lprix);
+        //this.add(lprix);
     }
     
 
