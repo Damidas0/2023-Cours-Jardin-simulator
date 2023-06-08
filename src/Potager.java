@@ -9,12 +9,12 @@ public class Potager extends Observable{
     static int vitesse;
     final private Graine[] LISTE_GRAINE = {
             new Graine("debug", 0, 0,0,0,5,200,1,1,3),
-            new Graine("salade", 1, 65, 50, 50, 15, 10, 1, 2,4),
-            new Graine("carotte", 2, 50, 50, 50, 25, 15, 1, 2,3),
-            new Graine("patate", 3, 65, 65, 45, 35, 15, 1, 2,3),
-            new Graine("ail", 4, 75, 25, 50, 25, 15, 1, 1,5),
-            new Graine("epinard", 5, 60, 35, 45, 20, 15, 1, 1,4),
-            new Graine("courge", 6, 75, 40, 55, 25, 15, 1, 1,4),
+            new Graine("salade", 1, 65, 50, 50, 25, 15, 3, 2,4),
+            new Graine("carotte", 2, 50, 50, 50, 25, 15, 3, 2,3),
+            new Graine("patate", 3, 65, 65, 45, 35, 15, 3, 2,3),
+            new Graine("ail", 4, 75, 25, 50, 25, 15, 2, 1,5),
+            new Graine("epinard", 5, 60, 35, 45, 20, 15, 2, 1,4),
+            new Graine("courge", 6, 75, 40, 55, 25, 15, 2, 1,4),
     };
 
     private SystemeMeteo meteo;
@@ -28,7 +28,7 @@ public class Potager extends Observable{
     private int stockAmenagemnt[];
 
     public Potager() {
-        Potager.vitesse = 10;
+        Potager.vitesse = 1;
         this.cases = new Case[HAUTEUR][LARGEUR];
 
         for (int i = 0; i < HAUTEUR; i++) {

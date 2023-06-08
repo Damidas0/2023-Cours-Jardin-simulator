@@ -3,13 +3,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SystemeMeteo implements Runnable{
     private Saison saison;
     private Meteo meteos[] =  {
-            new Meteo(-15, -5, 10, 20, 20, 35), /*|soleil|*/
-            new Meteo(-5,10,-10, 5, -30, -15),  /*|nuage |*/
-            new Meteo(20,35, -20, -10, -20,-10), /*|pluie |*/
-            new Meteo(-5, 5, -35, -20,-20,-5), /*|neige |*/
+            new Meteo(-7, -3, 5, 8, 8, 10), /*|soleil|*/
+            new Meteo(-5,5,-5, 3, -12, -7),  /*|nuage |*/
+            new Meteo(9,13, -9, -5, -9,-5), /*|pluie |*/
+            new Meteo(-3, 3, -13, -9,-9,-3), /*|neige |*/
     };
 
-    private int meteoActuelle; // | soleil : 0 | nuage : 1 | pluie : 2 | neige : 3 |
+    private static int meteoActuelle; // | soleil : 0 | nuage : 1 | pluie : 2 | neige : 3 |
     private int saisonActuelle; // | été : 0 | automne : 1 | hiver : 2 | printemps : 3 |
 
     private int jourAvProchaineSaison;
@@ -31,8 +31,15 @@ public class SystemeMeteo implements Runnable{
         updateMeteo();
         updateCondition();
         updateSaison();
+
+        afficher();
     }
 
+
+    public static String getMeteo(){
+        String[] m = {"soleil", "nuage", "pluie", "neige"};
+        return m[SystemeMeteo.meteoActuelle];
+    }
 
     private void updateMeteo(){
         int r = ThreadLocalRandom.current().nextInt(0,100);
