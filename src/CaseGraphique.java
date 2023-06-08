@@ -48,7 +48,7 @@ public class CaseGraphique extends JLayeredPane implements MouseListener {
         this.v = v;
 
         // bordure
-        setBorderSimple();
+        //setBorderSimple();
 
         // img de séléction
         this.imgSelection = new ImageGraphique(ew(100), eh(100), "selection");

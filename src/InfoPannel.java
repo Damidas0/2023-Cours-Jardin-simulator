@@ -11,7 +11,7 @@ public class InfoPannel extends JPanel {
     private JLabel infoTemperature;
 
     public InfoPannel() {
-        this("Debug", "-1", "-1", "-1");
+        this("debug", "-1", "-1", "-1");
     }
 
     public InfoPannel(String nomPlante, String infoEau, String infoSoleil, String infoTemperature) {
